@@ -13,5 +13,7 @@ data class InvoiceDetail(
 
 ){
     val isPaid: Boolean = dataPaid != null
+
+    val isNotPaid: Boolean = dataPaid == null
 }
 

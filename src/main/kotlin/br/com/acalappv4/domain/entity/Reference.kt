@@ -1,8 +1,8 @@
 package br.com.acalappv4.domain.entity
 
 class Reference(
-    private val month: String,
-    private val year: String
+    private val year: String,
+    private val month: String
 ) {
 
     val value: String
