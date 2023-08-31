@@ -1,4 +1,4 @@
-package br.com.acalappv4.common
+package br.com.acalappv4.common.enums
 
 enum class PersonType {
 

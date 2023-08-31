@@ -1,16 +1,17 @@
 package br.com.acalappv4.domain.entity
 
+import br.com.acalappv4.common.enums.Reason
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import javax.swing.text.StyledEditorKit.BoldAction
 
 data class InvoiceDetail(
+
     val id: String,
+    val reason: Reason,
     val value: BigDecimal,
-    var dataPayed: LocalDateTime?,
-) {
+    private val dataPaid: LocalDateTime?,
 
-    val isPayed: Boolean = dataPayed != null
-    val isAwaitingPayment: Boolean = !isPayed
-
+){
+    val isPaid: Boolean = dataPaid != null
 }
+
