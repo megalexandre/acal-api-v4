@@ -21,10 +21,18 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test"){
+		exclude(module = "junit")
+		exclude(module = "mockito-core")
+	}
+
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.mockito:mockito-core")
 }
 
 tasks.withType<KotlinCompile> {

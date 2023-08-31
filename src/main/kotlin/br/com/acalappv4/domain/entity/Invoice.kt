@@ -1,7 +1,9 @@
 package br.com.acalappv4.domain.entity
 
 import java.math.BigDecimal
+import java.time.Duration
 import java.time.LocalDateTime
+import java.time.LocalDateTime.now
 
 data class Invoice(
     val reference: Reference,
@@ -23,5 +25,12 @@ data class Invoice(
     val isPayed: Boolean = !invoiceDetails
         .any { it.isNotPaid }
 
-    val isOverDue: Boolean = false
+    val isOverDue: Boolean = dueDate
+        .isBefore(now()) && !isPayed
+
+    val daysInOverDue: Long = when(isOverDue){
+        true -> Duration.between(dueDate, now()).toDays()
+        false -> 0
+    }
+
 }
