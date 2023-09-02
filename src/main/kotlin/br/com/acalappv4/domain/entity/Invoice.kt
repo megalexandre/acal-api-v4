@@ -33,4 +33,5 @@ data class Invoice(
         false -> 0
     }
 
+    val cancellationOfRisk: Boolean = daysInOverDue > 59
 }

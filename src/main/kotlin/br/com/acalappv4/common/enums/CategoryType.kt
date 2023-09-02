@@ -1,6 +1,6 @@
 package br.com.acalappv4.common.enums
 
-enum class Category {
+enum class CategoryType {
 
     FOUNDER,
     EFFECTIVE,

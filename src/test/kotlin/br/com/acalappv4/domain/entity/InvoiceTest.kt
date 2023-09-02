@@ -140,5 +140,17 @@ internal class InvoiceTest{
         assertEquals(30, invoiceNotPaidWithOverDueAtLastMonth.daysInOverDue)
     }
 
+    @Test
+    fun `WHEN overdue is over 59 days SHOULD be risk of cancellation`(){
+        val invoiceWith60daysOverDue: Invoice = invoiceStub.copy(
+            invoiceDetails = listOf(
+                invoiceDetailStub.copy(dataPaid = null)
+            ),
+            dueDate = now().minusDays(60)
+        )
+
+        assertTrue(invoiceWith60daysOverDue.cancellationOfRisk)
+    }
+
 
 }

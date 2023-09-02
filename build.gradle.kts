@@ -21,6 +21,8 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.jetbrains.kotlin:kotlin-stdlib")
+
 
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
@@ -32,7 +34,14 @@ dependencies {
 
 	testImplementation("org.springframework.boot:spring-boot-testcontainers")
 	testImplementation("org.testcontainers:junit-jupiter")
+
 	testImplementation("org.mockito:mockito-core")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+	testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+
+
+	testImplementation("io.mockk:mockk:1.12.2")
+
 }
 
 tasks.withType<KotlinCompile> {
