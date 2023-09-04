@@ -21,12 +21,12 @@ class CustomerResourceImpl(
         customerRepository.deleteById(id)
 
     override fun existsByDocument(documentNumber: DocumentNumber): Boolean =
-        customerRepository.existsCustomerByDocumentNumber(documentNumber)
+        customerRepository.existsByDocumentNumberNumber(documentNumber.number)
 
     override fun findById(id: String): Customer? =
         customerRepository.findById(id).getOrNull()?.toCustomer()
 
     override fun findByDocument(documentNumber: DocumentNumber): Customer? =
-        customerRepository.findCustomerByDocumentNumber(documentNumber)?.toCustomer()
+        customerRepository.findByDocumentNumberNumber(documentNumber.number)?.toCustomer()
 
 }

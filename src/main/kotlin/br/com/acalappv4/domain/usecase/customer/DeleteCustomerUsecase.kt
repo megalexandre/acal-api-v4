@@ -11,17 +11,20 @@ import org.springframework.stereotype.Service
 class DeleteCustomerUsecase(
     private val customerResource: CustomerResource,
     private val linkResource: LinkResource,
-): Usecase<Customer, Unit> {
+): Usecase<String, Unit> {
 
-    override fun execute(input: Customer) {
+    override fun execute(input: String) {
 
+        /*
         linkResource.existsByCustomer(customer = input).let {
             if(it){
                 throw InvalidUsecaseException("")
             }
         }
+         */
 
-        return customerResource.delete(input.id)
+
+        return customerResource.delete(input)
     }
 
 

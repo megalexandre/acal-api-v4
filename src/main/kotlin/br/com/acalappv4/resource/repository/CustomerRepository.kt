@@ -1,13 +1,12 @@
 package br.com.acalappv4.resource.repository
 
-import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.resource.document.CustomerItem
 import org.springframework.data.mongodb.repository.MongoRepository
 
 interface CustomerRepository : MongoRepository<CustomerItem, String> {
 
-    fun existsCustomerByDocumentNumber(documentNumber: DocumentNumber): Boolean
+    fun existsByDocumentNumberNumber(number : String): Boolean
 
-    fun findCustomerByDocumentNumber(documentNumber: DocumentNumber): CustomerItem?
+    fun findByDocumentNumberNumber(number : String): CustomerItem?
 
 }
