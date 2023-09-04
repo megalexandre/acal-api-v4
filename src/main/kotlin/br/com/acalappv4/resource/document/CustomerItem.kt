@@ -2,11 +2,15 @@ package br.com.acalappv4.resource.document
 
 import br.com.acalappv4.common.enums.PersonType
 import java.time.LocalDate
+import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "customer")
 class CustomerItem (
+
+    @Id
     val id: String,
+
     val name: String,
     val documentNumber: DocumentNumberItem,
 
@@ -24,7 +28,6 @@ data class PhoneNumberItem(
     val number: String,
     val isWhatApp: Boolean
 )
-
 
 data class DocumentNumberItem(
     val number: String

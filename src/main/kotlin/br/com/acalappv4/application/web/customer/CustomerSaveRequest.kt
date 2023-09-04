@@ -4,8 +4,8 @@ import br.com.acalappv4.common.enums.PersonType
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.entity.PhoneNumber
+import io.azam.ulidj.ULID
 import java.time.LocalDate
-import java.util.UUID
 
 data class CustomerSaveRequest (
     val name: String,
@@ -44,7 +44,7 @@ fun DocumentNumberSaveRequest.toDocumentNumber() = DocumentNumber(
 )
 
 fun CustomerSaveRequest.toCustomer() = Customer(
-    id = UUID.randomUUID().toString(),
+    id = ULID.random(),
     name = name,
     documentNumber = documentNumber.toDocumentNumber(),
 

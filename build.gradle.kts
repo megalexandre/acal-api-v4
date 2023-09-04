@@ -30,7 +30,10 @@ dependencies {
 
 	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("ch.qos.logback:logback-classic:1.4.7")
+	implementation("io.azam.ulidj:ulidj:1.0.4")
+
 	//developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test"){
 		exclude(module = "junit")

@@ -14,12 +14,14 @@ class CustomerResourceImpl(
     ): CustomerResource {
 
     override fun save(customer: Customer): Customer =
-        customerRepository.save(customer.toCustomerItem()).toCustomer()
+        customer
+
+        //customerRepository.save(customer.toCustomerItem()).toCustomer()
 
     override fun delete(id: String): Boolean = true
 
-    override fun existsByDocument(documentNumber: DocumentNumber): Boolean =
-        customerRepository.existsCustomerByDocumentNumber(documentNumber)
+    override fun existsByDocument(documentNumber: DocumentNumber): Boolean = false
+        //customerRepository.existsCustomerByDocumentNumber(documentNumber)
 
     override fun findById(id: String): Customer? = null
 
