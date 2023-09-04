@@ -7,11 +7,11 @@ interface CustomerResource {
 
     fun save(customer: Customer): Customer
 
-    fun delete(id: String): Boolean
-
     fun existsByDocument(documentNumber: DocumentNumber): Boolean
 
     fun findById(id: String): Customer?
+
+    fun delete(id: String)
 
     fun findByDocument(documentNumber: DocumentNumber): Customer?
 

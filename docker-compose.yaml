@@ -1,31 +1,31 @@
-version: '3'
+version: '3.1'
 
 services:
-  mongodb:
+
+  acal_v4_db:
     image: mongo:latest
-    container_name: mongodb
-    environment:
-      MONGO_DB_NAME: acalv4
-      MONGO_INITDB_ROOT_USERNAME: username
-      MONGO_INITDB_ROOT_PASSWORD: password
+    container_name: acal_v4_db
+    restart: always
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     networks:
-      - acal-api-v4-network
+      - acal-v4-network
 
   mongo-express:
     image: mongo-express
-    container_name: mongo-express
-    environment:
-      ME_CONFIG_MONGODB_SERVER: mongodb
-      ME_CONFIG_MONGODB_ADMINUSERNAME: username
-      ME_CONFIG_MONGODB_ADMINPASSWORD: password
-    depends_on:
-      - mongodb
+    restart: always
     ports:
-      - "8081:8081"
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@acal_v4_db:27017/
     networks:
-      - acal-api-v4-network
+      - acal-v4-network
 
 networks:
-  acal-api-v4-network:
+  acal-v4-network:
+    driver: bridge

@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("customer", produces=[APPLICATION_JSON_VALUE])
+@RequestMapping("customer", consumes = [APPLICATION_JSON_VALUE], produces=[APPLICATION_JSON_VALUE])
 class CustomerController(
-    private val createCustomerUsecase: CreateCustomerUsecase
+    private val usecase: CreateCustomerUsecase
     ){
 
     @PostMapping
     fun save(@Valid @RequestBody request: CustomerSaveRequest): ResponseEntity<CustomerSaveResponse> =
-         ResponseEntity(createCustomerUsecase.execute(request.toCustomer()).toCustomerSaveResponse(), CREATED)
+         ResponseEntity(usecase.execute(request.toCustomer()).toCustomerSaveResponse(), CREATED)
 
 }

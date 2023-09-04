@@ -7,4 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository
 interface CustomerRepository : MongoRepository<CustomerItem, String> {
 
     fun existsCustomerByDocumentNumber(documentNumber: DocumentNumber): Boolean
+
+    fun findCustomerByDocumentNumber(documentNumber: DocumentNumber): CustomerItem?
+
 }

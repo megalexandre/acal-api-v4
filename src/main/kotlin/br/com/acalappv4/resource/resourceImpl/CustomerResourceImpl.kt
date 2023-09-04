@@ -6,6 +6,7 @@ import br.com.acalappv4.domain.resources.CustomerResource
 import br.com.acalappv4.resource.adapter.toCustomer
 import br.com.acalappv4.resource.adapter.toCustomerItem
 import br.com.acalappv4.resource.repository.CustomerRepository
+import kotlin.jvm.optionals.getOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -14,17 +15,18 @@ class CustomerResourceImpl(
     ): CustomerResource {
 
     override fun save(customer: Customer): Customer =
-        customer
+        customerRepository.save(customer.toCustomerItem()).toCustomer()
 
-        //customerRepository.save(customer.toCustomerItem()).toCustomer()
+    override fun delete(id: String) =
+        customerRepository.deleteById(id)
 
-    override fun delete(id: String): Boolean = true
+    override fun existsByDocument(documentNumber: DocumentNumber): Boolean =
+        customerRepository.existsCustomerByDocumentNumber(documentNumber)
 
-    override fun existsByDocument(documentNumber: DocumentNumber): Boolean = false
-        //customerRepository.existsCustomerByDocumentNumber(documentNumber)
+    override fun findById(id: String): Customer? =
+        customerRepository.findById(id).getOrNull()?.toCustomer()
 
-    override fun findById(id: String): Customer? = null
-
-    override fun findByDocument(documentNumber: DocumentNumber): Customer? = null
+    override fun findByDocument(documentNumber: DocumentNumber): Customer? =
+        customerRepository.findCustomerByDocumentNumber(documentNumber)?.toCustomer()
 
 }
