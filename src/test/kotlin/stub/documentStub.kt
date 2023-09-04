@@ -1,7 +1,7 @@
 package stub
 
-import br.com.acalappv4.domain.entity.Document
+import br.com.acalappv4.domain.entity.DocumentNumber
 
-val documentStub = Document(
+val documentNumberStub = DocumentNumber(
     number = "10354998851",
 )

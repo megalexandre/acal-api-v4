@@ -51,7 +51,7 @@ internal class InvoiceTest{
     fun `WHEN invoice has many detail SHOULD sum all values to total `(){
         val invoiceDetailWithElevenTotal: Invoice = invoiceStub.copy(
             invoiceDetails = listOf(
-                invoiceDetailStub.copy(value = BigDecimal.ONE),
+                invoiceDetailStub.copy(value = ONE),
                 invoiceDetailStub.copy(value = TEN)
             )
         )

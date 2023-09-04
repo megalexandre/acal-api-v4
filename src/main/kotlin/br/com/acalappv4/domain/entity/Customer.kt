@@ -6,24 +6,25 @@ import java.time.LocalDate
 data class Customer(
     val id: String,
     val name: String,
-    val document: Document,
+    val documentNumber: DocumentNumber,
 
     val personType: PersonType,
     var birthDay: LocalDate? = null,
 
     val membershipNumber: Int,
-    val phoneNumber: List<Phone>?,
+    val phoneNumbers: List<PhoneNumber>?,
     val active: Boolean
 )
 
-data class Document(
+data class DocumentNumber(
     val number: String
 ){
     override fun toString(): String = number.substring(0,3)
 }
 
-data class Phone(
+data class PhoneNumber(
     val ddd: String,
+    val preferential: Boolean,
     val number: String,
     val isWhatApp: Boolean
 )

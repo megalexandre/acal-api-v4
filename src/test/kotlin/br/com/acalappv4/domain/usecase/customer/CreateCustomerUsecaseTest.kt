@@ -1,7 +1,7 @@
 package br.com.acalappv4.domain.usecase.customer
 
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
-import br.com.acalappv4.domain.resources.customer.CustomerResource
+import br.com.acalappv4.domain.resources.CustomerResource
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

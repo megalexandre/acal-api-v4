@@ -6,10 +6,10 @@ import br.com.acalappv4.domain.entity.Customer
 val customerStub = Customer(
     id = "1",
     name = "Alexandre Queiroz",
-    document = documentStub,
+    documentNumber = documentNumberStub,
     personType = INDIVIDUAL,
     birthDay = null,
     membershipNumber = 0,
-    phoneNumber = listOf(phoneNumberStub),
+    phoneNumbers = listOf(phoneNumberNumberStub),
     active = true,
 )

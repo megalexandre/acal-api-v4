@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: acal-api-v4
+
+  profiles:
+    active: local
+
+  data:
+    mongodb:
+      uri: mongodb://username:password@localhost:27017/acalv4
+    datasource:
+      url: jdbc:mysql://localhost:3306/acalv4
+      username: username
+      password: password
+      authentication-database: acal
+
+logging:
+  level:
+    org:
+      springframework:
+        data: INFO

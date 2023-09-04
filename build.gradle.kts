@@ -19,27 +19,30 @@ repositories {
 }
 
 dependencies {
+
 	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+  	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-
-	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
-
+	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
+	implementation("ch.qos.logback:logback-classic:1.4.7")
+	//developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test"){
 		exclude(module = "junit")
 		exclude(module = "mockito-core")
 	}
 
-	testImplementation("org.springframework.boot:spring-boot-testcontainers")
-	testImplementation("org.testcontainers:junit-jupiter")
+	//testImplementation("org.springframework.boot:spring-boot-testcontainers")
+	//testImplementation("org.testcontainers:junit-jupiter")
 
 	testImplementation("org.mockito:mockito-core")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
-	testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-
-
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
 	testImplementation("io.mockk:mockk:1.12.2")
 
 }
