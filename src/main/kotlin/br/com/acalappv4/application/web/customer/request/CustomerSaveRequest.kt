@@ -1,4 +1,4 @@
-package br.com.acalappv4.application.web.customer
+package br.com.acalappv4.application.web.customer.request
 
 import br.com.acalappv4.common.enums.PersonType
 import br.com.acalappv4.domain.entity.Customer
@@ -30,28 +30,3 @@ data class PhoneNumberSaveRequest(
     val isWhatApp: Boolean
 )
 
-fun PhoneNumberSaveRequest.toPhoneNumber() = PhoneNumber(
-    ddd = ddd ,
-    preferential = preferential,
-    number= number,
-    isWhatApp = isWhatApp,
-)
-
-fun List<PhoneNumberSaveRequest>.toPhoneNumber() = map{it.toPhoneNumber()}
-
-fun DocumentNumberSaveRequest.toDocumentNumber() = DocumentNumber(
-    number = number
-)
-
-fun CustomerSaveRequest.toCustomer() = Customer(
-    id = ULID.random(),
-    name = name,
-    documentNumber = documentNumber.toDocumentNumber(),
-
-    personType = personType,
-    birthDay = birthDay,
-
-    membershipNumber = membershipNumber,
-    phoneNumbers = phoneNumbers?.toPhoneNumber(),
-    active = true,
-)

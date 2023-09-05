@@ -6,6 +6,10 @@ import br.com.acalappv4.domain.entity.PhoneNumber
 import br.com.acalappv4.resource.document.CustomerItem
 import br.com.acalappv4.resource.document.DocumentNumberItem
 import br.com.acalappv4.resource.document.PhoneNumberItem
+import org.springframework.data.domain.Page
+
+
+fun Page<CustomerItem>.toCustomer() = map { it.toCustomer() }
 
 fun DocumentNumberItem.toDocumentNumber() = DocumentNumber(
     number = number
