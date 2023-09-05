@@ -6,7 +6,7 @@ import br.com.acalappv4.domain.entity.Link
 
 interface LinkResource {
 
-    fun existsByCustomer(customer: Customer): Boolean
+    fun existsByCustomer(customerId: String): Boolean
 
     fun findByAddressAndStatus(address: Address, active: Boolean): Link?
 

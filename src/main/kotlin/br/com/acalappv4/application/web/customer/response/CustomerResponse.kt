@@ -1,4 +1,4 @@
-package br.com.acalappv4.application.web.customer.request
+package br.com.acalappv4.application.web.customer.response
 
 import br.com.acalappv4.common.enums.PersonType
 import java.time.LocalDate

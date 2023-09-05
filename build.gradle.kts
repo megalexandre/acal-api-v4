@@ -32,7 +32,9 @@ dependencies {
 	implementation("ch.qos.logback:logback-classic:1.4.7")
 	implementation("io.azam.ulidj:ulidj:1.0.4")
 
-	//developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+	testImplementation("io.cucumber:cucumber-java:7.2.0")
+	testImplementation("io.cucumber:cucumber-junit:7.2.0")
+	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test"){

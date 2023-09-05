@@ -1,5 +1,6 @@
 package br.com.acalappv4.domain.usecase.customer
 
+import br.com.acalappv4.domain.exception.InvalidUsecaseException
 import br.com.acalappv4.domain.resources.CustomerResource
 import br.com.acalappv4.domain.resources.LinkResource
 import br.com.acalappv4.domain.usecase.Usecase
@@ -13,13 +14,11 @@ class DeleteCustomerUsecase(
 
     override fun execute(input: String) {
 
-        /*
-        linkResource.existsByCustomer(customer = input).let {
+        linkResource.existsByCustomer(customerId = input).let {
             if(it){
                 throw InvalidUsecaseException("")
             }
         }
-         */
 
 
         return customerResource.delete(input)

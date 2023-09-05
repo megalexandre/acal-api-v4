@@ -1,12 +1,12 @@
 package br.com.acalappv4.application.web.customer.adapter
 
-import br.com.acalappv4.application.web.customer.request.CustomerResponse
+import br.com.acalappv4.application.web.customer.response.CustomerResponse
 import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
 import br.com.acalappv4.application.web.customer.request.CustomerSaveResponse
 import br.com.acalappv4.application.web.customer.request.DocumentNumberSaveRequest
-import br.com.acalappv4.application.web.customer.request.PhoneNumberResponse
+import br.com.acalappv4.application.web.customer.response.PhoneNumberResponse
 import br.com.acalappv4.application.web.customer.request.PhoneNumberSaveRequest
-import br.com.acalappv4.application.web.customer.response.CustomerPage
+import br.com.acalappv4.application.web.customer.response.CustomerPageResponse
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.entity.PhoneNumber
@@ -44,7 +44,7 @@ fun Customer.toCustomerSaveResponse() = CustomerSaveResponse(
     id = id,
 )
 
-fun Customer.toCustomerPage() = CustomerPage(
+fun Customer.toCustomerPage() = CustomerPageResponse(
     id = id,
     name = name,
     documentNumber = documentNumber.number,

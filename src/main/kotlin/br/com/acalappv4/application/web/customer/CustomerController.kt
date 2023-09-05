@@ -1,4 +1,4 @@
-package br.com.acalappv4.application.web
+package br.com.acalappv4.application.web.customer
 
 import br.com.acalappv4.application.web.customer.adapter.toCustomer
 import br.com.acalappv4.application.web.customer.adapter.toCustomerPage

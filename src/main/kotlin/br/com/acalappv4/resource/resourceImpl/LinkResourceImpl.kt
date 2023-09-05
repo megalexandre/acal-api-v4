@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class LinkResourceImpl: LinkResource {
 
-    override fun existsByCustomer(customer: Customer): Boolean = true
+    override fun existsByCustomer(customerId: String): Boolean = true
 
 
     override fun findByAddressAndStatus(address: Address, active: Boolean): Link? {
