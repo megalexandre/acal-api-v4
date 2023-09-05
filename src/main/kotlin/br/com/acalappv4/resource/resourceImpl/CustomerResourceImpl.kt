@@ -9,13 +9,13 @@ import br.com.acalappv4.resource.adapter.toCustomerItem
 import br.com.acalappv4.resource.repository.CustomerRepository
 import kotlin.jvm.optionals.getOrNull
 import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Repository
 
 @Repository
 class CustomerResourceImpl(
     private val customerRepository: CustomerRepository
-    ): CustomerResource {
+): CustomerResource {
 
     override fun save(customer: Customer): Customer =
         customerRepository.save(customer.toCustomerItem()).toCustomer()
@@ -33,6 +33,8 @@ class CustomerResourceImpl(
         customerRepository.findByDocumentNumberNumber(documentNumber.number)?.toCustomer()
 
     override fun paginate(customerPageFilter: CustomerPageFilter): Page<Customer> =
-        customerRepository.findAll(Pageable.ofSize(10)).toCustomer()
+        customerRepository
+            .findAll(PageRequest.of(customerPageFilter.page.number, customerPageFilter.page.size))
+            .toCustomer()
 
 }

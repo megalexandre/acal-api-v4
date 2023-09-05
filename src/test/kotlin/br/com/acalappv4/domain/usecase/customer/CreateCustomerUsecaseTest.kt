@@ -8,6 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import stub.customerStub
+import stub.phoneNumberStub
 
 
 internal class CreateCustomerUsecaseTest{
@@ -42,4 +43,22 @@ internal class CreateCustomerUsecaseTest{
         }
     }
 
+    @Test
+    fun `WHEN customer has two preferential phone number SHOULD throws exception`(){
+
+        val customerStubWithTwoPreferentialPhoneNumber = customerStub.copy(phoneNumbers =
+            listOf(
+                phoneNumberStub.copy(preferential = true),
+                phoneNumberStub.copy(preferential = true)
+            )
+        )
+
+        every {
+            customerResource.existsByDocument(any())
+        } returns false
+
+        assertThrows<InvalidUsecaseException> {
+            usecase.execute(customerStubWithTwoPreferentialPhoneNumber)
+        }
+    }
 }

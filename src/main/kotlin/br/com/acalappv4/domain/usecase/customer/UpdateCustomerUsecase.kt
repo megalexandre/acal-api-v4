@@ -13,6 +13,10 @@ class UpdateCustomerUsecase(
 
     override fun execute(input: Customer): Customer {
 
+        if(!input.isValidPhoneNumbers){
+            throw InvalidUsecaseException("a lista de números de telefones não é valida")
+        }
+
         customerResource.findByDocument(input.documentNumber)
             .let {
                 when(it){
@@ -25,6 +29,8 @@ class UpdateCustomerUsecase(
                 }
 
             }
+
+
 
         return customerResource.save(input)
     }

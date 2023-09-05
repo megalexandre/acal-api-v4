@@ -14,7 +14,11 @@ data class Customer(
     val membershipNumber: Int,
     val phoneNumbers: List<PhoneNumber>?,
     val active: Boolean
-)
+){
+
+    val isValidPhoneNumbers = phoneNumbers.isNullOrEmpty() || (phoneNumbers.count { it.preferential } == 1)
+
+}
 
 data class DocumentNumber(
     val number: String

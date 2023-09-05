@@ -24,19 +24,19 @@ internal class DeleteCustomerUsecaseTest{
     @Test
     fun `WHEN delete a customer without link SHOULD delete him`(){
         every { linkResource.existsByCustomer(any()) } returns false
-        every { customerResource.delete(any()) } returns true
+        every { customerResource.delete(any()) } returns Unit
 
-        usecase.execute(customerStub)
+        usecase.execute(customerStub.id)
     }
 
 
     @Test
     fun `WHEN a customer has any link can't be deleted and SHOULD throw exception`(){
         every { linkResource.existsByCustomer(any()) } returns true
-        every { customerResource.delete(any()) } returns true
+        every { customerResource.delete(any()) } returns Unit
 
         assertThrows<InvalidUsecaseException> {
-            usecase.execute(customerStub)
+            usecase.execute(customerStub.id)
         }
 
     }

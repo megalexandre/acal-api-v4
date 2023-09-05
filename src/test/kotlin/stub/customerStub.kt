@@ -10,6 +10,6 @@ val customerStub = Customer(
     personType = INDIVIDUAL,
     birthDay = null,
     membershipNumber = 0,
-    phoneNumbers = listOf(phoneNumberNumberStub),
+    phoneNumbers = listOf(phoneNumberStub),
     active = true,
 )

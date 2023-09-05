@@ -2,7 +2,6 @@ package br.com.acalappv4.domain.usecase.customer
 
 import br.com.acalappv4.domain.dto.CustomerPageFilter
 import br.com.acalappv4.domain.entity.Customer
-import br.com.acalappv4.domain.exception.InvalidUsecaseException
 import br.com.acalappv4.domain.resources.CustomerResource
 import br.com.acalappv4.domain.usecase.Usecase
 import org.springframework.data.domain.Page
@@ -13,9 +12,7 @@ class PaginateCustomerUsecase(
     private val customerResource: CustomerResource
 ): Usecase<CustomerPageFilter, Page<Customer>> {
 
-    override fun execute(input: CustomerPageFilter): Page<Customer> {
-        return customerResource.paginate(input)
-    }
-
+    override fun execute(input: CustomerPageFilter): Page<Customer> =
+        customerResource.paginate(input)
 
 }
