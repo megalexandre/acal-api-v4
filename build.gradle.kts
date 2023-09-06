@@ -31,24 +31,36 @@ dependencies {
 	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("ch.qos.logback:logback-classic:1.4.7")
 	implementation("io.azam.ulidj:ulidj:1.0.4")
+	implementation("com.google.code.gson:gson:2.10.1")
+
 
 	testImplementation("io.cucumber:cucumber-java:7.2.0")
 	testImplementation("io.cucumber:cucumber-junit:7.2.0")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
-
+	testImplementation("io.rest-assured:kotlin-extensions")
 	testImplementation("org.springframework.boot:spring-boot-starter-test"){
 		exclude(module = "junit")
 		exclude(module = "mockito-core")
 	}
+	testImplementation("io.rest-assured:rest-assured")
 
-	//testImplementation("org.springframework.boot:spring-boot-testcontainers")
-	//testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.springframework.boot:spring-boot-testcontainers")
+
+	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("org.testcontainers:testcontainers:1.18.1")
+	testImplementation("org.testcontainers:mongodb:1.18.1")
 
 	testImplementation("org.mockito:mockito-core")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
 	testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
 	testImplementation("io.mockk:mockk:1.12.2")
+	testImplementation("com.github.tomakehurst:wiremock:1.18")
+
+
+
+
+
 
 }
 
