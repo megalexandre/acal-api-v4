@@ -1,6 +1,7 @@
 package br.com.acalappv4.infrastructure
 
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
+import java.time.LocalDateTime
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
@@ -14,6 +15,11 @@ class AppAdvice {
 	@ExceptionHandler(value = [
 		InvalidUsecaseException::class,
 	])
-	fun e1 (ex: RuntimeException) = ResponseEntity.badRequest().body(ex.message)
+	fun e1 (ex: RuntimeException) = ResponseEntity.badRequest().body(
+		mapOf(
+			"time: " to LocalDateTime.now(),
+			"cause: " to ex.message
+		)
+	)
 
 }

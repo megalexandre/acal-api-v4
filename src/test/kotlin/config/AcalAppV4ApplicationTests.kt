@@ -14,7 +14,6 @@ import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.springframework.test.context.TestPropertySource
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
@@ -22,7 +21,6 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @Testcontainers
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = [AcalAppV4Application::class])
 @ComponentScan(basePackageClasses = [AcalAppV4Application::class])
-@TestPropertySource("classpath:application.yml")
 class AcalAppV4ApplicationTests {
 
 	companion object {
@@ -32,6 +30,7 @@ class AcalAppV4ApplicationTests {
 		@Container
 		val mongoContainer: GenericContainer<*> = GenericContainer<Nothing>("mongo:4.0.10").apply {
 			withExposedPorts(27017)
+			withReuse(true)
 			withEnv("MONGO_INITDB_ROOT_USERNAME", USERNAME)
 			withEnv("MONGO_INITDB_ROOT_PASSWORD", PASSWORD)
 		}
