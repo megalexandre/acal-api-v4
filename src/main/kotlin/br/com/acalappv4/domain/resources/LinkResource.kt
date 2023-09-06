@@ -1,7 +1,6 @@
 package br.com.acalappv4.domain.resources
 
 import br.com.acalappv4.domain.entity.Address
-import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.Link
 
 interface LinkResource {

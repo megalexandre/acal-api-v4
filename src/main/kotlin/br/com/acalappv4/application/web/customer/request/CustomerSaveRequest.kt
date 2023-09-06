@@ -1,10 +1,6 @@
 package br.com.acalappv4.application.web.customer.request
 
 import br.com.acalappv4.common.enums.PersonType
-import br.com.acalappv4.domain.entity.Customer
-import br.com.acalappv4.domain.entity.DocumentNumber
-import br.com.acalappv4.domain.entity.PhoneNumber
-import io.azam.ulidj.ULID
 import java.time.LocalDate
 
 data class CustomerSaveRequest (
