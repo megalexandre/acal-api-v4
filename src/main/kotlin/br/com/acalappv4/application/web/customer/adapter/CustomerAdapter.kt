@@ -2,7 +2,7 @@ package br.com.acalappv4.application.web.customer.adapter
 
 import br.com.acalappv4.application.web.customer.response.CustomerResponse
 import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
-import br.com.acalappv4.application.web.customer.request.CustomerSaveResponse
+import br.com.acalappv4.application.web.customer.request.CreateCustomerResponse
 import br.com.acalappv4.application.web.customer.request.DocumentNumberSaveRequest
 import br.com.acalappv4.application.web.customer.response.PhoneNumberResponse
 import br.com.acalappv4.application.web.customer.request.PhoneNumberSaveRequest
@@ -40,7 +40,7 @@ fun CustomerSaveRequest.toCustomer() = Customer(
     active = true,
 )
 
-fun Customer.toCustomerSaveResponse() = CustomerSaveResponse(
+fun Customer.toCustomerSaveResponse() = CreateCustomerResponse(
     id = id,
 )
 

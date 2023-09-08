@@ -16,10 +16,9 @@ class DeleteCustomerUsecase(
 
         linkResource.existsByCustomer(customerId = input).let {
             if(it){
-                throw InvalidUsecaseException("")
+                throw InvalidUsecaseException("this person has a link associated")
             }
         }
-
 
         return customerResource.delete(input)
     }

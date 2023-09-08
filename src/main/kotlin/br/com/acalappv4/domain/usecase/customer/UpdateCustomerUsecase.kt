@@ -30,8 +30,6 @@ class UpdateCustomerUsecase(
 
             }
 
-
-
         return customerResource.save(input)
     }
 

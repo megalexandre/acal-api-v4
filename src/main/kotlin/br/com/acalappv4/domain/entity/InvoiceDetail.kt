@@ -11,7 +11,7 @@ data class InvoiceDetail(
     val value: BigDecimal,
     val dataPaid: LocalDateTime?,
 
-){
+) : Entity{
     val isPaid: Boolean = dataPaid != null
 
     val isNotPaid: Boolean = dataPaid == null

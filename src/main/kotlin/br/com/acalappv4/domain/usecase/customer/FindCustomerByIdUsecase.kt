@@ -10,8 +10,7 @@ class FindCustomerByIdUsecase(
     private val customerResource: CustomerResource
 ): Usecase<String, Customer?> {
 
-    override fun execute(input: String): Customer? =
-       customerResource.findById(input)
+    override fun execute(input: String): Customer? = customerResource.findById(input)
 
 
 }

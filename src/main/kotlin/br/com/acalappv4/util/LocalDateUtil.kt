@@ -9,16 +9,8 @@ fun LocalDate.toReference() = Reference(
 )
 
 fun LocalDate.getLastSixMontReferences(): List<Reference> =
-    listOf<Reference>()
-        .asSequence()
-            .plus(this.minusMonths(1).toReference())
-            .plus(this.minusMonths(2).toReference())
-            .plus(this.minusMonths(3).toReference())
-            .plus(this.minusMonths(4).toReference())
-            .plus(this.minusMonths(5).toReference())
-            .plus(this.minusMonths(6).toReference())
-        .toList()
-
-
+     (1L..6L).map { monthsAgo ->
+        this.minusMonths(monthsAgo).toReference()
+    }
 
 

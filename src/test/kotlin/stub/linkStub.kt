@@ -5,7 +5,7 @@ import java.time.LocalDateTime.now
 
 val linkStub = Link(
     id = "1",
-    customer = "customer",
+    customer = customerStub,
     active = true,
     startedAt = now(),
     finishedAt = now(),

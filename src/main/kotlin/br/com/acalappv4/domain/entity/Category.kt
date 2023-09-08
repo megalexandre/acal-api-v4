@@ -10,4 +10,4 @@ class Category(
     val value: BigDecimal,
     val type: CategoryType,
 
-)
+): Entity

@@ -12,7 +12,6 @@ class PaginateCustomerUsecase(
     private val customerResource: CustomerResource
 ): Usecase<CustomerPageFilter, Page<Customer>> {
 
-    override fun execute(input: CustomerPageFilter): Page<Customer> =
-        customerResource.paginate(input)
+    override fun execute(input: CustomerPageFilter): Page<Customer> = customerResource.paginate(input)
 
 }

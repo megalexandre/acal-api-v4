@@ -24,5 +24,4 @@ class CreateCustomerUsecase(
         return customerResource.save(customer = input)
     }
 
-
 }

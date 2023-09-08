@@ -4,8 +4,9 @@ import br.com.acalappv4.domain.dto.CustomerPageFilter
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.resources.CustomerResource
+import br.com.acalappv4.resource.adapter.CustomerAdapter.Companion.toDocument
+import br.com.acalappv4.resource.adapter.CustomerAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toCustomer
-import br.com.acalappv4.resource.adapter.toCustomerItem
 import br.com.acalappv4.resource.repository.CustomerRepository
 import kotlin.jvm.optionals.getOrNull
 import org.springframework.data.domain.Page
@@ -18,7 +19,7 @@ class CustomerResourceImpl(
 ): CustomerResource {
 
     override fun save(customer: Customer): Customer =
-        customerRepository.save(customer.toCustomerItem()).toCustomer()
+        toEntity(customerRepository.save(toDocument(customer)))
 
     override fun delete(id: String) =
         customerRepository.deleteById(id)
@@ -27,10 +28,14 @@ class CustomerResourceImpl(
         customerRepository.existsByDocumentNumberNumber(documentNumber.number)
 
     override fun findById(id: String): Customer? =
-        customerRepository.findById(id).getOrNull()?.toCustomer()
+        customerRepository.findById(id)
+            .map { toEntity(it) }
+            .getOrNull()
 
     override fun findByDocument(documentNumber: DocumentNumber): Customer? =
-        customerRepository.findByDocumentNumberNumber(documentNumber.number)?.toCustomer()
+        customerRepository.findByDocumentNumberNumber(documentNumber.number)
+            .map { toEntity(it) }
+            .getOrNull()
 
     override fun paginate(customerPageFilter: CustomerPageFilter): Page<Customer> =
         customerRepository

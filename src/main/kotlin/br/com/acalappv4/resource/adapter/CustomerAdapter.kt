@@ -3,60 +3,72 @@ package br.com.acalappv4.resource.adapter
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.entity.PhoneNumber
-import br.com.acalappv4.resource.document.CustomerItem
-import br.com.acalappv4.resource.document.DocumentNumberItem
-import br.com.acalappv4.resource.document.PhoneNumberItem
+import br.com.acalappv4.resource.document.CustomerDocument
+import br.com.acalappv4.resource.document.DocumentNumberDocumentItem
+import br.com.acalappv4.resource.document.PhoneNumberDocumentItem
 import org.springframework.data.domain.Page
 
+class CustomerAdapter{
 
-fun Page<CustomerItem>.toCustomer() = map { it.toCustomer() }
+    companion object: ResourceAdapter<CustomerDocument, Customer> {
 
-fun DocumentNumberItem.toDocumentNumber() = DocumentNumber(
+        override fun toEntity(document: CustomerDocument): Customer = with(document){
+            Customer(
+                id = id,
+                name = name,
+                documentNumber = documentNumber.toDocumentNumber(),
+                personType = personType,
+                birthDay = birthDay,
+                membershipNumber = membershipNumber,
+                phoneNumbers = phoneNumber?.toPhoneNumber(),
+                active = active,
+            )
+        }
+
+        override fun toDocument(entity: Customer): CustomerDocument = with(entity){
+            CustomerDocument(
+                id = id,
+                name = name,
+                documentNumber = documentNumber.toDocumentNumber(),
+                personType = personType,
+                birthDay = birthDay,
+                membershipNumber = membershipNumber,
+                phoneNumber = phoneNumbers?.toPhoneNumberItem(),
+                active = active,
+            )
+
+        }
+
+    }
+}
+
+fun Page<CustomerDocument>.toCustomer() = map { CustomerAdapter.toEntity(it)  }
+
+fun DocumentNumberDocumentItem.toDocumentNumber() = DocumentNumber(
     number = number
 )
 
-fun PhoneNumberItem.toPhoneNumber() = PhoneNumber(
+fun PhoneNumberDocumentItem.toPhoneNumber() = PhoneNumber(
     ddd = ddd,
     number = number,
     preferential = preferential,
     isWhatApp = isWhatApp
 )
 
-fun List<PhoneNumberItem>.toPhoneNumber() = map { it.toPhoneNumber() }
+fun List<PhoneNumberDocumentItem>.toPhoneNumber() = map { it.toPhoneNumber() }
 
-fun CustomerItem.toCustomer() = Customer(
-    id = id,
-    name = name,
-    documentNumber = documentNumber.toDocumentNumber(),
-    personType = personType,
-    birthDay = birthDay,
-    membershipNumber = membershipNumber,
-    phoneNumbers = phoneNumber?.toPhoneNumber(),
-    active = active,
-)
-
-fun DocumentNumber.toDocumentNumber() = DocumentNumberItem(
+fun DocumentNumber.toDocumentNumber() = DocumentNumberDocumentItem(
     number = number
 )
 
-fun PhoneNumber.toPhoneNumberItem() = PhoneNumberItem(
+fun PhoneNumber.toPhoneNumberItem() = PhoneNumberDocumentItem(
     ddd = ddd,
     number = number,
     preferential = preferential,
     isWhatApp = isWhatApp
 )
 
-fun List<PhoneNumber>.toPhoneNumberItem(): List<PhoneNumberItem> = map { it.toPhoneNumberItem() }
+fun List<PhoneNumber>.toPhoneNumberItem(): List<PhoneNumberDocumentItem> = map { it.toPhoneNumberItem() }
 
 
-fun Customer.toCustomerItem() = CustomerItem(
-    id = id,
-    name = name,
-    documentNumber = documentNumber.toDocumentNumber(),
-    personType = personType,
-    birthDay = birthDay,
-    membershipNumber = membershipNumber,
-    phoneNumber = phoneNumbers?.toPhoneNumberItem(),
-    active = active,
-)
 

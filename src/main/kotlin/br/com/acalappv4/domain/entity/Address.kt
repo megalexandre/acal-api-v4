@@ -6,4 +6,4 @@ data class Address(
     val number: Long,
     val letter: String,
     val hasHydrometer: Boolean,
-)
+): Entity

@@ -1,6 +1,6 @@
 package br.com.acalappv4.application.web.customer.request
 
-data class CustomerSaveResponse (
+data class CreateCustomerResponse (
     val id: String,
 )
 

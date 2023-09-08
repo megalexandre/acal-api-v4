@@ -6,30 +6,30 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "customer")
-class CustomerItem (
+class CustomerDocument (
 
     @Id
     val id: String,
 
     val name: String,
-    val documentNumber: DocumentNumberItem,
+    val documentNumber: DocumentNumberDocumentItem,
 
     val personType: PersonType,
     var birthDay: LocalDate? = null,
 
     val membershipNumber: Int,
-    val phoneNumber: List<PhoneNumberItem>?,
+    val phoneNumber: List<PhoneNumberDocumentItem>?,
     val active: Boolean
 )
 
-data class PhoneNumberItem(
+data class PhoneNumberDocumentItem(
     val ddd: String,
     val preferential: Boolean,
     val number: String,
     val isWhatApp: Boolean
 )
 
-data class DocumentNumberItem(
+data class DocumentNumberDocumentItem(
     val number: String
 ){
     override fun toString(): String = number.substring(0,3)

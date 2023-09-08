@@ -16,7 +16,6 @@ internal class LocalDateUtilKtTest {
     @Test
     fun `WHEN get last references SHOULD return a list with all values`() {
         val references = LocalDate.of(2020, 6, 1).getLastSixMontReferences()
-
         assertEquals("052020", references[0].value)
         assertEquals("042020", references[1].value)
         assertEquals("032020", references[2].value)

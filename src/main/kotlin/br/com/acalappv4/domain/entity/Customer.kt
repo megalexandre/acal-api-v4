@@ -14,7 +14,7 @@ data class Customer(
     val membershipNumber: Int,
     val phoneNumbers: List<PhoneNumber>?,
     val active: Boolean
-){
+): Entity{
 
     val isValidPhoneNumbers = phoneNumbers.isNullOrEmpty() || (phoneNumbers.count { it.preferential } == 1)
 
