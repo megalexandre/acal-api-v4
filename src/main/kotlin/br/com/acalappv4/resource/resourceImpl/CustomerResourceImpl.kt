@@ -23,11 +23,9 @@ class CustomerResourceImpl(
     private val mongoTemplate: MongoTemplate,
 ): CustomerResource {
 
-    override fun save(customer: Customer): Customer =
-        toEntity(customerRepository.save(toDocument(customer)))
+    override fun save(customer: Customer): Customer = toEntity(customerRepository.save(toDocument(customer)))
 
-    override fun delete(id: String) =
-        customerRepository.deleteById(id)
+    override fun delete(id: String) = customerRepository.deleteById(id)
 
     override fun existsByDocument(documentNumber: DocumentNumber): Boolean =
         customerRepository.existsByDocumentNumberNumber(documentNumber.number)
@@ -44,8 +42,10 @@ class CustomerResourceImpl(
 
     override fun paginate(customerPageFilter: CustomerPageFilter): Page<Customer> {
         val customerQuery = CustomerQuery(customerPageFilter)
-        val pageable = customerQuery.pageRequest(customerPageFilter)
-        val query = customerQuery.query(customerPageFilter).with(pageable)
+
+        val pageable = customerQuery.pageRequest()
+        val query = customerQuery.query().with(pageable)
+
         val list = mongoTemplate.find(query, CustomerDocument::class.java)
         val count: Long = mongoTemplate.count(query, CustomerDocument::class.java)
         val page = PageImpl(list, pageable, count)

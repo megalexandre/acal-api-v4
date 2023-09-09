@@ -7,11 +7,11 @@ import org.springframework.data.domain.Sort.Direction.ASC
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 
-class CustomerQuery(private val customer: CustomerPageFilter) {
+class CustomerQuery(private val customerFilter: CustomerPageFilter) {
 
     private val defaultSort = Sort.by( ASC,"id")
 
-    fun pageRequest(customerFilter: CustomerPageFilter): PageRequest =
+    fun pageRequest(): PageRequest =
         PageRequest.of(
             customerFilter.page?.number ?: 0,
             customerFilter.page?.size ?: 10,
@@ -22,7 +22,7 @@ class CustomerQuery(private val customer: CustomerPageFilter) {
             }
         )
 
-    fun query(customerFilter: CustomerPageFilter): Query {
+    fun query(): Query {
         val query = Query()
 
         with(customerFilter){
@@ -49,6 +49,7 @@ class CustomerQuery(private val customer: CustomerPageFilter) {
             if (active != null) {
                 query.addCriteria(Criteria.where("active").`is`(active))
             }
+
         }
 
         return query

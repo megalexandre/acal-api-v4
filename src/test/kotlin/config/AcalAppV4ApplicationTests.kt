@@ -2,12 +2,14 @@ package config
 
 import br.com.acalappv4.AcalAppV4Application
 import br.com.acalappv4.adapter.LocalDateTypeAdapter
+import br.com.acalappv4.resource.repository.CustomerRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.restassured.RestAssured
 import java.time.LocalDate
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
 import org.springframework.boot.test.web.server.LocalServerPort
@@ -22,6 +24,9 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = [AcalAppV4Application::class])
 @ComponentScan(basePackageClasses = [AcalAppV4Application::class])
 class AcalAppV4ApplicationTests {
+
+	@Autowired
+	private lateinit var customerRepository: CustomerRepository
 
 	companion object {
 		private const val USERNAME = "root"
@@ -61,6 +66,11 @@ class AcalAppV4ApplicationTests {
 	@BeforeEach
 	fun setup(){
 		RestAssured.port = serverPort
+		resetDatabase()
+	}
+
+	fun resetDatabase(){
+		customerRepository.deleteAll()
 	}
 
 	val gson: Gson = GsonBuilder()
