@@ -1,12 +1,11 @@
 package br.com.acalappv4.application.web.customer.adapter
 
-import br.com.acalappv4.application.web.customer.response.CustomerResponse
-import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
 import br.com.acalappv4.application.web.customer.request.CreateCustomerResponse
-import br.com.acalappv4.application.web.customer.request.DocumentNumberSaveRequest
-import br.com.acalappv4.application.web.customer.response.PhoneNumberResponse
+import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
 import br.com.acalappv4.application.web.customer.request.PhoneNumberSaveRequest
 import br.com.acalappv4.application.web.customer.response.CustomerPageResponse
+import br.com.acalappv4.application.web.customer.response.CustomerResponse
+import br.com.acalappv4.application.web.customer.response.PhoneNumberResponse
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.entity.PhoneNumber
@@ -23,15 +22,10 @@ fun PhoneNumberSaveRequest.toPhoneNumber() = PhoneNumber(
 
 fun List<PhoneNumberSaveRequest>.toPhoneNumber() = map{it.toPhoneNumber()}
 
-fun DocumentNumberSaveRequest.toDocumentNumber() = DocumentNumber(
-    number = number
-)
-
 fun CustomerSaveRequest.toCustomer() = Customer(
     id = ULID.random(),
     name = name,
-    documentNumber = documentNumber.toDocumentNumber(),
-
+    documentNumber = DocumentNumber(number = documentNumber),
     personType = personType,
     birthDay = birthDay,
 

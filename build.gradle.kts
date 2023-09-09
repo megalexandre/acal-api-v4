@@ -28,7 +28,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-	implementation ("org.springframework.boot:spring-boot-starter-data-mongodb")
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+	implementation("org.springframework.data:spring-data-mongodb")
+
 	implementation("ch.qos.logback:logback-classic:1.4.7")
 	implementation("io.azam.ulidj:ulidj:1.0.4")
 	implementation("com.google.code.gson:gson:2.10.1")
@@ -56,11 +58,6 @@ dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
 	testImplementation("io.mockk:mockk:1.12.2")
 	testImplementation("com.github.tomakehurst:wiremock:1.18")
-
-
-
-
-
 
 }
 

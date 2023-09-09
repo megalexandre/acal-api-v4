@@ -1,11 +1,12 @@
 package br.com.acalappv4.application.web.customer
 
+import br.com.acalappv4.application.web.customer.adapter.CustomerPageAdapter.Companion.toEntity
 import br.com.acalappv4.application.web.customer.adapter.toCustomer
 import br.com.acalappv4.application.web.customer.adapter.toCustomerPage
 import br.com.acalappv4.application.web.customer.adapter.toCustomerResponse
 import br.com.acalappv4.application.web.customer.adapter.toCustomerSaveResponse
+import br.com.acalappv4.application.web.customer.request.CustomerPageRequest
 import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
-import br.com.acalappv4.domain.dto.CustomerPageFilter
 import br.com.acalappv4.domain.usecase.customer.CreateCustomerUsecase
 import br.com.acalappv4.domain.usecase.customer.DeleteCustomerUsecase
 import br.com.acalappv4.domain.usecase.customer.FindCustomerByIdUsecase
@@ -44,12 +45,14 @@ class CustomerController(
         } ?: noContent()
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String){
-        deleteCustomerUsecase.execute(id)
-        noContent()
-    }
+    fun delete(@PathVariable id: String) =
+        deleteCustomerUsecase.execute(id).also {
+            noContent()
+        }
 
     @GetMapping
-    fun paginate() = paginateCustomerUsecase.execute(CustomerPageFilter()).toCustomerPage()
+    fun paginate(@RequestBody customerPageRequest: CustomerPageRequest) =
+        ok(paginateCustomerUsecase.execute(toEntity(customerPageRequest)).toCustomerPage())
 
 }
+
