@@ -11,7 +11,7 @@ class AddressDocument(
 
     val area: AreaDocument,
 
-    val number: Long,
+    val number: String,
 
     val letter: String,
 

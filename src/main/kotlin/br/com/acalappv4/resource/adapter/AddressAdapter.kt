@@ -4,6 +4,7 @@ import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toEntity
 import br.com.acalappv4.resource.document.AddressDocument
+import org.springframework.data.domain.Page
 
 class AddressAdapter {
 
@@ -13,7 +14,7 @@ class AddressAdapter {
             Address(
                 id = id,
                 area = toEntity(area),
-                number = number ,
+                number = number,
                 letter = letter,
                 hasHydrometer = hasHydrometer,
             )
@@ -22,7 +23,7 @@ class AddressAdapter {
         override fun toDocument(entity: Address): AddressDocument = with(entity){ AddressDocument(
             id = id,
             area = toDocument(area),
-            number = number ,
+            number = number,
             letter = letter,
             hasHydrometer = hasHydrometer,
         )
@@ -30,3 +31,5 @@ class AddressAdapter {
     }
 
 }
+
+fun Page<AddressDocument>.toAddress() = map { AddressAdapter.toEntity(it)  }

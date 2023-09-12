@@ -20,8 +20,4 @@ class CreateAreaUsecase (
         return dataSource.save(area = input)
     }
 
-
-
-
-
 }
