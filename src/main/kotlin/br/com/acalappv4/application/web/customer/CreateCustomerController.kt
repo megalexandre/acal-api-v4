@@ -1,6 +1,6 @@
 package br.com.acalappv4.application.web.customer
 
-import br.com.acalappv4.application.web.customer.adapter.CustomerPageAdapter.Companion.toEntity
+import br.com.acalappv4.application.web.customer.adapter.CustomerPageAdapter
 import br.com.acalappv4.application.web.customer.adapter.toCustomer
 import br.com.acalappv4.application.web.customer.adapter.toCustomerPage
 import br.com.acalappv4.application.web.customer.adapter.toCustomerResponse
@@ -14,8 +14,8 @@ import br.com.acalappv4.domain.usecase.customer.PaginateCustomerUsecase
 import jakarta.validation.Valid
 import java.net.URI
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
+import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
-import org.springframework.http.ResponseEntity.noContent
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,32 +27,28 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("customer", consumes = [APPLICATION_JSON_VALUE], produces=[APPLICATION_JSON_VALUE])
-class CustomerController(
-    private val usecase: CreateCustomerUsecase,
-    private val deleteCustomerUsecase: DeleteCustomerUsecase,
-    private val paginateCustomerUsecase: PaginateCustomerUsecase,
-    private val findCustomerByIdUsecase: FindCustomerByIdUsecase,
+class CreateCustomerController(
+    private val delete: DeleteCustomerUsecase,
+    private val create: CreateCustomerUsecase,
+    private val findById: FindCustomerByIdUsecase,
+    private val paginate: PaginateCustomerUsecase,
     ){
 
     @PostMapping
-    fun save(@Valid @RequestBody request: CustomerSaveRequest) =
-        created(URI("POST/customer")).body(usecase.execute(request.toCustomer()).toCustomerSaveResponse())
-
-    @GetMapping("/{id}")
-    fun findById(@PathVariable id: String) =
-        findCustomerByIdUsecase.execute(id)?.let {
-            ok().body(it.toCustomerResponse())
-        } ?: noContent()
+    fun create(@Valid @RequestBody request: CustomerSaveRequest) =
+        created(URI("POST/customer")).body(create.execute(request.toCustomer()).toCustomerSaveResponse())
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) =
-        deleteCustomerUsecase.execute(id).also {
-            noContent()
-        }
+        ok(delete.execute(id))
 
     @GetMapping
     fun paginate(@RequestBody customerPageRequest: CustomerPageRequest) =
-        ok(paginateCustomerUsecase.execute(toEntity(customerPageRequest)).toCustomerPage())
+        ok(paginate.execute(CustomerPageAdapter.toEntity(customerPageRequest)).toCustomerPage())
+
+    @GetMapping("/{id}")
+    fun findById(@PathVariable id: String) =
+        findById.execute(id)?.let { ok().body(it.toCustomerResponse()) } ?: ResponseEntity.noContent()
 
 }
 

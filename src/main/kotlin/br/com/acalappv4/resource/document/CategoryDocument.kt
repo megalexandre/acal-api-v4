@@ -13,6 +13,8 @@ class CategoryDocument (
 
     val name: String,
 
+    val nameNormalized: String,
+
     val value: BigDecimal,
 
     val type: CategoryType,

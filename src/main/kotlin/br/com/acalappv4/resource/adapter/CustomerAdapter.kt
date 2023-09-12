@@ -6,6 +6,7 @@ import br.com.acalappv4.domain.entity.PhoneNumber
 import br.com.acalappv4.resource.document.CustomerDocument
 import br.com.acalappv4.resource.document.DocumentNumberDocumentItem
 import br.com.acalappv4.resource.document.PhoneNumberDocumentItem
+import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.Page
 
 class CustomerAdapter{
@@ -29,6 +30,7 @@ class CustomerAdapter{
             CustomerDocument(
                 id = id,
                 name = name,
+                nameNormalized = name.normalize(),
                 documentNumber = documentNumber.toDocumentNumber(),
                 personType = personType,
                 birthDay = birthDay,

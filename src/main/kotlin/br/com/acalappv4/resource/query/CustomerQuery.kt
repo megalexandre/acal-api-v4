@@ -31,11 +31,7 @@ class CustomerQuery(private val customerFilter: CustomerPageFilter) {
             }
 
             if (!name.isNullOrEmpty()) {
-                query.addCriteria(Criteria.where("name").`is`(name))
-            }
-
-            if (!documentNumber.isNullOrEmpty()) {
-                query.addCriteria(Criteria.where("documentNumber.number").`is`(documentNumber))
+                query.addCriteria(Criteria.where("nameNormalized").regex("^${name.lowercase().trim()}"))
             }
 
             if (!documentNumber.isNullOrEmpty()) {

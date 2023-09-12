@@ -2,6 +2,8 @@ package br.com.acalappv4.resource.adapter
 
 import br.com.acalappv4.domain.entity.Category
 import br.com.acalappv4.resource.document.CategoryDocument
+import br.com.acalappv4.util.normalize
+import org.springframework.data.domain.Page
 
 class CategoryAdapter{
 
@@ -10,6 +12,7 @@ class CategoryAdapter{
             CategoryDocument(
                 id = id,
                 name = name,
+                nameNormalized = name.normalize(),
                 value = value,
                 type = type,
             )
@@ -25,6 +28,7 @@ class CategoryAdapter{
         }
     }
 
-
-
 }
+
+
+fun Page<CategoryDocument>.toCategory() = map { CategoryAdapter.toEntity(it)  }

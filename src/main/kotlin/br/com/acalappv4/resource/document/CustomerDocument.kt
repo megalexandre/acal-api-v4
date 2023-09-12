@@ -12,6 +12,8 @@ class CustomerDocument (
     val id: String,
 
     val name: String,
+    val nameNormalized: String,
+
     val documentNumber: DocumentNumberDocumentItem,
 
     val personType: PersonType,

@@ -1,4 +1,4 @@
-package br.com.acalappv4.resource.resourceImpl
+package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Link
@@ -10,7 +10,7 @@ import kotlin.jvm.optionals.getOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class LinkResourceImpl(
+class LinkDataSourceImpl(
     private val linkRepository: LinkRepository
 ): LinkResource {
 

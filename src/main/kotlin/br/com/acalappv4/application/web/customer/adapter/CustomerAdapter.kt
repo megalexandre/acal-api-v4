@@ -13,14 +13,24 @@ import io.azam.ulidj.ULID
 import org.springframework.data.domain.Page
 
 
-fun PhoneNumberSaveRequest.toPhoneNumber() = PhoneNumber(
-    ddd = ddd ,
-    preferential = preferential,
-    number= number,
-    isWhatApp = isWhatApp,
-)
+class PhoneNumberRequestAdapter {
+    companion object{
 
-fun List<PhoneNumberSaveRequest>.toPhoneNumber() = map{it.toPhoneNumber()}
+        fun toEntity(request: PhoneNumberSaveRequest): PhoneNumber = with(request){
+            PhoneNumber(
+                ddd = ddd ,
+                preferential = preferential,
+                number= number,
+                isWhatApp = isWhatApp,
+            )
+        }
+
+    }
+
+}
+
+
+fun List<PhoneNumberSaveRequest>.toPhoneNumber() = map{PhoneNumberRequestAdapter.toEntity(it)}
 
 fun CustomerSaveRequest.toCustomer() = Customer(
     id = ULID.random(),

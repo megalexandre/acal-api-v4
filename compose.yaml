@@ -15,6 +15,7 @@ services:
       - acal-v4-network
 
   mongo-express:
+    container_name: acal_v4_db_ui
     image: mongo-express
     restart: always
     ports:

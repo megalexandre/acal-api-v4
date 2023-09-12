@@ -13,6 +13,7 @@ import org.hamcrest.Matchers.hasKey
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import stub.customerStub
+import stub.phoneNumberStub
 import stub.request.createCustomerRequestStub
 
 class CreateNewCustomer: AcalAppV4ApplicationTests() {
@@ -60,5 +61,25 @@ class CreateNewCustomer: AcalAppV4ApplicationTests() {
     }
 
 
+    @Test
+    fun `WHEN receiver a customer without preferential phone number SHOULD return BAD_REQUEST 400`(){
+
+        val customerWithInvalidPhoneNumber = customerStub.copy(
+            phoneNumbers = listOf(phoneNumberStub.copy(preferential = false))
+        )
+
+        val header = mutableMapOf<String,String>()
+        header["Content-Type"] = "application/json"
+
+        Given {
+            headers(header)
+            body(gson.toJson(customerWithInvalidPhoneNumber))
+        } When {
+            post("customer")
+        } Then {
+            statusCode(SC_BAD_REQUEST)
+            body("$", hasKey("timestamp"))
+        }
+    }
 
 }

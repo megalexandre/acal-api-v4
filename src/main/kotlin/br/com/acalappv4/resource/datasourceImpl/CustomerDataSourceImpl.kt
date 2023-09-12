@@ -1,4 +1,4 @@
-package br.com.acalappv4.resource.resourceImpl
+package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.dto.CustomerPageFilter
 import br.com.acalappv4.domain.entity.Customer
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository
 
 
 @Repository
-class CustomerResourceImpl(
+class CustomerDataSourceImpl(
     private val customerRepository: CustomerRepository,
     private val mongoTemplate: MongoTemplate,
 ): CustomerResource {
