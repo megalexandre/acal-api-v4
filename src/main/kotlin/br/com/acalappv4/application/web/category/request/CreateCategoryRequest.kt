@@ -1,6 +1,6 @@
 package br.com.acalappv4.application.web.category.request
 
-import br.com.acalappv4.application.adapter.RequestAdapter
+import br.com.acalappv4.application.web.adapter.RequestAdapter
 import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.entity.Category
 import io.azam.ulidj.ULID.random

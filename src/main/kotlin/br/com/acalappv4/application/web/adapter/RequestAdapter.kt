@@ -1,4 +1,4 @@
-package br.com.acalappv4.application.adapter
+package br.com.acalappv4.application.web.adapter
 
 fun interface RequestAdapter<out T> {
 

@@ -1,7 +1,7 @@
 package br.com.acalappv4.domain.usecase.customer
 
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
-import br.com.acalappv4.domain.resources.CustomerResource
+import br.com.acalappv4.domain.datasource.CustomerDataSource
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -13,29 +13,29 @@ import stub.phoneNumberStub
 
 internal class UpdateCustomerUsecaseTest{
 
-    private val customerResource = mockk<CustomerResource>()
-    private val usecase = UpdateCustomerUsecase(customerResource)
+    private val customerDataSource = mockk<CustomerDataSource>()
+    private val usecase = UpdateCustomerUsecase(customerDataSource)
 
     @Test
     fun `WHEN update customer SHOULD save them`(){
 
         every {
-            customerResource.save(any())
+            customerDataSource.save(any())
         } returns customerStub
 
         every {
-            customerResource.findByDocument(any())
+            customerDataSource.findByDocument(any())
         } returns customerStub
 
         usecase.execute(customerStub)
-        verify { customerResource.save(any()) }
+        verify { customerDataSource.save(any()) }
     }
 
     @Test
     fun `WHEN document do not exists can't update and SHOULD throws exception`(){
 
         every {
-            customerResource.findByDocument(any())
+            customerDataSource.findByDocument(any())
         } returns null
 
         assertThrows<InvalidUsecaseException> {
@@ -47,7 +47,7 @@ internal class UpdateCustomerUsecaseTest{
     fun `WHEN document exists but ID is different SHOULD throws exception`(){
 
         every {
-            customerResource.findByDocument(any())
+            customerDataSource.findByDocument(any())
         } returns customerStub.copy(id = "2")
 
         assertThrows<InvalidUsecaseException> {
@@ -66,7 +66,7 @@ internal class UpdateCustomerUsecaseTest{
         )
 
         every {
-            customerResource.existsByDocument(any())
+            customerDataSource.existsByDocument(any())
         } returns false
 
         assertThrows<InvalidUsecaseException> {

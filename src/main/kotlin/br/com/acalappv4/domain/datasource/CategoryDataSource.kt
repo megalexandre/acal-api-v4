@@ -1,4 +1,4 @@
-package br.com.acalappv4.domain.resources
+package br.com.acalappv4.domain.datasource
 
 import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.dto.CategoryPageFilter

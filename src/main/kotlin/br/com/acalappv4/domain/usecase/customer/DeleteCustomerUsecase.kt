@@ -1,26 +1,26 @@
 package br.com.acalappv4.domain.usecase.customer
 
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
-import br.com.acalappv4.domain.resources.CustomerResource
-import br.com.acalappv4.domain.resources.LinkResource
+import br.com.acalappv4.domain.datasource.CustomerDataSource
+import br.com.acalappv4.domain.datasource.LinkDataSource
 import br.com.acalappv4.domain.usecase.Usecase
 import org.springframework.stereotype.Service
 
 @Service
 class DeleteCustomerUsecase(
-    private val customerResource: CustomerResource,
-    private val linkResource: LinkResource,
+    private val customerDataSource: CustomerDataSource,
+    private val linkDataSource: LinkDataSource,
 ): Usecase<String, Unit> {
 
     override fun execute(input: String) {
 
-        linkResource.existsByCustomer(customerId = input).let {
+        linkDataSource.existsByCustomer(customerId = input).let {
             if(it){
                 throw InvalidUsecaseException("this person has a link associated")
             }
         }
 
-        return customerResource.delete(input)
+        return customerDataSource.delete(input)
     }
 
 

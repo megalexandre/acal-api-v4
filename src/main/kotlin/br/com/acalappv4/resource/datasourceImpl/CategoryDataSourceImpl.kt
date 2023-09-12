@@ -3,7 +3,7 @@ package br.com.acalappv4.resource.datasourceImpl
 import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.dto.CategoryPageFilter
 import br.com.acalappv4.domain.entity.Category
-import br.com.acalappv4.domain.resources.CategoryDataSource
+import br.com.acalappv4.domain.datasource.CategoryDataSource
 import br.com.acalappv4.resource.adapter.CategoryAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.CategoryAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toCategory
@@ -19,26 +19,26 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class CategoryDataSourceImpl(
-    private val categoryRepository: CategoryRepository,
+    private val repository: CategoryRepository,
     private val mongoTemplate: MongoTemplate,
 ): CategoryDataSource {
 
     override fun save(category: Category): Category =
-        toEntity(categoryRepository.save(toDocument(category)))
+        toEntity(repository.save(toDocument(category)))
 
     override fun delete(id: String) =
-        categoryRepository.deleteById(id)
+        repository.deleteById(id)
 
     override fun findByNameAndType(name: String, type: CategoryType): Category? =
-        categoryRepository.findByNameAndType(name, type).map { toEntity(it) }
+        repository.findByNameAndType(name, type).map { toEntity(it) }
         .getOrNull()
 
     override fun findAll(): List<Category> =
-        categoryRepository.findAll()
+        repository.findAll()
             .map { toEntity(it) }
 
     override fun findById(id: String): Category? =
-        categoryRepository.findById(id)
+        repository.findById(id)
         .map { toEntity(it) }
         .getOrNull()
 

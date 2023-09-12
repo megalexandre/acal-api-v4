@@ -1,6 +1,6 @@
 package br.com.acalappv4.application.web.category.response
 
-import br.com.acalappv4.application.adapter.ResponseAdapter
+import br.com.acalappv4.application.web.adapter.ResponseAdapter
 import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.entity.Category
 import java.math.BigDecimal

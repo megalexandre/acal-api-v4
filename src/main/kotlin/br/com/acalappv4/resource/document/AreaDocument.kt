@@ -11,4 +11,6 @@ class AreaDocument (
 
     val name: String,
 
+    val nameNormalized: String,
+
 ): DocumentItem

@@ -1,9 +1,9 @@
-package br.com.acalappv4.domain.resources
+package br.com.acalappv4.domain.datasource
 
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Link
 
-interface LinkResource {
+interface LinkDataSource {
 
     fun existsByCustomer(customerId: String): Boolean
 

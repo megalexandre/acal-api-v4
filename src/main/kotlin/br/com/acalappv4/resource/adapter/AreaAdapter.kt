@@ -2,6 +2,9 @@ package br.com.acalappv4.resource.adapter
 
 import br.com.acalappv4.domain.entity.Area
 import br.com.acalappv4.resource.document.AreaDocument
+import br.com.acalappv4.resource.document.CategoryDocument
+import br.com.acalappv4.util.normalize
+import org.springframework.data.domain.Page
 
 class AreaAdapter {
 
@@ -17,9 +20,12 @@ class AreaAdapter {
         override fun toDocument(entity: Area): AreaDocument = with(entity) {
             AreaDocument(
                 id = id,
-                name = name
+                name = name,
+                nameNormalized = name.normalize()
             )
         }
     }
 
 }
+
+fun Page<AreaDocument>.toArea() = map { AreaAdapter.toEntity(it)  }

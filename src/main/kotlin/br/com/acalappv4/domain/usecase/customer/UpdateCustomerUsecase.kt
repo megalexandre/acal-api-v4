@@ -2,13 +2,13 @@ package br.com.acalappv4.domain.usecase.customer
 
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
-import br.com.acalappv4.domain.resources.CustomerResource
+import br.com.acalappv4.domain.datasource.CustomerDataSource
 import br.com.acalappv4.domain.usecase.Usecase
 import org.springframework.stereotype.Service
 
 @Service
 class UpdateCustomerUsecase(
-    private val customerResource: CustomerResource
+    private val customerDataSource: CustomerDataSource
 ): Usecase<Customer, Customer> {
 
     override fun execute(input: Customer): Customer {
@@ -17,7 +17,7 @@ class UpdateCustomerUsecase(
             throw InvalidUsecaseException("a lista de números de telefones não é valida")
         }
 
-        customerResource.findByDocument(input.documentNumber)
+        customerDataSource.findByDocument(input.documentNumber)
             .let {
                 when(it){
                     null -> throw InvalidUsecaseException("use with document: ${input.documentNumber} does not exists")
@@ -30,7 +30,7 @@ class UpdateCustomerUsecase(
 
             }
 
-        return customerResource.save(input)
+        return customerDataSource.save(input)
     }
 
 

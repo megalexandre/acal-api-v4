@@ -3,7 +3,7 @@ package br.com.acalappv4.resource.datasourceImpl
 import br.com.acalappv4.domain.dto.CustomerPageFilter
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
-import br.com.acalappv4.domain.resources.CustomerResource
+import br.com.acalappv4.domain.datasource.CustomerDataSource
 import br.com.acalappv4.resource.adapter.CustomerAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.CustomerAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toCustomer
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository
 class CustomerDataSourceImpl(
     private val customerRepository: CustomerRepository,
     private val mongoTemplate: MongoTemplate,
-): CustomerResource {
+): CustomerDataSource {
 
     override fun save(customer: Customer): Customer = toEntity(customerRepository.save(toDocument(customer)))
 

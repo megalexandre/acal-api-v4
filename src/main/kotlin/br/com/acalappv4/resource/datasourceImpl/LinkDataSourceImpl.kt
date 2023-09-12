@@ -2,7 +2,7 @@ package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Link
-import br.com.acalappv4.domain.resources.LinkResource
+import br.com.acalappv4.domain.datasource.LinkDataSource
 import br.com.acalappv4.resource.adapter.LinkAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.LinkAdapter.Companion.toEntity
 import br.com.acalappv4.resource.repository.LinkRepository
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class LinkDataSourceImpl(
     private val linkRepository: LinkRepository
-): LinkResource {
+): LinkDataSource {
 
     override fun existsByCustomer(customerId: String): Boolean = true
 

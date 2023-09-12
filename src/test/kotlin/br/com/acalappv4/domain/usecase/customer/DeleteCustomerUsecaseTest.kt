@@ -1,8 +1,8 @@
 package br.com.acalappv4.domain.usecase.customer
 
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
-import br.com.acalappv4.domain.resources.CustomerResource
-import br.com.acalappv4.domain.resources.LinkResource
+import br.com.acalappv4.domain.datasource.CustomerDataSource
+import br.com.acalappv4.domain.datasource.LinkDataSource
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
@@ -12,19 +12,19 @@ import stub.customerStub
 
 internal class DeleteCustomerUsecaseTest{
 
-    private val customerResource = mockk<CustomerResource>()
-    private val linkResource = mockk<LinkResource>()
+    private val customerDataSource = mockk<CustomerDataSource>()
+    private val linkDataSource = mockk<LinkDataSource>()
 
     private val usecase = DeleteCustomerUsecase(
-        customerResource = customerResource,
-        linkResource = linkResource
+        customerDataSource = customerDataSource,
+        linkDataSource = linkDataSource
     )
 
 
     @Test
     fun `WHEN delete a customer without link SHOULD delete him`(){
-        every { linkResource.existsByCustomer(any()) } returns false
-        every { customerResource.delete(any()) } returns Unit
+        every { linkDataSource.existsByCustomer(any()) } returns false
+        every { customerDataSource.delete(any()) } returns Unit
 
         usecase.execute(customerStub.id)
     }
@@ -32,8 +32,8 @@ internal class DeleteCustomerUsecaseTest{
 
     @Test
     fun `WHEN a customer has any link can't be deleted and SHOULD throw exception`(){
-        every { linkResource.existsByCustomer(any()) } returns true
-        every { customerResource.delete(any()) } returns Unit
+        every { linkDataSource.existsByCustomer(any()) } returns true
+        every { customerDataSource.delete(any()) } returns Unit
 
         assertThrows<InvalidUsecaseException> {
             usecase.execute(customerStub.id)
