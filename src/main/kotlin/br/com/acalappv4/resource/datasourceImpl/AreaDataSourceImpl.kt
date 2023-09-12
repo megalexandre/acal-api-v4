@@ -9,6 +9,7 @@ import br.com.acalappv4.resource.adapter.toArea
 import br.com.acalappv4.resource.document.AreaDocument
 import br.com.acalappv4.resource.query.AreaQuery
 import br.com.acalappv4.resource.repository.AreaRepository
+import br.com.acalappv4.util.normalize
 import kotlin.jvm.optionals.getOrNull
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -20,6 +21,9 @@ class AreaDataSourceImpl(
     private val repository: AreaRepository,
     private val mongoTemplate: MongoTemplate,
 ): AreaDataSource {
+
+    override fun findByName(name: String): Area? = repository.findByNameNormalized(name.normalize())
+        .map { toEntity(it) }.getOrNull()
 
     override fun save(area: Area): Area = toEntity(repository.save(toDocument(area)))
 
@@ -42,6 +46,5 @@ class AreaDataSourceImpl(
 
     override fun findById(id: String): Area? = repository.findById(id)
         .map { toEntity(it) }.getOrNull()
-
 
 }

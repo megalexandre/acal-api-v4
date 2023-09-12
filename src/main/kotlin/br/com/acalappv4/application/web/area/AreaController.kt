@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("area", consumes = [APPLICATION_JSON_VALUE], produces=[APPLICATION_JSON_VALUE])
+@RequestMapping("area", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])
 class AreaController(
     private val create: CreateAreaUsecase,
     private val findById: FindAreaByIdUsecase,
@@ -35,7 +35,7 @@ class AreaController(
     private val delete: DeleteAreaUsecase,
     private val paginate: PaginateAreaUsecase,
     private val update: UpdateAreaUsecase
-){
+) {
 
     @PostMapping
     fun create(@Valid @RequestBody request: CreateAreaRequest): ResponseEntity<CreateAreaResponse> =
@@ -46,17 +46,16 @@ class AreaController(
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: String) =
-        findById.execute(id)?.let { ok().body(AreaResponse(it)) } ?: noContent()
+        findById.execute(id)?.let { ok().body(AreaResponse(it)) }
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String) = ok(delete.execute(id))
+    fun delete(@PathVariable id: String) = ok(delete.execute(id.trim()))
 
     @GetMapping("/paginate")
     fun paginate(@RequestBody pageFilterRequest: PageFilterAreaRequest) =
         ok(paginate.execute(pageFilterRequest.toEntity()).toAreaPageResponse())
 
-    @PutMapping("/update")
+    @PutMapping
     fun create(@Valid @RequestBody request: UpdateAreaRequest) = ok(update.execute(request.toEntity()))
-
 }
 

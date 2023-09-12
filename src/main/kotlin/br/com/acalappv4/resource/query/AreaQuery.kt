@@ -2,6 +2,7 @@ package br.com.acalappv4.resource.query
 
 
 import br.com.acalappv4.domain.dto.PageFilterArea
+import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction.ASC
@@ -31,7 +32,7 @@ class AreaQuery(private val areaFilter: PageFilterArea) {
             }
 
             if (!name.isNullOrEmpty()) {
-                addCriteria(Criteria.where("nameNormalized").regex("^${name.lowercase().trim()}"))
+                addCriteria(Criteria.where("nameNormalized").regex("^${name.normalize()}"))
             }
         }
     }

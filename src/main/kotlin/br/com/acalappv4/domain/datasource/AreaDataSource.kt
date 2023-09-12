@@ -14,6 +14,8 @@ interface AreaDataSource {
 
     fun findAll(): List<Area>
 
+    fun findByName(name: String): Area?
+
     fun findById(id: String): Area?
 
 }

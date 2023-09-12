@@ -1,6 +1,7 @@
 package br.com.acalappv4.resource.query
 
 import br.com.acalappv4.domain.dto.CustomerPageFilter
+import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction.ASC
@@ -22,33 +23,28 @@ class CustomerQuery(private val customerFilter: CustomerPageFilter) {
             }
         )
 
-    fun query(): Query {
-        val query = Query()
-
+    fun query(): Query = Query().apply {
         with(customerFilter){
             if (!id.isNullOrEmpty()) {
-                query.addCriteria(Criteria.where("id").`is`(id))
+                addCriteria(Criteria.where("id").`is`(id))
             }
 
             if (!name.isNullOrEmpty()) {
-                query.addCriteria(Criteria.where("nameNormalized").regex("^${name.lowercase().trim()}"))
+                addCriteria(Criteria.where("nameNormalized").regex("^${name.normalize()}"))
             }
 
             if (!documentNumber.isNullOrEmpty()) {
-                query.addCriteria(Criteria.where("documentNumber.number").`is`(documentNumber))
+                addCriteria(Criteria.where("documentNumber.number").`is`(documentNumber))
             }
 
             if (personType != null) {
-                query.addCriteria(Criteria.where("personType").`is`(personType))
+                addCriteria(Criteria.where("personType").`is`(personType))
             }
 
             if (active != null) {
-                query.addCriteria(Criteria.where("active").`is`(active))
+                addCriteria(Criteria.where("active").`is`(active))
             }
-
         }
-
-        return query
     }
 
 
