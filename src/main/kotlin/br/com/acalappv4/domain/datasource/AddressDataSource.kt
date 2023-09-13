@@ -14,6 +14,8 @@ interface AddressDataSource {
 
     fun findAll(): List<Address>
 
+    fun findAll(pageFilterAddress: PageFilterAddress): List<Address>
+
     fun findById(id: String): Address?
 
 }

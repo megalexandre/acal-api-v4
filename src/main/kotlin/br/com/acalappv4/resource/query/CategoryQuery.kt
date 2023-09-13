@@ -1,7 +1,7 @@
 package br.com.acalappv4.resource.query
 
 
-import br.com.acalappv4.domain.dto.CategoryPageFilter
+import br.com.acalappv4.domain.dto.PageFilterCategory
 import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort.Direction.ASC
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 
-class CategoryQuery(private val categoryFilter: CategoryPageFilter) {
+class CategoryQuery(private val categoryFilter: PageFilterCategory) {
 
     private val defaultSort = Sort.by( ASC,"id")
 

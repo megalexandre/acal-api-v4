@@ -2,7 +2,6 @@ package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.datasource.AddressDataSource
 import br.com.acalappv4.domain.dto.PageFilterAddress
-import br.com.acalappv4.domain.dto.PageFilterArea
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toEntity
@@ -39,7 +38,11 @@ class AddressDataSourceImpl(
         return page.toAddress()
     }
 
-    override fun findAll(): List<Address> = repository.findAll().map { toEntity(it) }
+    override fun findAll(): List<Address> =
+        repository.findAll().map { toEntity(it) }
+
+    override fun findAll(pageFilterAddress: PageFilterAddress): List<Address> =
+        mongoTemplate.find( AddressQuery(pageFilterAddress).query(), AddressDocument::class.java).map { toEntity(it) }
 
     override fun findById(id: String): Address? = repository.findById(id)
         .map { toEntity(it) }.getOrNull()

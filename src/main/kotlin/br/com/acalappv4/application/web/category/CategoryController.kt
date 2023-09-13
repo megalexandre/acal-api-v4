@@ -55,8 +55,8 @@ class CategoryController(
     fun paginate(@RequestBody categoryPageFilterRequest: CategoryPageFilterRequest) =
         ok(paginate.execute(categoryPageFilterRequest.toEntity()).toCategoryPageResponse())
 
-    @PutMapping("/update")
-    fun create(@Valid @RequestBody request: UpdateCategoryRequest) = ok(update.execute(request.toEntity()))
+    @PutMapping
+    fun update(@Valid @RequestBody request: UpdateCategoryRequest) = ok(update.execute(request.toEntity()))
 
 }
 

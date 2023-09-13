@@ -8,6 +8,7 @@ import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toArea
 import br.com.acalappv4.resource.document.AreaDocument
 import br.com.acalappv4.resource.query.AreaQuery
+import br.com.acalappv4.resource.repository.AddressRepository
 import br.com.acalappv4.resource.repository.AreaRepository
 import br.com.acalappv4.util.normalize
 import kotlin.jvm.optionals.getOrNull
@@ -19,13 +20,29 @@ import org.springframework.stereotype.Service
 @Service
 class AreaDataSourceImpl(
     private val repository: AreaRepository,
+    private val addressRepository: AddressRepository,
     private val mongoTemplate: MongoTemplate,
 ): AreaDataSource {
 
     override fun findByName(name: String): Area? = repository.findByNameNormalized(name.normalize())
         .map { toEntity(it) }.getOrNull()
 
-    override fun save(area: Area): Area = toEntity(repository.save(toDocument(area)))
+    override fun save(area: Area): Area {
+        val areaDocument: AreaDocument = repository.save(toDocument(area))
+
+        addressRepository.findByAreaId(area.id)?.forEach {
+            addressRepository.save(
+                it.copy(area = areaDocument.copy(
+                    name = areaDocument.name,
+                    nameNormalized = areaDocument.nameNormalized
+                ))
+            )
+        }
+
+        return toEntity(areaDocument)
+    }
+
+
 
     override fun delete(id: String) = repository.deleteById(id)
 

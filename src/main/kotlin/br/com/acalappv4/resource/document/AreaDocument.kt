@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "area")
-class AreaDocument (
+data class AreaDocument (
 
     @Id
     val id: String,

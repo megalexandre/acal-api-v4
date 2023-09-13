@@ -1,7 +1,7 @@
 package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.common.enums.CategoryType
-import br.com.acalappv4.domain.dto.CategoryPageFilter
+import br.com.acalappv4.domain.dto.PageFilterCategory
 import br.com.acalappv4.domain.entity.Category
 import br.com.acalappv4.domain.datasource.CategoryDataSource
 import br.com.acalappv4.resource.adapter.CategoryAdapter.Companion.toDocument
@@ -42,8 +42,8 @@ class CategoryDataSourceImpl(
         .map { toEntity(it) }
         .getOrNull()
 
-    override fun paginate(categoryPageFilter: CategoryPageFilter): Page<Category> {
-        val categoryQuery = CategoryQuery(categoryPageFilter)
+    override fun paginate(pageFilterCategory: PageFilterCategory): Page<Category> {
+        val categoryQuery = CategoryQuery(pageFilterCategory)
 
         val pageable = categoryQuery.pageRequest()
         val query = categoryQuery.query().with(pageable)

@@ -1,6 +1,6 @@
 package br.com.acalappv4.resource.datasourceImpl
 
-import br.com.acalappv4.domain.dto.CustomerPageFilter
+import br.com.acalappv4.domain.dto.PageFilterCustomer
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.datasource.CustomerDataSource
@@ -40,8 +40,8 @@ class CustomerDataSourceImpl(
             .map { toEntity(it) }
             .getOrNull()
 
-    override fun paginate(customerPageFilter: CustomerPageFilter): Page<Customer> {
-        val customerQuery = CustomerQuery(customerPageFilter)
+    override fun paginate(pageFilterCustomer: PageFilterCustomer): Page<Customer> {
+        val customerQuery = CustomerQuery(pageFilterCustomer)
 
         val pageable = customerQuery.pageRequest()
         val query = customerQuery.query().with(pageable)

@@ -2,7 +2,7 @@ package br.com.acalappv4.domain.dto
 
 import br.com.acalappv4.common.enums.PersonType
 
-class CustomerPageFilter(
+class PageFilterCustomer(
     val id: String?,
     val name: String?,
     val documentNumber: String?,

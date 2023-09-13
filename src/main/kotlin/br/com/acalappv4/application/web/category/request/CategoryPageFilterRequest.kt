@@ -1,7 +1,7 @@
 package br.com.acalappv4.application.web.category.request
 
 import br.com.acalappv4.common.enums.CategoryType
-import br.com.acalappv4.domain.dto.CategoryPageFilter
+import br.com.acalappv4.domain.dto.PageFilterCategory
 import br.com.acalappv4.domain.dto.Page
 import br.com.acalappv4.domain.dto.Sort
 import java.math.BigDecimal
@@ -15,7 +15,7 @@ class CategoryPageFilterRequest(
     val sort: Sort?,
 ){
 
-    fun toEntity(): CategoryPageFilter = CategoryPageFilter(
+    fun toEntity(): PageFilterCategory = PageFilterCategory(
         id = id,
         name = name,
         value = value,

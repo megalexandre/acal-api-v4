@@ -2,8 +2,6 @@ package br.com.acalappv4.resource.query
 
 
 import br.com.acalappv4.domain.dto.PageFilterAddress
-import br.com.acalappv4.domain.dto.PageFilterArea
-import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction.ASC
@@ -32,7 +30,17 @@ class AddressQuery(private val addressFilter: PageFilterAddress) {
                 addCriteria(Criteria.where("id").`is`(id))
             }
 
+            if(!number.isNullOrEmpty()){
+                addCriteria(Criteria.where("number").`is`(number))
+            }
 
+            if(!letter.isNullOrEmpty()){
+                addCriteria(Criteria.where("letter").`is`(letter))
+            }
+
+            if(area != null){
+                addCriteria(Criteria.where("area.id").`is`(area.id))
+            }
         }
     }
 
