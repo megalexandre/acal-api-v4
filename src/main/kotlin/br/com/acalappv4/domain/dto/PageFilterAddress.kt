@@ -9,6 +9,7 @@ class PageFilterAddress(
     val letter: String? = null,
     val hasHydrometer: Boolean?  = null,
 
-    val page: Page? = null,
-    val sort: Sort? = null,
-)
+    override val page: Page? = null,
+    override val sort: Sort? = null,
+
+): PageFilter(page, sort)
