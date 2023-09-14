@@ -1,6 +1,7 @@
 package br.com.acalappv4.domain.entity
 
 import br.com.acalappv4.common.enums.PersonType
+import br.com.acalappv4.domain.entity.interfaces.Entity
 import java.time.LocalDate
 
 data class Customer(
@@ -14,7 +15,8 @@ data class Customer(
     val membershipNumber: Int,
     val phoneNumbers: List<PhoneNumber>?,
     val active: Boolean
-): Entity{
+
+): Entity {
 
     val isValidPhoneNumbers = phoneNumbers.isNullOrEmpty() || (phoneNumbers.count { it.preferential } == 1)
 

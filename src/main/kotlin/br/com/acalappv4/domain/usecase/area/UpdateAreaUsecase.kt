@@ -10,6 +10,6 @@ class UpdateAreaUsecase (
     private val dataSource: AreaDataSource,
 ): Usecase<Area, Area> {
 
-    override fun execute(input: Area) = dataSource.save(input)
+    override fun execute(input: Area) = dataSource.update(input)
 
 }

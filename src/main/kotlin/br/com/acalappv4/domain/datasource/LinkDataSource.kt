@@ -11,4 +11,6 @@ interface LinkDataSource {
 
     fun save(link: Link) : Link
 
+    fun findAll(): List<Link>
+
 }

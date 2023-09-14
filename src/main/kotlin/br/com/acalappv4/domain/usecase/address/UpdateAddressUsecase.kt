@@ -10,8 +10,6 @@ class UpdateAddressUsecase  (
     private val dataSource: AddressDataSource,
 ): Usecase<Address, Address> {
 
-    override fun execute(input: Address): Address {
-        return dataSource.save(address = input)
-    }
+    override fun execute(input: Address): Address = dataSource.update(address = input)
 
 }

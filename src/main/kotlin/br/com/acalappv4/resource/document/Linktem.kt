@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "link")
-class LinkDocument (
+data class LinkDocument (
 
     @Id
     val id: String,

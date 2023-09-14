@@ -7,42 +7,37 @@ import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toArea
 import br.com.acalappv4.resource.document.AreaDocument
+import br.com.acalappv4.resource.event.Event.AREA_UPDATED
+import br.com.acalappv4.resource.event.UpdatedDocumentEvent
 import br.com.acalappv4.resource.query.AreaQuery
-import br.com.acalappv4.resource.repository.AddressRepository
 import br.com.acalappv4.resource.repository.AreaRepository
 import br.com.acalappv4.util.normalize
 import kotlin.jvm.optionals.getOrNull
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class AreaDataSourceImpl(
     private val repository: AreaRepository,
-    private val addressRepository: AddressRepository,
     private val mongoTemplate: MongoTemplate,
+    private val publisher: ApplicationEventPublisher,
 ): AreaDataSource {
 
     override fun findByName(name: String): Area? = repository.findByNameNormalized(name.normalize())
         .map { toEntity(it) }.getOrNull()
 
-    override fun save(area: Area): Area {
-        val areaDocument: AreaDocument = repository.save(toDocument(area))
+    @Transactional
+    override fun update(area: Area): Area =
+        toEntity(repository.save(toDocument(area)).also {
+            publisher.publishEvent(UpdatedDocumentEvent(AREA_UPDATED.name, it))
+        })
 
-        addressRepository.findByAreaId(area.id)?.forEach {
-            addressRepository.save(
-                it.copy(area = areaDocument.copy(
-                    name = areaDocument.name,
-                    nameNormalized = areaDocument.nameNormalized
-                ))
-            )
-        }
-
-        return toEntity(areaDocument)
-    }
-
-
+    override fun save(area: Area): Area =
+        toEntity(repository.save(toDocument(area)))
 
     override fun delete(id: String) = repository.deleteById(id)
 

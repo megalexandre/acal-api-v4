@@ -1,6 +1,7 @@
 package br.com.acalappv4.domain.entity
 
 import br.com.acalappv4.common.enums.CategoryType
+import br.com.acalappv4.domain.entity.interfaces.Entity
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
@@ -12,7 +13,7 @@ class Category(
     val value: BigDecimal,
     val type: CategoryType,
 
-): Entity{
+): Entity {
 
     init {
         if(value < ZERO ){

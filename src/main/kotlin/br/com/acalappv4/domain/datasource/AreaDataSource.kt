@@ -8,6 +8,8 @@ interface AreaDataSource {
 
     fun save(area: Area): Area
 
+    fun update(area: Area): Area
+
     fun delete(id: String)
 
     fun paginate(pageFilterArea: PageFilterArea): Page<Area>

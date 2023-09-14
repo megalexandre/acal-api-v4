@@ -9,4 +9,8 @@ interface LinkRepository : MongoRepository<LinkDocument, String> {
 
     fun findByAddressAndActive(address: Address, active: Boolean): Optional<LinkDocument>?
 
+    fun findByAddressId(id: String): List<LinkDocument>?
+
+    fun findByAddressMailId(id: String): List<LinkDocument>?
+
 }

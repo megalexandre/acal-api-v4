@@ -8,6 +8,8 @@ interface AddressDataSource {
 
     fun save(address: Address): Address
 
+    fun update(address: Address): Address
+
     fun delete(id: String)
 
     fun paginate(pageFilterAddress: PageFilterAddress): Page<Address>
