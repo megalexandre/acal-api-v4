@@ -9,7 +9,7 @@ data class CustomerResponse (
     val documentNumber: String,
     val personType: PersonType,
     var birthDay: LocalDate? = null,
-    val membershipNumber: Int,
+    val membershipNumber: String,
     val phoneNumbers: List<PhoneNumberResponse>?,
     val active: Boolean
 )

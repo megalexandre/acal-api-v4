@@ -30,11 +30,11 @@ class CustomerQuery(private val customerFilter: PageFilterCustomer) {
             }
 
             if (!name.isNullOrEmpty()) {
-                addCriteria(Criteria.where("nameNormalized").regex("^${name.normalize()}"))
+                addCriteria(Criteria.where("nameNormalized").regex(name.normalize()))
             }
 
             if (!documentNumber.isNullOrEmpty()) {
-                addCriteria(Criteria.where("documentNumber.number").`is`(documentNumber))
+                addCriteria(Criteria.where("documentNumber.number").regex("^${documentNumber.normalize()}"))
             }
 
             if (personType != null) {

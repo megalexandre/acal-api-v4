@@ -18,7 +18,7 @@ class CreateCustomerUsecase(
         }
 
         if(customerDataSource.existsByDocument(input.documentNumber)){
-            throw InvalidUsecaseException("o documento já está cadastrado")
+            throw InvalidUsecaseException("o documento já está cadastrado: ${input.documentNumber}")
         }
 
         return customerDataSource.save(customer = input)

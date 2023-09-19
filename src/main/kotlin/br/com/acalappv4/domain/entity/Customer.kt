@@ -12,7 +12,7 @@ data class Customer(
     val personType: PersonType,
     var birthDay: LocalDate? = null,
 
-    val membershipNumber: Int,
+    val membershipNumber: String,
     val phoneNumbers: List<PhoneNumber>?,
     val active: Boolean
 

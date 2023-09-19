@@ -52,8 +52,6 @@ fun Customer.toCustomerPage() = CustomerPageResponse(
     id = id,
     name = name,
     documentNumber = documentNumber.number,
-    personType = personType,
-    active = active,
 )
 
 fun Page<Customer>.toCustomerPage() = map { it.toCustomerPage() }

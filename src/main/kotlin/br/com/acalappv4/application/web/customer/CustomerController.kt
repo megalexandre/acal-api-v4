@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("customer", consumes = [APPLICATION_JSON_VALUE], produces=[APPLICATION_JSON_VALUE])
-class CreateCustomerController(
+class CustomerController(
     private val delete: DeleteCustomerUsecase,
     private val create: CreateCustomerUsecase,
     private val findById: FindCustomerByIdUsecase,
@@ -38,11 +38,17 @@ class CreateCustomerController(
     fun create(@Valid @RequestBody request: CustomerSaveRequest) =
         created(URI("POST/customer")).body(create.execute(request.toCustomer()).toCustomerSaveResponse())
 
+    @PostMapping("/all")
+    fun createList(@Valid @RequestBody request: List<CustomerSaveRequest>) =
+        request.forEach {
+            created(URI("POST/customer")).body(create.execute(it.toCustomer()).toCustomerSaveResponse())
+        }
+
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) =
         ok(delete.execute(id))
 
-    @GetMapping
+    @PostMapping("paginate")
     fun paginate(@RequestBody customerPageRequest: CustomerPageRequest) =
         ok(paginate.execute(CustomerPageAdapter.toEntity(customerPageRequest)).toCustomerPage())
 

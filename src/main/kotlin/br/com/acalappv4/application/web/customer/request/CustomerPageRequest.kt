@@ -13,3 +13,4 @@ class CustomerPageRequest(
     val page: Page?,
     val sort: Sort?,
 )
+

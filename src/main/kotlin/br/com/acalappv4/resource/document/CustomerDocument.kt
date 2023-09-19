@@ -19,7 +19,7 @@ data class CustomerDocument (
     val personType: PersonType,
     var birthDay: LocalDate? = null,
 
-    val membershipNumber: Int,
+    val membershipNumber: String,
     val phoneNumber: List<PhoneNumberDocumentItem>?,
     val active: Boolean
 )

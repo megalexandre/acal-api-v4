@@ -8,7 +8,7 @@ data class CustomerSaveRequest (
     val documentNumber: String,
     val personType: PersonType,
     var birthDay: LocalDate? = null,
-    val membershipNumber: Int,
+    val membershipNumber: String,
     val phoneNumbers: List<PhoneNumberSaveRequest>?,
     val active: Boolean
 )

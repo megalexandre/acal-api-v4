@@ -45,9 +45,10 @@ class CustomerDataSourceImpl(
 
         val pageable = customerQuery.pageRequest()
         val query = customerQuery.query().with(pageable)
+        val countTotal = customerQuery.query()
 
         val list = mongoTemplate.find(query, CustomerDocument::class.java)
-        val count: Long = mongoTemplate.count(query, CustomerDocument::class.java)
+        val count: Long = mongoTemplate.count(countTotal, CustomerDocument::class.java)
         val page = PageImpl(list, pageable, count)
 
         return page.toCustomer()
