@@ -1,6 +1,6 @@
 package br.com.acalappv4.glue
 
-import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
+import br.com.acalappv4.application.web.customer.request.CustomerCreateRequest
 import br.com.acalappv4.common.enums.PersonType
 import io.cucumber.java.en.Given
 import io.cucumber.java.en.Then
@@ -18,7 +18,7 @@ class CustomerStepDefinitions {
         active: Boolean
     ) {
         val validCustomer =
-            CustomerSaveRequest(
+            CustomerCreateRequest(
                 name = name,
                 documentNumber = documentNumber,
                 personType = personType,

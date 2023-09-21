@@ -25,7 +25,6 @@ data class CustomerDocument (
 )
 
 data class PhoneNumberDocumentItem(
-    val ddd: String,
     val preferential: Boolean,
     val number: String,
     val isWhatApp: Boolean

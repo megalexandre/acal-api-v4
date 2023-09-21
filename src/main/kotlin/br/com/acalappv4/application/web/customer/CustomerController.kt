@@ -6,7 +6,7 @@ import br.com.acalappv4.application.web.customer.adapter.toCustomerPage
 import br.com.acalappv4.application.web.customer.adapter.toCustomerResponse
 import br.com.acalappv4.application.web.customer.adapter.toCustomerSaveResponse
 import br.com.acalappv4.application.web.customer.request.CustomerPageRequest
-import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
+import br.com.acalappv4.application.web.customer.request.CustomerCreateRequest
 import br.com.acalappv4.domain.usecase.customer.CreateCustomerUsecase
 import br.com.acalappv4.domain.usecase.customer.DeleteCustomerUsecase
 import br.com.acalappv4.domain.usecase.customer.FindCustomerByIdUsecase
@@ -35,11 +35,11 @@ class CustomerController(
     ){
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CustomerSaveRequest) =
+    fun create(@Valid @RequestBody request: CustomerCreateRequest) =
         created(URI("POST/customer")).body(create.execute(request.toCustomer()).toCustomerSaveResponse())
 
     @PostMapping("/all")
-    fun createList(@Valid @RequestBody request: List<CustomerSaveRequest>) =
+    fun createList(@Valid @RequestBody request: List<CustomerCreateRequest>) =
         request.forEach {
             created(URI("POST/customer")).body(create.execute(it.toCustomer()).toCustomerSaveResponse())
         }

@@ -1,4 +1,4 @@
-package br.com.acalappv4.application.web.customer.request
+package br.com.acalappv4.application.web.customer.response
 
 data class CreateCustomerResponse (
     val id: String,

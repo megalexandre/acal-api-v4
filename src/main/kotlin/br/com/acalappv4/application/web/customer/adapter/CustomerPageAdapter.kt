@@ -6,7 +6,6 @@ import br.com.acalappv4.domain.dto.PageFilterCustomer
 class CustomerPageAdapter {
 
     companion object{
-
         fun toEntity(request: CustomerPageRequest): PageFilterCustomer = with(request) {
             PageFilterCustomer(
                 id = id,
@@ -18,7 +17,6 @@ class CustomerPageAdapter {
                 sort = sort
             )
         }
-
     }
 
 }

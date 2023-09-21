@@ -1,7 +1,7 @@
 package br.com.acalappv4.application.web.customer.adapter
 
-import br.com.acalappv4.application.web.customer.request.CreateCustomerResponse
-import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
+import br.com.acalappv4.application.web.customer.response.CreateCustomerResponse
+import br.com.acalappv4.application.web.customer.request.CustomerCreateRequest
 import br.com.acalappv4.application.web.customer.request.PhoneNumberSaveRequest
 import br.com.acalappv4.application.web.customer.response.CustomerPageResponse
 import br.com.acalappv4.application.web.customer.response.CustomerResponse
@@ -18,7 +18,6 @@ class PhoneNumberRequestAdapter {
 
         fun toEntity(request: PhoneNumberSaveRequest): PhoneNumber = with(request){
             PhoneNumber(
-                ddd = ddd ,
                 preferential = preferential,
                 number= number,
                 isWhatApp = isWhatApp,
@@ -29,10 +28,9 @@ class PhoneNumberRequestAdapter {
 
 }
 
-
 fun List<PhoneNumberSaveRequest>.toPhoneNumber() = map{PhoneNumberRequestAdapter.toEntity(it)}
 
-fun CustomerSaveRequest.toCustomer() = Customer(
+fun CustomerCreateRequest.toCustomer() = Customer(
     id = ULID.random(),
     name = name,
     documentNumber = DocumentNumber(number = documentNumber),
@@ -70,7 +68,6 @@ fun Customer.toCustomerResponse() = CustomerResponse(
 )
 
 fun PhoneNumber.toPhoneNumberResponse() = PhoneNumberResponse(
-    ddd = ddd,
     preferential = preferential,
     number = number,
     isWhatApp = isWhatApp

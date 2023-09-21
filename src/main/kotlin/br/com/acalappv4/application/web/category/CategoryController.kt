@@ -37,6 +37,12 @@ class CategoryController(
     private val update: UpdateCategoryUsecase
 ){
 
+    @PostMapping("/all")
+    fun createAll(@Valid @RequestBody request: List<CreateCategoryRequest>) =
+        request.forEach {
+            created(URI("POST/category")).body(CreateCategoryResponse(create.execute(it.toEntity())))
+        }
+
     @PostMapping
     fun create(@Valid @RequestBody request: CreateCategoryRequest): ResponseEntity<CreateCategoryResponse> =
         created(URI("POST/category")).body(CreateCategoryResponse(create.execute(request.toEntity())))

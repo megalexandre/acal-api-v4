@@ -1,10 +1,10 @@
 package stub.request
 
-import br.com.acalappv4.application.web.customer.request.CustomerSaveRequest
+import br.com.acalappv4.application.web.customer.request.CustomerCreateRequest
 import br.com.acalappv4.common.enums.PersonType.INDIVIDUAL
 import stub.documentNumberStub
 
-val createCustomerRequestStub = CustomerSaveRequest(
+val createCustomerRequestStub = CustomerCreateRequest(
     name = "Alexandre Queiroz",
     documentNumber = documentNumberStub.number,
     personType = INDIVIDUAL,

@@ -15,7 +15,6 @@ data class CustomerResponse (
 )
 
 data class PhoneNumberResponse(
-    val ddd: String,
     val preferential: Boolean,
     val number: String,
     val isWhatApp: Boolean

@@ -51,7 +51,6 @@ fun DocumentNumberDocumentItem.toDocumentNumber() = DocumentNumber(
 )
 
 fun PhoneNumberDocumentItem.toPhoneNumber() = PhoneNumber(
-    ddd = ddd,
     number = number,
     preferential = preferential,
     isWhatApp = isWhatApp
@@ -64,7 +63,6 @@ fun DocumentNumber.toDocumentNumber() = DocumentNumberDocumentItem(
 )
 
 fun PhoneNumber.toPhoneNumberItem() = PhoneNumberDocumentItem(
-    ddd = ddd,
     number = number,
     preferential = preferential,
     isWhatApp = isWhatApp

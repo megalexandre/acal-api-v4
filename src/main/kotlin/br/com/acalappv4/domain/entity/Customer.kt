@@ -29,7 +29,6 @@ data class DocumentNumber(
 }
 
 data class PhoneNumber(
-    val ddd: String,
     val preferential: Boolean,
     val number: String,
     val isWhatApp: Boolean
