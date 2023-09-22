@@ -11,7 +11,9 @@ spring:
       database: acal_v4
 
 logging:
+  logs:
+    level.org.springframework.data.mongodb.core: INFO
   level:
     org:
       springframework:
-        data: INFO
+        data: DEBUG

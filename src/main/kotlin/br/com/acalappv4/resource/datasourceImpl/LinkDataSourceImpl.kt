@@ -34,8 +34,8 @@ class LinkDataSourceImpl(
         }
     }
 
-
-    override fun existsByCustomer(customerId: String): Boolean = true
+    override fun existsByCustomer(customerId: String): Boolean =
+        !repository.findByCustomerId(customerId).isNullOrEmpty()
 
     override fun findByAddressAndStatus(address: Address, active: Boolean): Link? =
         repository.findByAddressAndActive(address, active)?.map { toEntity(it) }?.getOrNull()

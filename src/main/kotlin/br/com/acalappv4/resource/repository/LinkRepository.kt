@@ -13,4 +13,6 @@ interface LinkRepository : MongoRepository<LinkDocument, String> {
 
     fun findByAddressMailId(id: String): List<LinkDocument>?
 
+    fun findByCustomerId(id: String): List<LinkDocument>?
+
 }

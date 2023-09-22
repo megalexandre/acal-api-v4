@@ -1,8 +1,5 @@
 package br.com.acalappv4.application.web.link
 
-import br.com.acalappv4.application.web.customer.adapter.CustomerPageAdapter
-import br.com.acalappv4.application.web.customer.adapter.toCustomerPage
-import br.com.acalappv4.application.web.customer.request.CustomerPageRequest
 import br.com.acalappv4.application.web.link.request.CreateLinkRequest
 import br.com.acalappv4.domain.usecase.link.CreateLinkUsecase
 import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase

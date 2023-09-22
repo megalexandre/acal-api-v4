@@ -14,19 +14,6 @@ services:
     networks:
       - acal-v4-network
 
-  mongo-express:
-    container_name: acal_v4_db_ui
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@acal_v4_db:27017/
-    networks:
-      - acal-v4-network
-
 networks:
   acal-v4-network:
     driver: bridge

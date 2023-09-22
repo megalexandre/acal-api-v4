@@ -14,7 +14,7 @@ class CustomerStepDefinitions {
         documentNumber: String,
         personType: PersonType,
         birthDay: String,
-        membershipNumber: Int,
+        membershipNumber: String,
         active: Boolean
     ) {
         val validCustomer =
@@ -25,7 +25,6 @@ class CustomerStepDefinitions {
                 birthDay = LocalDate.parse(birthDay),
                 membershipNumber = membershipNumber,
                 phoneNumbers = null,
-                active = active
             )
     }
 
