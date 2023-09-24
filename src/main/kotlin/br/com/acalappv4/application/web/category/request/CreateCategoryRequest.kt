@@ -8,14 +8,16 @@ import java.math.BigDecimal
 
 data class CreateCategoryRequest (
     val name: String,
-    val value: BigDecimal,
+    val waterValue: BigDecimal,
+    val categoryValue: BigDecimal,
     val type: CategoryType,
 ): RequestAdapter<Category> {
 
     override fun toEntity(): Category = Category(
         id = random(),
         name = name.trim(),
-        value = value,
+        waterValue = waterValue,
+        categoryValue = categoryValue,
         type = type,
     )
 

@@ -10,13 +10,17 @@ class Category(
 
     val id: String,
     val name: String,
-    val value: BigDecimal,
+    val waterValue: BigDecimal,
+    val categoryValue: BigDecimal,
     val type: CategoryType,
 
 ): Entity {
 
     init {
-        if(value < ZERO ){
+        if(waterValue < ZERO ){
+            throw InvalidUsecaseException("water value can't be less than zero")       }
+
+        if(categoryValue < ZERO ){
             throw InvalidUsecaseException("Category value can't be less than zero")       }
     }
 

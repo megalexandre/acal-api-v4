@@ -15,7 +15,11 @@ data class CategoryDocument (
 
     val nameNormalized: String,
 
-    val value: BigDecimal,
+    val waterValue: BigDecimal,
+
+    val categoryValue: BigDecimal,
+
+    val totalValue: BigDecimal,
 
     val type: CategoryType,
 

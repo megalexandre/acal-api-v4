@@ -9,8 +9,10 @@ import java.math.BigDecimal
 class CategoryPageFilterRequest(
     val id: String?,
     val name: String?,
-    val value: BigDecimal?,
-    val categoryType: CategoryType?,
+    val categoryValue: BigDecimal?,
+    val waterValue: BigDecimal?,
+    val totalValue: BigDecimal?,
+    val type: CategoryType?,
     val page: Page?,
     val sort: Sort?,
 ){
@@ -18,11 +20,12 @@ class CategoryPageFilterRequest(
     fun toEntity(): PageFilterCategory = PageFilterCategory(
         id = id,
         name = name,
-        value = value,
-        categoryType = categoryType,
+        categoryValue = categoryValue,
+        waterValue = waterValue,
+        categoryType = type,
+        totalValue = totalValue,
         page = page,
         sort = sort,
     )
-
 
 }

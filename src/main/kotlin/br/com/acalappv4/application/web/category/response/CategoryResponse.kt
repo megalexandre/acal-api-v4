@@ -8,14 +8,16 @@ import java.math.BigDecimal
 data class CategoryResponse (
     val id: String,
     val name: String,
-    val value: BigDecimal,
+    val categoryValue: BigDecimal,
+    val waterValue: BigDecimal,
     val type: CategoryType,
 ): ResponseAdapter<Category, CategoryResponse> {
 
    constructor(category: Category) : this(
        id = category.id,
        name = category.name,
-       value = category.value,
+       categoryValue = category.categoryValue,
+       waterValue = category.waterValue,
        type = category.type,
    )
 

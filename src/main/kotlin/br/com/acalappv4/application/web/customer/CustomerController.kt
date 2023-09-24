@@ -7,7 +7,7 @@ import br.com.acalappv4.application.web.customer.response.CreateCustomerResponse
 import br.com.acalappv4.application.web.customer.response.CustomerPageResponse
 import br.com.acalappv4.application.web.customer.response.CustomerResponse
 import br.com.acalappv4.domain.usecase.customer.CreateCustomerUsecase
-import br.com.acalappv4.domain.usecase.customer.CreateLotCustomerUsecase
+import br.com.acalappv4.domain.usecase.customer.CreateCustomerLotUsecase
 import br.com.acalappv4.domain.usecase.customer.DeleteCustomerUsecase
 import br.com.acalappv4.domain.usecase.customer.FindCustomerByIdUsecase
 import br.com.acalappv4.domain.usecase.customer.PaginateCustomerUsecase
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController
 class CustomerController(
     private val delete: DeleteCustomerUsecase,
     private val create: CreateCustomerUsecase,
-    private val createLot: CreateLotCustomerUsecase,
+    private val createLot: CreateCustomerLotUsecase,
     private val update: UpdateCustomerUsecase,
     private val findById: FindCustomerByIdUsecase,
     private val paginate: PaginateCustomerUsecase,
@@ -48,8 +48,7 @@ class CustomerController(
         ok(CreateCustomerResponse(update.execute(request.toEntity())))
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String) =
-        ok(delete.execute(id))
+    fun delete(@PathVariable id: String) = ok(delete.execute(id))
 
     @PostMapping("paginate")
     fun paginate(@RequestBody customerPageRequest: CustomerPageRequest): ResponseEntity<Page<CustomerPageResponse>> =

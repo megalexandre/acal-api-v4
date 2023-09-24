@@ -6,7 +6,9 @@ import java.math.BigDecimal
 class PageFilterCategory(
     val id: String?,
     val name: String?,
-    val value: BigDecimal?,
+    val waterValue: BigDecimal?,
+    val categoryValue: BigDecimal?,
+    val totalValue: BigDecimal?,
     val categoryType: CategoryType?,
     val page: Page?,
     val sort: Sort?,

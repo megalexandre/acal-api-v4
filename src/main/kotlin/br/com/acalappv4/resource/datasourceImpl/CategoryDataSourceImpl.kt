@@ -47,13 +47,15 @@ class CategoryDataSourceImpl(
 
         val pageable = categoryQuery.pageRequest()
         val query = categoryQuery.query().with(pageable)
+        val countTotal = categoryQuery.query()
 
         val list = mongoTemplate.find(query, CategoryDocument::class.java)
-        val count: Long = mongoTemplate.count(query, CategoryDocument::class.java)
+        val count: Long = mongoTemplate.count(countTotal, CategoryDocument::class.java)
         val page = PageImpl(list, pageable, count)
 
         return page.toCategory()
     }
+
 
 
 }

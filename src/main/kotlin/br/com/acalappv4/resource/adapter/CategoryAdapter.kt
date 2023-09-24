@@ -13,7 +13,9 @@ class CategoryAdapter{
                 id = id,
                 name = name,
                 nameNormalized = name.normalize(),
-                value = value,
+                waterValue =  waterValue,
+                categoryValue = categoryValue,
+                totalValue = waterValue + categoryValue,
                 type = type,
             )
         }
@@ -22,7 +24,8 @@ class CategoryAdapter{
             Category(
                 id = id,
                 name = name,
-                value = value,
+                waterValue =  waterValue,
+                categoryValue = categoryValue,
                 type = type,
             )
         }

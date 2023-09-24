@@ -9,7 +9,7 @@ val customerStub = Customer(
     documentNumber = documentNumberStub,
     personType = INDIVIDUAL,
     birthDay = null,
-    membershipNumber = 0,
+    membershipNumber = "0",
     phoneNumbers = listOf(phoneNumberStub),
     active = true,
 )

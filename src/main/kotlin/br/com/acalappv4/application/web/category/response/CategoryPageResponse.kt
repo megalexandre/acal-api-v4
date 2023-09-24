@@ -8,15 +8,19 @@ import org.springframework.data.domain.Page
 class CategoryPageResponse (
     val id: String,
     val name: String,
-    val value: BigDecimal,
+    val categoryValue: BigDecimal,
+    val waterValue: BigDecimal,
     val type: CategoryType,
+    val total: BigDecimal,
 ){
 
     constructor(category: Category) : this(
         id = category.id,
         name = category.name,
-        value = category.value,
-        type = category.type
+        categoryValue = category.categoryValue,
+        waterValue = category.waterValue,
+        type = category.type,
+        total = category.categoryValue + category.waterValue
     )
 
 }

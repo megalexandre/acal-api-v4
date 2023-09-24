@@ -32,11 +32,18 @@ class CategoryQuery(private val categoryFilter: PageFilterCategory) {
             }
 
             if (!name.isNullOrEmpty()) {
-                addCriteria(Criteria.where("nameNormalized").regex("^${name.normalize()}"))
+                addCriteria(Criteria.where("nameNormalized").regex(name.normalize()))
             }
 
-            if (value != null)  {
-                addCriteria(Criteria.where("value").`is`(value))
+            if (waterValue != null)  {
+                addCriteria(Criteria.where("waterValue").`is`(waterValue))
+            }
+            if (totalValue != null)  {
+                addCriteria(Criteria.where("totalValue").`is`(totalValue))
+            }
+
+            if (categoryValue != null)  {
+                addCriteria(Criteria.where("categoryValue").`is`(categoryValue))
             }
 
             if (categoryType != null) {

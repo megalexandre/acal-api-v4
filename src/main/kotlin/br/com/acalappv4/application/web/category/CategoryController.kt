@@ -6,6 +6,7 @@ import br.com.acalappv4.application.web.category.request.UpdateCategoryRequest
 import br.com.acalappv4.application.web.category.response.CategoryResponse
 import br.com.acalappv4.application.web.category.response.CreateCategoryResponse
 import br.com.acalappv4.application.web.category.response.toCategoryPageResponse
+import br.com.acalappv4.domain.usecase.category.CreateCategoryLotUsecase
 import br.com.acalappv4.domain.usecase.category.CreateCategoryUsecase
 import br.com.acalappv4.domain.usecase.category.DeleteCategoryUsecase
 import br.com.acalappv4.domain.usecase.category.FindAllCategoryUsecase
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("category", consumes = [APPLICATION_JSON_VALUE], produces=[APPLICATION_JSON_VALUE])
 class CategoryController(
     private val create: CreateCategoryUsecase,
+    private val createLot: CreateCategoryLotUsecase,
     private val findById: FindCategoryByIdUsecase,
     private val findAll: FindAllCategoryUsecase,
     private val delete: DeleteCategoryUsecase,
@@ -39,16 +41,12 @@ class CategoryController(
 
     @PostMapping("/all")
     fun createAll(@Valid @RequestBody request: List<CreateCategoryRequest>) =
-        request.forEach {
-            created(URI("POST/category")).body(CreateCategoryResponse(create.execute(it.toEntity())))
-        }
+        created(URI("POST/category"))
+            .body( createLot.execute(request.map { it.toEntity() }).map { CreateCategoryResponse(it) })
 
     @PostMapping
     fun create(@Valid @RequestBody request: CreateCategoryRequest): ResponseEntity<CreateCategoryResponse> =
         created(URI("POST/category")).body(CreateCategoryResponse(create.execute(request.toEntity())))
-
-    @GetMapping
-    fun paginate() = ok(findAll.execute(Unit).map { CategoryResponse(it) })
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: String) =
@@ -57,9 +55,9 @@ class CategoryController(
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) = ok(delete.execute(id))
 
-    @GetMapping("/paginate")
-    fun paginate(@RequestBody categoryPageFilterRequest: CategoryPageFilterRequest) =
-        ok(paginate.execute(categoryPageFilterRequest.toEntity()).toCategoryPageResponse())
+    @PostMapping("/paginate")
+    fun paginate(@RequestBody request: CategoryPageFilterRequest) =
+        ok(paginate.execute(request.toEntity()).toCategoryPageResponse())
 
     @PutMapping
     fun update(@Valid @RequestBody request: UpdateCategoryRequest) = ok(update.execute(request.toEntity()))

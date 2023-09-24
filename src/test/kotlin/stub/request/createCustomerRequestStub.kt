@@ -9,9 +9,8 @@ val createCustomerRequestStub = CustomerCreateRequest(
     documentNumber = documentNumberStub.number,
     personType = INDIVIDUAL,
     birthDay = null,
-    membershipNumber = 0,
+    membershipNumber = "0",
     phoneNumbers = listOf(phoneNumberSaveRequestStub),
-    active = true,
 )
 
 
