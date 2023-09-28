@@ -17,8 +17,8 @@ class AppAdvice {
 	])
 	fun e1 (ex: RuntimeException) = ResponseEntity.badRequest().body(
 		mapOf(
-			"time: " to LocalDateTime.now(),
-			"cause: " to ex.message
+			"time" to LocalDateTime.now(),
+			"cause" to ex.message
 		)
 	)
 

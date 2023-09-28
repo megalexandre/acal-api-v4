@@ -12,6 +12,7 @@ data class CreateCategoryResponse (
     )
 
     override fun toResponse(entity: Category): CreateCategoryResponse =  CreateCategoryResponse(entity)
+
 }
 
 

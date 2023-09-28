@@ -3,6 +3,9 @@ package br.com.acalappv4.resource.adapter
 import br.com.acalappv4.domain.entity.Category
 import br.com.acalappv4.resource.document.CategoryDocument
 import br.com.acalappv4.util.normalize
+import br.com.acalappv4.util.toCurrency
+import java.math.BigDecimal
+import java.math.RoundingMode.HALF_UP
 import org.springframework.data.domain.Page
 
 class CategoryAdapter{
@@ -13,9 +16,9 @@ class CategoryAdapter{
                 id = id,
                 name = name,
                 nameNormalized = name.normalize(),
-                waterValue =  waterValue,
-                categoryValue = categoryValue,
-                totalValue = waterValue + categoryValue,
+                waterValue =  waterValue.toCurrency(),
+                categoryValue = categoryValue.toCurrency(),
+                totalValue = waterValue.add(categoryValue).toCurrency(),
                 type = type,
             )
         }
