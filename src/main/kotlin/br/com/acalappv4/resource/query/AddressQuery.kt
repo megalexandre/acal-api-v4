@@ -2,6 +2,7 @@ package br.com.acalappv4.resource.query
 
 
 import br.com.acalappv4.domain.dto.PageFilterAddress
+import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction.ASC
@@ -31,15 +32,19 @@ class AddressQuery(private val addressFilter: PageFilterAddress) {
             }
 
             if(!number.isNullOrEmpty()){
-                addCriteria(Criteria.where("number").`is`(number))
+                addCriteria(Criteria.where("number").regex(number.normalize()))
             }
 
             if(!letter.isNullOrEmpty()){
-                addCriteria(Criteria.where("letter").`is`(letter))
+                addCriteria(Criteria.where("letter").regex(letter.normalize()))
             }
 
             if(area != null){
                 addCriteria(Criteria.where("area.id").`is`(area.id))
+            }
+
+            if(hasHydrometer != null){
+                addCriteria(Criteria.where("hasHydrometer").`is`(hasHydrometer))
             }
         }
     }

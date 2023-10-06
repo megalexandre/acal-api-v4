@@ -1,6 +1,8 @@
 package br.com.acalappv4.domain.entity
 
 import br.com.acalappv4.common.enums.PersonType
+import br.com.acalappv4.common.enums.PersonType.INDIVIDUAL
+import br.com.acalappv4.common.enums.PersonType.LEGAL
 import br.com.acalappv4.domain.entity.interfaces.Entity
 import java.time.LocalDate
 
@@ -25,6 +27,11 @@ data class Customer(
 data class DocumentNumber(
     val number: String
 ){
+    val personType: PersonType = when(number.length == 9){
+        true -> INDIVIDUAL
+        else -> LEGAL
+    }
+
     override fun toString(): String = number.substring(0,3)
 }
 

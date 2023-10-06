@@ -3,7 +3,9 @@ package br.com.acalappv4.resource.adapter
 import br.com.acalappv4.domain.entity.Link
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toEntity
+import br.com.acalappv4.resource.document.CategoryDocument
 import br.com.acalappv4.resource.document.LinkDocument
+import org.springframework.data.domain.Page
 
 class LinkAdapter{
 
@@ -39,3 +41,5 @@ class LinkAdapter{
     }
 
 }
+
+fun Page<LinkDocument>.toLink() = map { LinkAdapter.toEntity(it)  }

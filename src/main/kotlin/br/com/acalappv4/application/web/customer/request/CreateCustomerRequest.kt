@@ -1,6 +1,5 @@
 package br.com.acalappv4.application.web.customer.request
 
-import br.com.acalappv4.common.enums.PersonType
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
 import br.com.acalappv4.domain.entity.PhoneNumber
@@ -10,7 +9,6 @@ import java.time.LocalDate
 data class CustomerCreateRequest (
     val name: String,
     val documentNumber: String,
-    val personType: PersonType,
     var birthDay: LocalDate? = null,
     val membershipNumber: String,
     val phoneNumbers: List<PhoneNumberSaveRequest>?,
@@ -19,7 +17,7 @@ data class CustomerCreateRequest (
         id = ULID.random(),
         name = name,
         documentNumber = DocumentNumber(number = documentNumber),
-        personType = personType,
+        personType = DocumentNumber(number = documentNumber).personType,
         birthDay = birthDay,
         membershipNumber = membershipNumber,
         phoneNumbers = phoneNumbers?.map { it.toEntity() },
@@ -37,6 +35,5 @@ data class PhoneNumberSaveRequest(
         preferential = preferential,
         isWhatApp = isWhatApp
     )
-
 }
 

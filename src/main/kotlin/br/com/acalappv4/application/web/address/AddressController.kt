@@ -6,6 +6,7 @@ import br.com.acalappv4.application.web.address.request.UpdateAddressRequest
 import br.com.acalappv4.application.web.address.response.AddressResponse
 import br.com.acalappv4.application.web.address.response.CreateAddressResponse
 import br.com.acalappv4.application.web.address.response.toAddressPageResponse
+import br.com.acalappv4.application.web.address.response.toAddressResponse
 import br.com.acalappv4.domain.usecase.address.CreateAddressUsecase
 import br.com.acalappv4.domain.usecase.address.DeleteAddressUsecase
 import br.com.acalappv4.domain.usecase.address.FindAddressByIdUsecase
@@ -36,7 +37,6 @@ class AddressController(
     private val findById: FindAddressByIdUsecase,
     private val delete: DeleteAddressUsecase,
     private val paginate: PaginateAddressUsecase,
-
     ){
 
     @PostMapping
@@ -45,19 +45,21 @@ class AddressController(
             CreateAddressResponse(create.execute(request.toEntity())))
 
     @PutMapping
-    fun update(@Valid @RequestBody request: UpdateAddressRequest) = ok(update.execute(request.toEntity()))
-
-    @GetMapping
-    fun paginate() = ok(findAll.execute(Unit).map { AddressResponse(it) })
+    fun update(@Valid @RequestBody request: UpdateAddressRequest) =
+        ok(update.execute(request.toEntity()))
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: String) =
         findById.execute(id)?.let { ok().body(AddressResponse(it)) }
 
-    @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String) = ok(delete.execute(id.trim()))
+    @GetMapping("/all")
+    fun findAll() = ok().body(findAll.execute(Unit).toAddressResponse() )
 
-    @GetMapping("/paginate")
+    @DeleteMapping("/{id}")
+    fun delete(@PathVariable id: String) =
+        ok(delete.execute(id.trim()))
+
+    @PostMapping("/paginate")
     fun paginate(@RequestBody pageFilterRequest: PageFilterAddressRequest) =
         ok(paginate.execute(pageFilterRequest.toEntity()).toAddressPageResponse())
 }

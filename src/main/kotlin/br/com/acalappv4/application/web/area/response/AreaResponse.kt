@@ -1,6 +1,8 @@
 package br.com.acalappv4.application.web.area.response
 
 import br.com.acalappv4.application.web.adapter.ResponseAdapter
+import br.com.acalappv4.application.web.address.response.AddressResponse
+import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Area
 
 data class AreaResponse (
@@ -17,3 +19,4 @@ data class AreaResponse (
 
 }
 
+fun List<Area>.toAreaResponse() = map { AreaResponse(it) }

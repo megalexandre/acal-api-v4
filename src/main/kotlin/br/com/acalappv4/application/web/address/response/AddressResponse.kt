@@ -25,4 +25,6 @@ data class AddressResponse (
 }
 
 
+fun List<Address>.toAddressResponse() = map {AddressResponse(it) }
+
 
