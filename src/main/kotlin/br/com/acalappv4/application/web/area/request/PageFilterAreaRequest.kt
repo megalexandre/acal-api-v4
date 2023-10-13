@@ -1,8 +1,8 @@
 package br.com.acalappv4.application.web.area.request
 
-import br.com.acalappv4.domain.dto.Page
-import br.com.acalappv4.domain.dto.PageFilterArea
-import br.com.acalappv4.domain.dto.Sort
+import br.com.acalappv4.domain.dto.page.Page
+import br.com.acalappv4.domain.dto.page.PageFilterArea
+import br.com.acalappv4.domain.dto.page.Sort
 
 class PageFilterAreaRequest(
     val id: String?,

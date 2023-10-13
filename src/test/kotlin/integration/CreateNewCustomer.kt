@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import stub.customerStub
 import stub.phoneNumberStub
-import stub.request.createCustomerRequestStub
+import stub.request.customer.createCustomerRequestStub
 
 class CreateNewCustomer: AcalAppV4ApplicationTests() {
 

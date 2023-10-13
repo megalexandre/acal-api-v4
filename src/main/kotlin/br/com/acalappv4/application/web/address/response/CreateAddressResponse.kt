@@ -1,6 +1,6 @@
 package br.com.acalappv4.application.web.address.response
 
-import br.com.acalappv4.application.web.adapter.ResponseAdapter
+import br.com.acalappv4.application.web.components.adapter.ResponseAdapter
 import br.com.acalappv4.domain.entity.Address
 
 data class CreateAddressResponse (

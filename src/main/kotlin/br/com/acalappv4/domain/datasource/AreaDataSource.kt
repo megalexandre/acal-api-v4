@@ -1,6 +1,6 @@
 package br.com.acalappv4.domain.datasource
 
-import br.com.acalappv4.domain.dto.PageFilterArea
+import br.com.acalappv4.domain.dto.page.PageFilterArea
 import br.com.acalappv4.domain.entity.Area
 import org.springframework.data.domain.Page
 

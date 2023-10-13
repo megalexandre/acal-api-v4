@@ -7,15 +7,14 @@ import br.com.acalappv4.domain.usecase.link.CreateLinkUsecase
 import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase
 import br.com.acalappv4.domain.usecase.link.PaginateLinkUsecase
 import jakarta.validation.Valid
-import java.net.URI
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
-import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
 
 @RestController
 @RequestMapping("link", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])

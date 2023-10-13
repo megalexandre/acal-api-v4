@@ -1,9 +1,9 @@
 package br.com.acalappv4.application.web.category.request
 
 import br.com.acalappv4.common.enums.CategoryType
-import br.com.acalappv4.domain.dto.PageFilterCategory
-import br.com.acalappv4.domain.dto.Page
-import br.com.acalappv4.domain.dto.Sort
+import br.com.acalappv4.domain.dto.page.PageFilterCategory
+import br.com.acalappv4.domain.dto.page.Page
+import br.com.acalappv4.domain.dto.page.Sort
 import java.math.BigDecimal
 
 class CategoryPageFilterRequest(

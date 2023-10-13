@@ -7,26 +7,14 @@ import br.com.acalappv4.application.web.address.response.AddressResponse
 import br.com.acalappv4.application.web.address.response.CreateAddressResponse
 import br.com.acalappv4.application.web.address.response.toAddressPageResponse
 import br.com.acalappv4.application.web.address.response.toAddressResponse
-import br.com.acalappv4.domain.usecase.address.CreateAddressUsecase
-import br.com.acalappv4.domain.usecase.address.DeleteAddressUsecase
-import br.com.acalappv4.domain.usecase.address.FindAddressByIdUsecase
-import br.com.acalappv4.domain.usecase.address.FindAllAddressUsecase
-import br.com.acalappv4.domain.usecase.address.PaginateAddressUsecase
-import br.com.acalappv4.domain.usecase.address.UpdateAddressUsecase
+import br.com.acalappv4.domain.usecase.address.*
 import jakarta.validation.Valid
-import java.net.URI
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 @RestController
 @RequestMapping("address", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])

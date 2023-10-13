@@ -1,6 +1,6 @@
 package br.com.acalappv4.application.web.link.request
 
-import br.com.acalappv4.application.web.adapter.RequestAdapter
+import br.com.acalappv4.application.web.components.adapter.RequestAdapter
 import br.com.acalappv4.application.web.customer.request.CustomerCreateRequest
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Category
@@ -26,7 +26,7 @@ data class CreateLinkRequest (
         active = true,
         startedAt = LocalDateTime.now(),
         finishedAt = null,
-        invoices = emptyList(),
+        invoices = listOf(),
     )
 
 }

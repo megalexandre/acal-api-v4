@@ -4,6 +4,7 @@ import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.entity.Category
 import java.math.BigDecimal
 import org.springframework.data.domain.Page
+import java.time.LocalDateTime
 
 class CategoryPageResponse (
     val id: String,
@@ -20,7 +21,7 @@ class CategoryPageResponse (
         categoryValue = category.categoryValue,
         waterValue = category.waterValue,
         type = category.type,
-        total = category.categoryValue + category.waterValue
+        total = category.categoryValue + category.waterValue,
     )
 
 }

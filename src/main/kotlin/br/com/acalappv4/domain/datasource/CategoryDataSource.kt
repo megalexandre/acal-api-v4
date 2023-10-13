@@ -1,7 +1,7 @@
 package br.com.acalappv4.domain.datasource
 
 import br.com.acalappv4.common.enums.CategoryType
-import br.com.acalappv4.domain.dto.PageFilterCategory
+import br.com.acalappv4.domain.dto.page.PageFilterCategory
 import br.com.acalappv4.domain.entity.Category
 import org.springframework.data.domain.Page
 

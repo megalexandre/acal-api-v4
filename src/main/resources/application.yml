@@ -10,6 +10,12 @@ spring:
       uri: mongodb://root:example@localhost:27017/
       database: acal_v4
 
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    date-format: yyyy-MM-dd
+    date-time-format: yyyy-MM-dd HH:mm:ss
+
 logging:
   logs:
     level.org.springframework.data.mongodb.core: INFO

@@ -1,8 +1,8 @@
 package br.com.acalappv4.application.web.address.request
 
-import br.com.acalappv4.domain.dto.Page
-import br.com.acalappv4.domain.dto.PageFilterAddress
-import br.com.acalappv4.domain.dto.Sort
+import br.com.acalappv4.domain.dto.page.Page
+import br.com.acalappv4.domain.dto.page.PageFilterAddress
+import br.com.acalappv4.domain.dto.page.Sort
 import br.com.acalappv4.domain.entity.Area
 
 class PageFilterAddressRequest(

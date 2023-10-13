@@ -6,10 +6,12 @@ import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 
 data class Invoice(
+    val id: String,
     val reference: Reference,
     val emission: LocalDateTime,
     val dueDate: LocalDateTime,
-    val invoiceDetails: List<InvoiceDetail>
+    val linkDetail: LinkDetail,
+    val invoiceDetails: List<InvoiceDetail>,
 ) {
 
     val totalValue: BigDecimal = invoiceDetails
@@ -35,3 +37,8 @@ data class Invoice(
 
     val cancellationOfRisk: Boolean = daysInOverDue > 59
 }
+
+data class LinkDetail(
+    val linkId: String,
+    val customer: String
+)

@@ -1,7 +1,7 @@
 package br.com.acalappv4.resource.query
 
 
-import br.com.acalappv4.domain.dto.PageFilterCategory
+import br.com.acalappv4.domain.dto.page.PageFilterCategory
 import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort

@@ -7,14 +7,12 @@ import java.time.LocalDateTime
 
 data class InvoiceDetail(
 
-    val id: String,
     val reason: Reason,
     val value: BigDecimal,
     val dataPaid: LocalDateTime?,
 
 ) : Entity {
     val isPaid: Boolean = dataPaid != null
-
     val isNotPaid: Boolean = dataPaid == null
 }
 

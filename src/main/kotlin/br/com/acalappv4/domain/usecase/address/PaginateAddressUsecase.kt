@@ -1,7 +1,7 @@
 package br.com.acalappv4.domain.usecase.address
 
 import br.com.acalappv4.domain.datasource.AddressDataSource
-import br.com.acalappv4.domain.dto.PageFilterAddress
+import br.com.acalappv4.domain.dto.page.PageFilterAddress
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.usecase.Usecase
 import org.springframework.data.domain.Page

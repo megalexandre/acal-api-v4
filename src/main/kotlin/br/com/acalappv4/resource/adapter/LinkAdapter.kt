@@ -32,10 +32,10 @@ class LinkAdapter{
                 startedAt = startedAt,
                 finishedAt = finishedAt,
                 createdBy = createdBy,
-                invoices = emptyList(),
                 address = toEntity(address),
                 addressMail = toEntity(addressMail),
                 category = CategoryAdapter.toEntity(category),
+                invoices = listOf(),
             )
         }
     }
@@ -43,3 +43,4 @@ class LinkAdapter{
 }
 
 fun Page<LinkDocument>.toLink() = map { LinkAdapter.toEntity(it)  }
+fun List<LinkDocument>.toLink() = map { LinkAdapter.toEntity(it)  }

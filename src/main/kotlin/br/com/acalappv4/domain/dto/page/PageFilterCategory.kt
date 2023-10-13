@@ -1,4 +1,4 @@
-package br.com.acalappv4.domain.dto
+package br.com.acalappv4.domain.dto.page
 
 import br.com.acalappv4.common.enums.CategoryType
 import java.math.BigDecimal

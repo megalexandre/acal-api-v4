@@ -7,6 +7,7 @@ import java.math.BigDecimal.ZERO
 val categoryStub = Category(
     id = "1",
     name = "Usúario",
-    value = ZERO,
+    waterValue = ZERO,
+    categoryValue = ZERO,
     type = EFFECTIVE
 )

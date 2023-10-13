@@ -16,7 +16,7 @@ data class Link(
     val startedAt: LocalDateTime,
     val finishedAt: LocalDateTime?,
     val createdBy: String,
-    val invoices: List<Invoice>
+    val invoices: List<Invoice>,
 
 ): Entity {
 

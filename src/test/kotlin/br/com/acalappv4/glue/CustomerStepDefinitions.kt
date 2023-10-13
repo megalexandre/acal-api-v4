@@ -21,7 +21,6 @@ class CustomerStepDefinitions {
             CustomerCreateRequest(
                 name = name,
                 documentNumber = documentNumber,
-                personType = personType,
                 birthDay = LocalDate.parse(birthDay),
                 membershipNumber = membershipNumber,
                 phoneNumbers = null,

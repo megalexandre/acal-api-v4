@@ -24,6 +24,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 
+	implementation("jakarta.validation:jakarta.validation-api")
+
   	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
@@ -38,6 +40,7 @@ dependencies {
 
 	testImplementation("io.cucumber:cucumber-java:7.2.0")
 	testImplementation("io.cucumber:cucumber-junit:7.2.0")
+	testImplementation("io.cucumber:cucumber-spring:7.2.0")
 	developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 
 	testImplementation("io.rest-assured:kotlin-extensions")

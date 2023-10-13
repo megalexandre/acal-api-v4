@@ -6,7 +6,6 @@ import java.math.BigDecimal.ONE
 import java.time.LocalDateTime.now
 
 val invoiceDetailStub = InvoiceDetail(
-    id = "1",
     reason = INVOICE,
     value = ONE,
     dataPaid = now()

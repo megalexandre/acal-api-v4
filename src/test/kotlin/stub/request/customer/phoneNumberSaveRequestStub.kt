@@ -1,4 +1,4 @@
-package stub.request
+package stub.request.customer
 
 import br.com.acalappv4.application.web.customer.request.PhoneNumberSaveRequest
 

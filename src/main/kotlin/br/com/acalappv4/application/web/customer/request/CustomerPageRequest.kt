@@ -1,9 +1,9 @@
 package br.com.acalappv4.application.web.customer.request
 
 import br.com.acalappv4.common.enums.PersonType
-import br.com.acalappv4.domain.dto.Page
-import br.com.acalappv4.domain.dto.PageFilterCustomer
-import br.com.acalappv4.domain.dto.Sort
+import br.com.acalappv4.domain.dto.page.Page
+import br.com.acalappv4.domain.dto.page.PageFilterCustomer
+import br.com.acalappv4.domain.dto.page.Sort
 
 class CustomerPageRequest(
     val id: String?,

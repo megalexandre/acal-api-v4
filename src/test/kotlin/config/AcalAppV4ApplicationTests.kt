@@ -1,12 +1,12 @@
 package config
 
 import br.com.acalappv4.AcalAppV4Application
+import br.com.acalappv4.adapter.LocalDateTimeTypeAdapter
 import br.com.acalappv4.adapter.LocalDateTypeAdapter
 import br.com.acalappv4.resource.repository.CustomerRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.restassured.RestAssured
-import java.time.LocalDate
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +19,8 @@ import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Testcontainers
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = [AcalAppV4Application::class])
@@ -75,6 +77,7 @@ class AcalAppV4ApplicationTests {
 
 	val gson: Gson = GsonBuilder()
 		.registerTypeAdapter(LocalDate::class.java, LocalDateTypeAdapter())
+		.registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeTypeAdapter())
 		.create()
 
 }

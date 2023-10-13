@@ -2,14 +2,22 @@ package br.com.acalappv4.domain.entity
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.time.Month
+import java.time.Year
 
 internal class ReferenceTest{
 
     @Test
-    fun `WHEN create a reference SHOULD return length equals six`(){
-        val reference = Reference(year ="2023", month = "1")
+    fun `WHEN create a reference SHOULD write correctly`(){
 
-        assertEquals("012023", reference.value)
-        assertEquals(6, reference.value.length)
+        repeat(12){
+
+        }
+
+        val reference = Reference(year = Year.of(2023), month = Month.JANUARY)
+        assertEquals("JANUARY/2023", reference.value)
     }
+
+
+
 }
