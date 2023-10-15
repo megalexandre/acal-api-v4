@@ -16,23 +16,20 @@ class ListInvoiceProposalUsecase(
     private val existsInvoiceUsecase: ExistsInvoiceByLinkAndReferenceProposalUsecase,
 ) : Usecase<Reference, List<Proposal>> {
 
-    override fun execute(input: Reference): List<Proposal>{
-        val allProposal = allProposal(input)
-        return allProposal
-            .distinctBy { it.address.area.name }
-            .sortedBy { it.address.area.name }
-            .map {invoiceProposal ->
-                Proposal(
-                    area = invoiceProposal.address.area.name,
-                    invoices = allProposal.filter { it.address.area.id == invoiceProposal.address.area.id }
-                )
-            }
-    }
+    override fun execute(input: Reference): List<Proposal> = createProposal(allProposal(input))
 
-
-
-
-
+    private fun createProposal(allProposal: List<InvoiceProposal>): List<Proposal> =
+        allProposal
+        .distinctBy { it.address.area.name }
+        .sortedBy { it.address.area.name }
+        .map {invoiceProposal ->
+            Proposal(
+                area = invoiceProposal.address.area.name,
+                invoices = allProposal
+                    .filter { it.address.area.id == invoiceProposal.address.area.id }
+                    .sortedBy { it.address.area.name }
+            )
+        }
 
     private fun allProposal(input: Reference): List<InvoiceProposal> = linkListUsecase
         .execute(LinkFilter(active = true))
