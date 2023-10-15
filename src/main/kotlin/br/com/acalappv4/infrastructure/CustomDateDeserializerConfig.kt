@@ -20,21 +20,19 @@ class CustomDateDeserializerConfig(
     val objectMapper: ObjectMapper
 ) {
     @Bean
-    fun customDateModule(): Module {
+    fun customDateModule(): Module =
+        SimpleModule().apply {
 
-        val module = SimpleModule()
-        module.addDeserializer(LocalDate::class.java, CustomLocalDateDeserializer())
-        module.addDeserializer(LocalDateTime::class.java, CustomLocalDateTimeDeserializer())
-        module.addDeserializer(Reference::class.java, ReferenceDeserializer())
+            addDeserializer(LocalDate::class.java, CustomLocalDateDeserializer())
+            addDeserializer(LocalDateTime::class.java, CustomLocalDateTimeDeserializer())
+            addDeserializer(Reference::class.java, ReferenceDeserializer())
+            addSerializer(LocalDate::class.java, CustomLocalDateSerializer())
+            addSerializer(LocalDateTime::class.java, CustomLocalDateTimeSerializer())
+           // addSerializer(Reference::class.java, ReferenceSerializer())
 
-        module.addSerializer(LocalDate::class.java, CustomLocalDateSerializer())
-        module.addSerializer(LocalDateTime::class.java, CustomLocalDateTimeSerializer())
-        module.addSerializer(Reference::class.java, ReferenceSerializer())
+            objectMapper.registerModule(this)
+        }
 
-        objectMapper.registerModule(module)
-
-        return module
-    }
 }
 
 

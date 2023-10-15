@@ -5,9 +5,8 @@ import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.apache.http.HttpStatus.SC_CREATED
-import org.hamcrest.Matchers.hasKey
 import org.junit.jupiter.api.Test
-import stub.request.invoice.createInvoiceProposalRequestStub
+import stub.request.invoice.createInvoiceRequestStub
 
 class ListInvoiceProposal: AcalAppV4ApplicationTests() {
 
@@ -16,7 +15,7 @@ class ListInvoiceProposal: AcalAppV4ApplicationTests() {
         val header = mutableMapOf<String,String>()
         header["Content-Type"] = "application/json"
 
-        val body = gson.toJson(createInvoiceProposalRequestStub)
+        val body = gson.toJson(createInvoiceRequestStub)
 
         Given {
             headers(header)

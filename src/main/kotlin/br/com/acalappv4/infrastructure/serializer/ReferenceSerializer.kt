@@ -6,9 +6,8 @@ import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 
 class ReferenceSerializer : JsonSerializer<Reference>() {
-
-    override fun serialize(value: Reference?, gen: JsonGenerator?, serializers: SerializerProvider?) {
-        value?.let {gen?.writeString(it.value) } ?: {""}
+    override fun serialize(value: Reference, gen: JsonGenerator?, serializers: SerializerProvider?) {
+        value.let {gen?.writeString(it.value) }
     }
 
 }

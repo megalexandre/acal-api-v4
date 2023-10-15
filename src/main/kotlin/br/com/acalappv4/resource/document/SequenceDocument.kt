@@ -9,8 +9,6 @@ data class SequenceDocument (
     @Id
     val id: String,
 
-    val name: String,
-
     val value: Long,
 
 ): DocumentItem
