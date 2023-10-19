@@ -23,7 +23,6 @@ class LinkController(
     private val findAll: FindAllLinkUsecase,
     private val paginate: PaginateLinkUsecase,
 ) {
-
     @PostMapping
     fun create(@Valid @RequestBody request: CreateLinkRequest) =
         created(URI("POST/link")).body(create.execute(request.toEntity()))

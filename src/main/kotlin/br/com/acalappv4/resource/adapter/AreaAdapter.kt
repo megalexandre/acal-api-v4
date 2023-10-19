@@ -5,8 +5,7 @@ import br.com.acalappv4.resource.document.AreaDocument
 import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.Page
 
-class AreaAdapter {
-
+class AreaAdapter{
     companion object: ResourceAdapter<AreaDocument, Area>{
 
         override fun toEntity(document: AreaDocument): Area = with(document){
@@ -24,6 +23,8 @@ class AreaAdapter {
             )
         }
     }
+
+
 
 }
 

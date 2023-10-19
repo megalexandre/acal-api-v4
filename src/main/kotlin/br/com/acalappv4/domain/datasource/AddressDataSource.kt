@@ -1,6 +1,7 @@
 package br.com.acalappv4.domain.datasource
 
-import br.com.acalappv4.domain.dto.page.PageFilterAddress
+import br.com.acalappv4.domain.dto.list.AddressFilter
+import br.com.acalappv4.domain.dto.page.AddressPageFilter
 import br.com.acalappv4.domain.entity.Address
 import org.springframework.data.domain.Page
 
@@ -12,11 +13,11 @@ interface AddressDataSource {
 
     fun delete(id: String)
 
-    fun paginate(pageFilterAddress: PageFilterAddress): Page<Address>
+    fun paginate(addressPageFilter: AddressPageFilter): Page<Address>
 
     fun findAll(): List<Address>
 
-    fun findAll(pageFilterAddress: PageFilterAddress): List<Address>
+    fun findAll(filter: AddressFilter): List<Address>
 
     fun findById(id: String): Address?
 

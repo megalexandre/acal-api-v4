@@ -1,9 +1,9 @@
 package br.com.acalappv4.resource.document
 
 import br.com.acalappv4.common.enums.PersonType
-import java.time.LocalDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.time.LocalDate
 
 @Document(collection = "customer")
 data class CustomerDocument (
@@ -22,7 +22,7 @@ data class CustomerDocument (
     val membershipNumber: String,
     val phoneNumber: List<PhoneNumberDocumentItem>?,
     val active: Boolean
-)
+) : DocumentItem
 
 data class PhoneNumberDocumentItem(
     val preferential: Boolean,

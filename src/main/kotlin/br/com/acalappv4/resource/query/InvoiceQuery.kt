@@ -1,21 +1,21 @@
 package br.com.acalappv4.resource.query
 
 import br.com.acalappv4.domain.dto.list.InvoiceFilter
-import br.com.acalappv4.resource.query.def.DefQuery
+import br.com.acalappv4.resource.query.pagesort.PaginateAndSortQuery
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 
-class InvoiceQuery: DefQuery() {
+class InvoiceQuery: PaginateAndSortQuery<InvoiceFilter>() {
 
-    fun query(invoiceFilter: InvoiceFilter?): Query = Query().apply {
-        if(invoiceFilter != null){
-            with(invoiceFilter){
+    override fun query(filter: InvoiceFilter?): Query = Query().apply {
+        if(filter != null){
+            with(filter){
                 if (!id.isNullOrEmpty()) {
                     addCriteria(Criteria.where("id").`is`(id))
                 }
 
-                if (link?.id != null) {
-                    addCriteria(Criteria.where("link.id").`is`(link.id))
+                if(!linkId.isNullOrEmpty()){
+                    addCriteria(Criteria.where("link.id").`is`(linkId))
                 }
 
                 if (reference != null) {
@@ -26,6 +26,7 @@ class InvoiceQuery: DefQuery() {
             }
         }
     }
+
 }
 
 

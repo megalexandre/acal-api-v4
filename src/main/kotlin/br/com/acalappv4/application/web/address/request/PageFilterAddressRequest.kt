@@ -1,7 +1,8 @@
 package br.com.acalappv4.application.web.address.request
 
+import br.com.acalappv4.domain.dto.list.AddressFilter
+import br.com.acalappv4.domain.dto.page.AddressPageFilter
 import br.com.acalappv4.domain.dto.page.Page
-import br.com.acalappv4.domain.dto.page.PageFilterAddress
 import br.com.acalappv4.domain.dto.page.Sort
 import br.com.acalappv4.domain.entity.Area
 
@@ -15,12 +16,14 @@ class PageFilterAddressRequest(
     val sort: Sort?,
 ){
 
-    fun toEntity(): PageFilterAddress = PageFilterAddress(
-        id = id,
-        number = number,
-        letter = letter,
-        hasHydrometer = hasHydrometer,
-        area = area,
+    fun toEntity(): AddressPageFilter = AddressPageFilter(
+        filter = AddressFilter(
+            id = id,
+            number = number,
+            letter = letter,
+            hasHydrometer = hasHydrometer,
+            area = area,
+        ),
         page = page,
         sort = sort,
     )

@@ -5,5 +5,6 @@ enum class Reason {
     INVOICE,
     CATEGORY,
     WATER,
+    HYDROMETER,
 
 }

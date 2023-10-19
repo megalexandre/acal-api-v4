@@ -1,6 +1,7 @@
 package br.com.acalappv4.application.web.proposal
 
 import br.com.acalappv4.application.web.proposal.request.CreateProposalRequest
+import br.com.acalappv4.application.web.proposal.response.CreateProposalResponse
 import br.com.acalappv4.domain.usecase.invoice.ListInvoiceProposalUsecase
 import jakarta.validation.Valid
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
@@ -17,6 +18,6 @@ class ProposalController(
 ) {
     @PostMapping
     fun createProposal(@Valid @RequestBody request: CreateProposalRequest) =
-        ok(listProposal.execute(request.reference))
+        ok(listProposal.execute(request.reference).map { CreateProposalResponse(it) })
 
 }

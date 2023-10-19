@@ -11,4 +11,5 @@ import java.time.format.DateTimeFormatter.ofPattern
 class CustomLocalDateDeserializer : JsonDeserializer<LocalDate>() {
     override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalDate =
         parse(p.text, ofPattern(LOCAL_DATE_FORMAT))
+
 }

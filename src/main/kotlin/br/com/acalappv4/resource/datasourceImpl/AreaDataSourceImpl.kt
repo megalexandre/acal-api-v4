@@ -1,12 +1,16 @@
 package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.datasource.AreaDataSource
-import br.com.acalappv4.domain.dto.page.PageFilterArea
+import br.com.acalappv4.domain.dto.page.AreaPageFilter
 import br.com.acalappv4.domain.entity.Area
+import br.com.acalappv4.domain.entity.interfaces.Entity
+import br.com.acalappv4.resource.adapter.AreaAdapter
 import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.AreaAdapter.Companion.toEntity
+import br.com.acalappv4.resource.adapter.ResourceAdapter
 import br.com.acalappv4.resource.adapter.toArea
 import br.com.acalappv4.resource.document.AreaDocument
+import br.com.acalappv4.resource.document.DocumentItem
 import br.com.acalappv4.resource.event.Event.AREA_UPDATED
 import br.com.acalappv4.resource.event.UpdatedDocumentEvent
 import br.com.acalappv4.resource.query.AreaQuery
@@ -17,6 +21,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.mongodb.core.MongoTemplate
+import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -41,14 +46,15 @@ class AreaDataSourceImpl(
 
     override fun delete(id: String) = repository.deleteById(id)
 
-    override fun paginate(pageFilterArea: PageFilterArea): Page<Area> {
-        val areaQuery = AreaQuery(pageFilterArea)
+    override fun paginate(areaPageFilter: AreaPageFilter): Page<Area> {
+        val areaQuery = AreaQuery()
 
-        val pageable = areaQuery.pageRequest()
-        val query = areaQuery.query().with(pageable)
+        val pageable = areaQuery.pageRequest(areaPageFilter)
+        val query = areaQuery.query(areaPageFilter.filter).with(pageable)
+        val countTotal = areaQuery.query(areaPageFilter.filter)
 
         val list = mongoTemplate.find(query, AreaDocument::class.java)
-        val count: Long = mongoTemplate.count(query, AreaDocument::class.java)
+        val count: Long = mongoTemplate.count(countTotal, AreaDocument::class.java)
         val page = PageImpl(list, pageable, count)
 
         return page.toArea()

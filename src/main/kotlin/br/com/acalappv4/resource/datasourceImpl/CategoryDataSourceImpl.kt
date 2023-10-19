@@ -1,7 +1,7 @@
 package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.common.enums.CategoryType
-import br.com.acalappv4.domain.dto.page.PageFilterCategory
+import br.com.acalappv4.domain.dto.page.CategoryPageFilter
 import br.com.acalappv4.domain.entity.Category
 import br.com.acalappv4.domain.datasource.CategoryDataSource
 import br.com.acalappv4.resource.adapter.CategoryAdapter.Companion.toDocument
@@ -42,12 +42,12 @@ class CategoryDataSourceImpl(
         .map { toEntity(it) }
         .getOrNull()
 
-    override fun paginate(pageFilterCategory: PageFilterCategory): Page<Category> {
-        val categoryQuery = CategoryQuery(pageFilterCategory)
+    override fun paginate(categoryPageFilter: CategoryPageFilter): Page<Category> {
+        val categoryQuery = CategoryQuery()
 
-        val pageable = categoryQuery.pageRequest()
-        val query = categoryQuery.query().with(pageable)
-        val countTotal = categoryQuery.query()
+        val pageable = categoryQuery.pageRequest(categoryPageFilter)
+        val query = categoryQuery.query(categoryPageFilter.filter).with(pageable)
+        val countTotal = categoryQuery.query(categoryPageFilter.filter)
 
         val list = mongoTemplate.find(query, CategoryDocument::class.java)
         val count: Long = mongoTemplate.count(countTotal, CategoryDocument::class.java)
@@ -55,7 +55,5 @@ class CategoryDataSourceImpl(
 
         return page.toCategory()
     }
-
-
 
 }

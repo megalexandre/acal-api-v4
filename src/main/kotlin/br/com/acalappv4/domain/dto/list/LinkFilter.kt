@@ -12,4 +12,4 @@ class LinkFilter(
     val customer: Customer? = null,
     val active: Boolean? = null,
     val createdBy: String ? = null,
-): DefaultFilter()
+): DefaultFilter

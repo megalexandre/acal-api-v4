@@ -2,13 +2,14 @@ package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.datasource.LinkDataSource
 import br.com.acalappv4.domain.dto.list.LinkFilter
-import br.com.acalappv4.domain.dto.page.PageFilterLink
+import br.com.acalappv4.domain.dto.page.LinkPageFilter
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Link
 import br.com.acalappv4.resource.adapter.LinkAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.LinkAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toLink
 import br.com.acalappv4.resource.document.AddressDocument
+import br.com.acalappv4.resource.document.CustomerDocument
 import br.com.acalappv4.resource.document.LinkDocument
 import br.com.acalappv4.resource.event.UpdatedDocumentEvent
 import br.com.acalappv4.resource.query.LinkQuery
@@ -43,6 +44,18 @@ class LinkDataSourceImpl(
         }
     }
 
+    @EventListener(condition = "#event.name eq 'CUSTOMER_UPDATED'")
+    fun customerUpdated(event: UpdatedDocumentEvent) {
+
+        if(event.payload is CustomerDocument){
+            val customer: CustomerDocument = event.payload
+
+            repository.findByCustomerId(customer.id)?.let { links ->
+                repository.saveAll(links.map {it.copy(customer = customer) })
+            }
+        }
+    }
+
     override fun existsByCustomer(customerId: String): Boolean =
         !repository.findByCustomerId(customerId).isNullOrEmpty()
 
@@ -55,12 +68,12 @@ class LinkDataSourceImpl(
     override fun findAll(input: LinkFilter): List<Link> =
         mongoTemplate.find(LinkQuery().query(input), LinkDocument::class.java).toLink()
 
-    override fun paginate(pageFilterLink: PageFilterLink): Page<Link> {
+    override fun paginate(linkPageFilter: LinkPageFilter): Page<Link> {
         val linkQuery = LinkQuery()
 
-        val pageable = linkQuery.pageRequest(pageFilterLink)
-        val query = linkQuery.query(pageFilterLink.linkFilter).with(pageable)
-        val countTotal = linkQuery.query(pageFilterLink.linkFilter)
+        val pageable = linkQuery.pageRequest(linkPageFilter)
+        val query = linkQuery.query(linkPageFilter.linkFilter).with(pageable)
+        val countTotal = linkQuery.query(linkPageFilter.linkFilter)
 
         val list = mongoTemplate.find(query, LinkDocument::class.java)
         val count: Long = mongoTemplate.count(countTotal, LinkDocument::class.java)

@@ -9,5 +9,11 @@ import java.time.Year
 
 class ReferenceDeserializer : JsonDeserializer<Reference>() {
     override fun deserialize(p: JsonParser, ctxt: DeserializationContext): Reference =
-        Reference(Year.of(p.text.substring(3,7).toInt()), Month.of(p.text.substring(0,2).toInt()))
+
+        when(p.text.length){
+            6 -> Reference(Year.of(p.text.substring(2,6).toInt()), Month.of(p.text.substring(0,2).toInt()))
+            else ->  Reference(Year.of(p.text.substring(3,7).toInt()), Month.of(p.text.substring(0,2).toInt()))
+        }
+
+
 }

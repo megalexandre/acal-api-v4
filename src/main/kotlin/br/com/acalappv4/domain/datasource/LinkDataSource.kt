@@ -1,7 +1,7 @@
 package br.com.acalappv4.domain.datasource
 
 import br.com.acalappv4.domain.dto.list.LinkFilter
-import br.com.acalappv4.domain.dto.page.PageFilterLink
+import br.com.acalappv4.domain.dto.page.LinkPageFilter
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.entity.Link
 import org.springframework.data.domain.Page
@@ -18,5 +18,5 @@ interface LinkDataSource {
 
     fun findAll(input: LinkFilter): List<Link>
 
-    fun paginate(pageFilterLink: PageFilterLink): Page<Link>
+    fun paginate(linkPageFilter: LinkPageFilter): Page<Link>
 }

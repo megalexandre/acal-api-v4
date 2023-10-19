@@ -1,8 +1,8 @@
 package br.com.acalappv4.domain.usecase.customer
 
+import br.com.acalappv4.domain.datasource.CustomerDataSource
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
-import br.com.acalappv4.domain.datasource.CustomerDataSource
 import br.com.acalappv4.domain.usecase.Usecase
 import org.springframework.stereotype.Service
 
@@ -30,7 +30,7 @@ class UpdateCustomerUsecase(
 
             }
 
-        return customerDataSource.save(input)
+        return customerDataSource.update(input)
     }
 
 

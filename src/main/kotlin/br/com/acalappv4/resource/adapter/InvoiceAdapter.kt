@@ -7,7 +7,6 @@ import br.com.acalappv4.resource.document.LinkDetailDocument
 import org.springframework.data.domain.Page
 
 class InvoiceAdapter{
-
     companion object: ResourceAdapter<InvoiceDocument, Invoice> {
         override fun toDocument(entity: Invoice): InvoiceDocument = with(entity){
             InvoiceDocument(

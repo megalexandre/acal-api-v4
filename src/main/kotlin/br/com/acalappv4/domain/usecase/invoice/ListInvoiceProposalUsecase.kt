@@ -20,20 +20,20 @@ class ListInvoiceProposalUsecase(
 
     private fun createProposal(allProposal: List<InvoiceProposal>): List<Proposal> =
         allProposal
-        .distinctBy { it.address.area.name }
-        .sortedBy { it.address.area.name }
-        .map {invoiceProposal ->
-            Proposal(
-                area = invoiceProposal.address.area.name,
-                invoices = allProposal
-                    .filter { it.address.area.id == invoiceProposal.address.area.id }
-                    .sortedBy { it.address.area.name }
-            )
-        }
+            .distinctBy { it.address.area.name }
+            .sortedBy { it.address.area.name }
+            .map {invoiceProposal ->
+                Proposal(
+                    area = invoiceProposal.address.area.name,
+                    invoices = allProposal
+                        .filter { it.address.area.id == invoiceProposal.address.area.id }
+                        .sortedBy { it.address.area.name }
+                )
+            }
 
     private fun allProposal(input: Reference): List<InvoiceProposal> = linkListUsecase
         .execute(LinkFilter(active = true))
-        .filter { !existsInvoiceUsecase.execute(InvoiceFilter(reference = input, link = it)) }
+        .filter { !existsInvoiceUsecase.execute(InvoiceFilter(reference = input, linkId = it.id)) }
         .map {
             InvoiceProposal(
                 reference = input,

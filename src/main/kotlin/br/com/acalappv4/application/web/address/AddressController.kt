@@ -25,7 +25,7 @@ class AddressController(
     private val findById: FindAddressByIdUsecase,
     private val delete: DeleteAddressUsecase,
     private val paginate: PaginateAddressUsecase,
-    ){
+){
 
     @PostMapping
     fun create(@Valid @RequestBody request: CreateAddressRequest): ResponseEntity<CreateAddressResponse> =
@@ -44,8 +44,7 @@ class AddressController(
     fun findAll() = ok().body(findAll.execute(Unit).toAddressResponse() )
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: String) =
-        ok(delete.execute(id.trim()))
+    fun delete(@PathVariable id: String) = ok(delete.execute(id.trim()))
 
     @PostMapping("/paginate")
     fun paginate(@RequestBody pageFilterRequest: PageFilterAddressRequest) =

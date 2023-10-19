@@ -1,6 +1,6 @@
 package br.com.acalappv4.domain.datasource
 
-import br.com.acalappv4.domain.dto.page.PageFilterArea
+import br.com.acalappv4.domain.dto.page.AreaPageFilter
 import br.com.acalappv4.domain.entity.Area
 import org.springframework.data.domain.Page
 
@@ -12,7 +12,7 @@ interface AreaDataSource {
 
     fun delete(id: String)
 
-    fun paginate(pageFilterArea: PageFilterArea): Page<Area>
+    fun paginate(areaPageFilter: AreaPageFilter): Page<Area>
 
     fun findAll(): List<Area>
 

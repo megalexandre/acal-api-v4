@@ -1,13 +1,16 @@
-package br.com.acalappv4.resource.query.def
+package br.com.acalappv4.resource.query.pagesort
 
+import br.com.acalappv4.domain.dto.list.DefaultFilter
 import br.com.acalappv4.domain.dto.page.PageFilter
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction.ASC
+import org.springframework.data.mongodb.core.query.Query
 
-open class DefQuery {
+abstract class PaginateAndSortQuery<T: DefaultFilter> {
 
-    private val defaultSort = Sort.by( ASC,"id")
+    private val id = "id"
+    private val defaultSort = Sort.by(ASC,id)
 
     fun pageRequest(page: PageFilter): PageRequest =
         PageRequest.of(
@@ -16,10 +19,12 @@ open class DefQuery {
 
             when(val sort = page.sort){
                 null -> defaultSort
-                else -> Sort.by( sort.direction?: ASC, sort.field ?: "name")
+                else -> Sort.by( sort.direction?: ASC, sort.field ?: id)
             }
         )
 
+    abstract fun query(filter: T?): Query
 }
+
 
 

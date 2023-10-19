@@ -1,5 +1,6 @@
 package br.com.acalappv4.infrastructure
 
+import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinFeature.*
@@ -13,6 +14,7 @@ class ObjectMapperConfig{
 
     @Bean
     fun objectMapper(): ObjectMapper = ObjectMapper()
+        .disable(FAIL_ON_UNKNOWN_PROPERTIES)
         .registerModule(
             KotlinModule.Builder()
                 .withReflectionCacheSize(512)
@@ -23,4 +25,6 @@ class ObjectMapperConfig{
                 .configure(StrictNullChecks, false)
             .build()
         ).registerModule(JavaTimeModule())
+
 }
+

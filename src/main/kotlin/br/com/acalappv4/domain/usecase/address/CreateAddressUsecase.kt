@@ -1,7 +1,7 @@
 package br.com.acalappv4.domain.usecase.address
 
 import br.com.acalappv4.domain.datasource.AddressDataSource
-import br.com.acalappv4.domain.dto.page.PageFilterAddress
+import br.com.acalappv4.domain.dto.list.AddressFilter
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
 import br.com.acalappv4.domain.usecase.Usecase
@@ -18,13 +18,11 @@ class CreateAddressUsecase  (
     }
 
     private fun validDuplicity(input: Address){
-        if(dataSource.findAll(pageFilterAddress = PageFilterAddress(
-                number = input.number,
-                letter = input.letter,
-                area = input.area,
-            )
-            ).isNotEmpty()
-        ){
+        if(dataSource.findAll(AddressFilter(
+            number = input.number,
+            letter = input.letter,
+            area = input.area,
+        )).isNotEmpty()){
             throw InvalidUsecaseException("duplicated address")
         }
     }

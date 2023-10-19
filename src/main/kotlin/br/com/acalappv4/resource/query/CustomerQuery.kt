@@ -1,48 +1,35 @@
 package br.com.acalappv4.resource.query
 
-import br.com.acalappv4.domain.dto.page.PageFilterCustomer
+import br.com.acalappv4.domain.dto.list.CustomerFilter
+import br.com.acalappv4.resource.query.pagesort.PaginateAndSortQuery
 import br.com.acalappv4.util.normalize
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
-import org.springframework.data.domain.Sort.Direction.ASC
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
 
-class CustomerQuery(private val customerFilter: PageFilterCustomer) {
+class CustomerQuery: PaginateAndSortQuery<CustomerFilter>() {
 
-    private val defaultSort = Sort.by( ASC,"id")
+    override fun query(filter: CustomerFilter?): Query = Query().apply {
+        if (filter != null) {
+            with(filter) {
+                if (!id.isNullOrEmpty()) {
+                    addCriteria(Criteria.where("id").`is`(id))
+                }
 
-    fun pageRequest(): PageRequest =
-        PageRequest.of(
-            customerFilter.page?.number ?: 0,
-            customerFilter.page?.size ?: 10,
+                if (!name.isNullOrEmpty()) {
+                    addCriteria(Criteria.where("nameNormalized").regex(name.normalize()))
+                }
 
-            when(val sort = customerFilter.sort){
-                null -> defaultSort
-                else -> Sort.by( sort.direction?: ASC, sort.field ?: "name")
-            }
-        )
+                if (!documentNumber.isNullOrEmpty()) {
+                    addCriteria(Criteria.where("documentNumber.number").regex("^${documentNumber.normalize()}"))
+                }
 
-    fun query(): Query = Query().apply {
-        with(customerFilter){
-            if (!id.isNullOrEmpty()) {
-                addCriteria(Criteria.where("id").`is`(id))
-            }
+                if (personType != null) {
+                    addCriteria(Criteria.where("personType").`is`(personType))
+                }
 
-            if (!name.isNullOrEmpty()) {
-                addCriteria(Criteria.where("nameNormalized").regex(name.normalize()))
-            }
-
-            if (!documentNumber.isNullOrEmpty()) {
-                addCriteria(Criteria.where("documentNumber.number").regex("^${documentNumber.normalize()}"))
-            }
-
-            if (personType != null) {
-                addCriteria(Criteria.where("personType").`is`(personType))
-            }
-
-            if (active != null) {
-                addCriteria(Criteria.where("active").`is`(active))
+                if (active != null) {
+                    addCriteria(Criteria.where("active").`is`(active))
+                }
             }
         }
     }

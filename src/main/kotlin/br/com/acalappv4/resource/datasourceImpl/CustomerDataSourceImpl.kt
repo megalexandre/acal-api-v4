@@ -1,51 +1,63 @@
 package br.com.acalappv4.resource.datasourceImpl
 
-import br.com.acalappv4.domain.dto.page.PageFilterCustomer
+import br.com.acalappv4.domain.datasource.CustomerDataSource
+import br.com.acalappv4.domain.dto.page.CustomerPageFilter
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.DocumentNumber
-import br.com.acalappv4.domain.datasource.CustomerDataSource
 import br.com.acalappv4.resource.adapter.CustomerAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.CustomerAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.toCustomer
 import br.com.acalappv4.resource.document.CustomerDocument
+import br.com.acalappv4.resource.event.Event.CUSTOMER_UPDATED
+import br.com.acalappv4.resource.event.UpdatedDocumentEvent
 import br.com.acalappv4.resource.query.CustomerQuery
 import br.com.acalappv4.resource.repository.CustomerRepository
-import kotlin.jvm.optionals.getOrNull
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
+import kotlin.jvm.optionals.getOrNull
 
 
 @Repository
 class CustomerDataSourceImpl(
-    private val customerRepository: CustomerRepository,
+    private val repository: CustomerRepository,
     private val mongoTemplate: MongoTemplate,
+    private val publisher: ApplicationEventPublisher,
 ): CustomerDataSource {
 
-    override fun save(customer: Customer): Customer = toEntity(customerRepository.save(toDocument(customer)))
+    @Transactional
+    override fun save(customer: Customer): Customer = toEntity(repository.save(toDocument(customer)))
 
-    override fun delete(id: String) = customerRepository.deleteById(id)
+    @Transactional
+    override fun update(customer: Customer): Customer =
+        toEntity(repository.save(toDocument(customer)).also {
+            publisher.publishEvent(UpdatedDocumentEvent(CUSTOMER_UPDATED.name, it))
+        })
+
+    override fun delete(id: String) = repository.deleteById(id)
 
     override fun existsByDocument(documentNumber: DocumentNumber): Boolean =
-        customerRepository.existsByDocumentNumberNumber(documentNumber.number)
+        repository.existsByDocumentNumberNumber(documentNumber.number)
 
     override fun findById(id: String): Customer? =
-        customerRepository.findById(id)
+        repository.findById(id)
             .map { toEntity(it) }
             .getOrNull()
 
     override fun findByDocument(documentNumber: DocumentNumber): Customer? =
-        customerRepository.findByDocumentNumberNumber(documentNumber.number)
+        repository.findByDocumentNumberNumber(documentNumber.number)
             .map { toEntity(it) }
             .getOrNull()
 
-    override fun paginate(pageFilterCustomer: PageFilterCustomer): Page<Customer> {
-        val customerQuery = CustomerQuery(pageFilterCustomer)
+    override fun paginate(customerPageFilter: CustomerPageFilter): Page<Customer> {
+        val customerQuery = CustomerQuery()
 
-        val pageable = customerQuery.pageRequest()
-        val query = customerQuery.query().with(pageable)
-        val countTotal = customerQuery.query()
+        val pageable = customerQuery.pageRequest(customerPageFilter)
+        val query = customerQuery.query(customerPageFilter.filter).with(pageable)
+        val countTotal = customerQuery.query(customerPageFilter.filter)
 
         val list = mongoTemplate.find(query, CustomerDocument::class.java)
         val count: Long = mongoTemplate.count(countTotal, CustomerDocument::class.java)

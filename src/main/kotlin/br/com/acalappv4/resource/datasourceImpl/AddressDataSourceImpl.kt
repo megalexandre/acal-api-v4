@@ -1,10 +1,12 @@
 package br.com.acalappv4.resource.datasourceImpl
 
 import br.com.acalappv4.domain.datasource.AddressDataSource
-import br.com.acalappv4.domain.dto.page.PageFilterAddress
+import br.com.acalappv4.domain.dto.list.AddressFilter
+import br.com.acalappv4.domain.dto.page.AddressPageFilter
 import br.com.acalappv4.domain.entity.Address
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toDocument
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toEntity
+import br.com.acalappv4.resource.adapter.AreaAdapter
 import br.com.acalappv4.resource.adapter.toAddress
 import br.com.acalappv4.resource.document.AddressDocument
 import br.com.acalappv4.resource.document.AreaDocument
@@ -12,7 +14,6 @@ import br.com.acalappv4.resource.event.Event.ADDRESS_UPDATED
 import br.com.acalappv4.resource.event.UpdatedDocumentEvent
 import br.com.acalappv4.resource.query.AddressQuery
 import br.com.acalappv4.resource.repository.AddressRepository
-import kotlin.jvm.optionals.getOrNull
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.event.EventListener
 import org.springframework.data.domain.Page
@@ -20,6 +21,7 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class AddressDataSourceImpl(
@@ -51,21 +53,22 @@ class AddressDataSourceImpl(
 
     override fun delete(id: String) = repository.deleteById(id)
 
-    override fun paginate(pageFilterAddress: PageFilterAddress): Page<Address> {
-        val areaQuery = AddressQuery(pageFilterAddress)
+    override fun paginate(addressPageFilter: AddressPageFilter): Page<Address> {
+        val areaQuery = AddressQuery()
 
-        val pageable = areaQuery.pageRequest()
-        val query = areaQuery.query().with(pageable)
+        val pageable = areaQuery.pageRequest(addressPageFilter)
+        val query = areaQuery.query(addressPageFilter.filter).with(pageable)
+        val countTotal = areaQuery.query(addressPageFilter.filter)
 
         val list = mongoTemplate.find(query, AddressDocument::class.java)
-        val count: Long = mongoTemplate.count(query, AddressDocument::class.java)
+        val count: Long = mongoTemplate.count(countTotal, AddressDocument::class.java)
         val page = PageImpl(list, pageable, count)
 
         return page.toAddress()
     }
 
-    override fun findAll(pageFilterAddress: PageFilterAddress): List<Address> =
-        mongoTemplate.find( AddressQuery(pageFilterAddress).query(), AddressDocument::class.java).map { toEntity(it) }
+    override fun findAll(filter: AddressFilter): List<Address> =
+        mongoTemplate.find(AddressQuery().query(filter), AddressDocument::class.java).map { toEntity(it) }
 
     override fun findAll(): List<Address> =
         repository.findAll().map { toEntity(it) }
