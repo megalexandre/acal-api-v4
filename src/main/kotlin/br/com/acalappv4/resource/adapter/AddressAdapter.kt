@@ -20,7 +20,6 @@ class AddressAdapter {
                 hasHydrometer = hasHydrometer,
             )
         }
-
         override fun toDocument(entity: Address): AddressDocument = with(entity){ AddressDocument(
             id = id,
             area = toDocument(area),

@@ -10,10 +10,6 @@ import java.time.format.DateTimeFormatter.ofPattern
 
 class CustomLocalDateTimeDeserializer : JsonDeserializer<LocalDateTime>() {
     override fun deserialize(p: JsonParser, ctxt: DeserializationContext): LocalDateTime =
-        runCatching {
-            parse(p.text, ofPattern(Constants.LOCAL_DATE_TIME_WEB_APP_FORMAT))
-        }.getOrElse {
-            parse(p.text, ofPattern(Constants.LOCAL_DATE_FORMAT))
-        }
+        parse(p.text, ofPattern(Constants.LOCAL_DATE_FORMAT))
 
 }

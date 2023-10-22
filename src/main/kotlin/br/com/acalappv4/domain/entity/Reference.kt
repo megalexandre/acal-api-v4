@@ -8,7 +8,6 @@ class Reference(
     val year: Year,
     val month: Month
 ) {
-
     constructor(value: String): this(
         year = Year.of(value.substring(3,7).toInt()),
         month = Month.of(value.substring(0,2).toInt())
