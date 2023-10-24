@@ -2,7 +2,7 @@ package br.com.acalappv4.application.web.invoice.response
 
 import br.com.acalappv4.domain.entity.Invoice
 
-data class CreateInvoiceResponse (
+data class InvoiceCreateResponse (
     val id: String,
 ){
     constructor(invoice: Invoice) : this(

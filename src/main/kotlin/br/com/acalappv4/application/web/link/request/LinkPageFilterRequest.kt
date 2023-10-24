@@ -8,7 +8,7 @@ import br.com.acalappv4.domain.dto.page.LinkPageFilter
 import br.com.acalappv4.domain.dto.page.Page
 import br.com.acalappv4.domain.dto.page.Sort
 
-class PageFilterLinkRequest(
+class LinkPageFilterRequest(
     val id: String? = null,
     val customer: CustomerFilterRequest? = null,
     val category: CategoryFilterRequest? = null,

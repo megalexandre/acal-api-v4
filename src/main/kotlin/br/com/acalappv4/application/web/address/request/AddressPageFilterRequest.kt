@@ -6,7 +6,7 @@ import br.com.acalappv4.domain.dto.page.Page
 import br.com.acalappv4.domain.dto.page.Sort
 import br.com.acalappv4.domain.entity.Area
 
-class PageFilterAddressRequest(
+class AddressPageFilterRequest(
     val id: String?,
     val number: String? = null,
     val area: Area? = null,

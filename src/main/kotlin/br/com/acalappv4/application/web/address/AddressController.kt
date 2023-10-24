@@ -1,10 +1,10 @@
 package br.com.acalappv4.application.web.address
 
-import br.com.acalappv4.application.web.address.request.CreateAddressRequest
-import br.com.acalappv4.application.web.address.request.PageFilterAddressRequest
-import br.com.acalappv4.application.web.address.request.UpdateAddressRequest
+import br.com.acalappv4.application.web.address.request.AddressCreateRequest
+import br.com.acalappv4.application.web.address.request.AddressPageFilterRequest
+import br.com.acalappv4.application.web.address.request.AddressUpdateRequest
 import br.com.acalappv4.application.web.address.response.AddressResponse
-import br.com.acalappv4.application.web.address.response.CreateAddressResponse
+import br.com.acalappv4.application.web.address.response.AddressCreateResponse
 import br.com.acalappv4.application.web.address.response.toAddressPageResponse
 import br.com.acalappv4.application.web.address.response.toAddressResponse
 import br.com.acalappv4.domain.usecase.address.*
@@ -28,12 +28,12 @@ class AddressController(
 ){
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CreateAddressRequest): ResponseEntity<CreateAddressResponse> =
+    fun create(@Valid @RequestBody request: AddressCreateRequest): ResponseEntity<AddressCreateResponse> =
         created(URI("POST/address")).body(
-            CreateAddressResponse(create.execute(request.toEntity())))
+            AddressCreateResponse(create.execute(request.toEntity())))
 
     @PutMapping
-    fun update(@Valid @RequestBody request: UpdateAddressRequest) = ok(update.execute(request.toEntity()))
+    fun update(@Valid @RequestBody request: AddressUpdateRequest) = ok(update.execute(request.toEntity()))
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: String) = findById.execute(id)?.let { ok().body(AddressResponse(it)) }
@@ -45,7 +45,7 @@ class AddressController(
     fun delete(@PathVariable id: String) = ok(delete.execute(id.trim()))
 
     @PostMapping("/paginate")
-    fun paginate(@RequestBody pageFilterRequest: PageFilterAddressRequest) =
+    fun paginate(@RequestBody pageFilterRequest: AddressPageFilterRequest) =
         ok(paginate.execute(pageFilterRequest.toEntity()).toAddressPageResponse())
 }
 

@@ -4,7 +4,7 @@ import br.com.acalappv4.application.web.area.request.AreaCreateRequest
 import br.com.acalappv4.application.web.area.request.AreaPageFilterRequest
 import br.com.acalappv4.application.web.area.request.AreaUpdateRequest
 import br.com.acalappv4.application.web.area.response.AreaResponse
-import br.com.acalappv4.application.web.area.response.CreateAreaResponse
+import br.com.acalappv4.application.web.area.response.AreaCreateResponse
 import br.com.acalappv4.application.web.area.response.toAreaPageResponse
 import br.com.acalappv4.application.web.area.response.toAreaResponse
 import br.com.acalappv4.domain.usecase.area.*
@@ -28,8 +28,8 @@ class AreaController(
 ) {
 
     @PostMapping
-    fun create(@Valid @RequestBody request: AreaCreateRequest): ResponseEntity<CreateAreaResponse> =
-        created(URI("POST/category")).body(CreateAreaResponse(create.execute(request.toEntity())))
+    fun create(@Valid @RequestBody request: AreaCreateRequest): ResponseEntity<AreaCreateResponse> =
+        created(URI("POST/category")).body(AreaCreateResponse(create.execute(request.toEntity())))
 
     @GetMapping
     fun paginate() = ok(findAll.execute(Unit).map { AreaResponse(it) })

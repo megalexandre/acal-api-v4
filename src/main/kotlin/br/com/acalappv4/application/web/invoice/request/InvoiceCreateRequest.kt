@@ -2,10 +2,9 @@ package br.com.acalappv4.application.web.invoice.request
 
 import br.com.acalappv4.domain.entity.*
 import io.azam.ulidj.ULID
-import java.time.LocalDate
 import java.time.LocalDateTime
 
-data class CreateInvoiceRequest (
+data class InvoiceCreateRequest (
     val reference: Reference,
     val emission: LocalDateTime,
     val dueDate: LocalDateTime,

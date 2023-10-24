@@ -1,8 +1,8 @@
 package br.com.acalappv4.application.web.invoice
 
-import br.com.acalappv4.application.web.invoice.request.CreateInvoiceRequest
+import br.com.acalappv4.application.web.invoice.request.InvoiceCreateRequest
 import br.com.acalappv4.application.web.invoice.request.InvoicePageRequest
-import br.com.acalappv4.application.web.invoice.response.CreateInvoiceResponse
+import br.com.acalappv4.application.web.invoice.response.InvoiceCreateResponse
 import br.com.acalappv4.application.web.invoice.response.InvoicePageResponse
 import br.com.acalappv4.application.web.invoice.response.toInvoicePageResponse
 import br.com.acalappv4.domain.usecase.invoice.CreateInvoiceUsecase
@@ -26,9 +26,9 @@ class InvoiceController(
     private val paginate: PaginateInvoiceUsecase,
 ){
     @PostMapping
-    fun create(@Valid @RequestBody request: List<CreateInvoiceRequest>): ResponseEntity<List<CreateInvoiceResponse>> =
+    fun create(@Valid @RequestBody request: List<InvoiceCreateRequest>): ResponseEntity<List<InvoiceCreateResponse>> =
         created(URI("POST/invoice")).body(
-            create.execute(request.map { it.toInvoice() }).map {CreateInvoiceResponse(it)  }
+            create.execute(request.map { it.toInvoice() }).map {InvoiceCreateResponse(it)  }
         )
     @PostMapping("paginate")
     fun paginate(@RequestBody invoicePageRequest: InvoicePageRequest): ResponseEntity<Page<InvoicePageResponse>> =

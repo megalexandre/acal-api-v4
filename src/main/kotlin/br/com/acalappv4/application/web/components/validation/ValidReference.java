@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = TemporalReferenceConstraint.class)
 @Documented
 public @interface ValidReference {
-  String message() default "{IpAddress.invalid}";
+  String message() default "{valid.reference}";
   Class<?>[] groups() default { };
   Class<? extends Payload>[] payload() default { };
 

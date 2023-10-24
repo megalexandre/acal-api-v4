@@ -2,9 +2,8 @@ package br.com.acalappv4.application.web.category.response
 
 import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.entity.Category
-import java.math.BigDecimal
 import org.springframework.data.domain.Page
-import java.time.LocalDateTime
+import java.math.BigDecimal
 
 class CategoryPageResponse (
     val id: String,
@@ -14,7 +13,6 @@ class CategoryPageResponse (
     val type: CategoryType,
     val total: BigDecimal,
 ){
-
     constructor(category: Category) : this(
         id = category.id,
         name = category.name,
@@ -23,7 +21,6 @@ class CategoryPageResponse (
         type = category.type,
         total = category.categoryValue + category.waterValue,
     )
-
 }
 
 fun Page<Category>.toCategoryPageResponse() = map { CategoryPageResponse(it) }

@@ -5,7 +5,7 @@ import br.com.acalappv4.domain.entity.Reference
 import org.springframework.validation.annotation.Validated
 
 @Validated
-data class CreateProposalRequest (
+data class ProposalCreateRequest (
     @ValidReference
     val reference: Reference,
 )

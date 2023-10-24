@@ -5,7 +5,7 @@ import br.com.acalappv4.common.enums.CategoryType
 import br.com.acalappv4.domain.entity.Category
 import java.math.BigDecimal
 
-data class UpdateCategoryRequest (
+data class CategoryUpdateRequest (
     val id: String,
     val name: String,
     val waterValue: BigDecimal,

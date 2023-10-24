@@ -2,7 +2,7 @@ package br.com.acalappv4.application.web.category
 
 import br.com.acalappv4.application.web.category.request.CategoryPageFilterRequest
 import br.com.acalappv4.application.web.category.request.CreateCategoryRequest
-import br.com.acalappv4.application.web.category.request.UpdateCategoryRequest
+import br.com.acalappv4.application.web.category.request.CategoryUpdateRequest
 import br.com.acalappv4.application.web.category.response.CategoryResponse
 import br.com.acalappv4.application.web.category.response.CreateCategoryResponse
 import br.com.acalappv4.application.web.category.response.toCategoryPageResponse
@@ -49,7 +49,7 @@ class CategoryController(
     fun list() = findAll.execute(Unit).map { CategoryResponse(it) }
 
     @PutMapping
-    fun update(@Valid @RequestBody request: UpdateCategoryRequest) = ok(update.execute(request.toEntity()))
+    fun update(@Valid @RequestBody request: CategoryUpdateRequest) = ok(update.execute(request.toEntity()))
 
 }
 

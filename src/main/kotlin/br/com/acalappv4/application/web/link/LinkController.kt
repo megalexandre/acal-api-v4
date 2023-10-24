@@ -1,7 +1,7 @@
 package br.com.acalappv4.application.web.link
 
-import br.com.acalappv4.application.web.link.request.CreateLinkRequest
-import br.com.acalappv4.application.web.link.request.PageFilterLinkRequest
+import br.com.acalappv4.application.web.link.request.LinkCreateRequest
+import br.com.acalappv4.application.web.link.request.LinkPageFilterRequest
 import br.com.acalappv4.application.web.link.response.toLinkPageResponse
 import br.com.acalappv4.domain.usecase.link.CreateLinkUsecase
 import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase
@@ -24,11 +24,11 @@ class LinkController(
     private val paginate: PaginateLinkUsecase,
 ) {
     @PostMapping
-    fun create(@Valid @RequestBody request: CreateLinkRequest) =
+    fun create(@Valid @RequestBody request: LinkCreateRequest) =
         created(URI("POST/link")).body(create.execute(request.toEntity()))
 
     @PostMapping("/paginate")
-    fun paginate(@RequestBody pageFilterRequest: PageFilterLinkRequest) =
+    fun paginate(@RequestBody pageFilterRequest: LinkPageFilterRequest) =
         ok(paginate.execute(pageFilterRequest.toEntity()).toLinkPageResponse())
 
 }
