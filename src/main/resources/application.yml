@@ -1,6 +1,8 @@
 server:
   port: 8080
 
+
+
 spring:
   profiles:
     active: local
@@ -11,10 +13,9 @@ spring:
       database: acal_v4
 
   jackson:
+    time-zone: America/Sao_Paulo
     serialization:
       write-dates-as-timestamps: false
-    date-format: yyyy-MM-dd
-    date-time-format: yyyy-MM-dd HH:mm:ss
 
 logging:
   logs:

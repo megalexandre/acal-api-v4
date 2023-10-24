@@ -25,7 +25,6 @@ class CategoryController(
     private val paginate: PaginateCategoryUsecase,
     private val update: UpdateCategoryUsecase
 ){
-
     @PostMapping("/all")
     fun createAll(@Valid @RequestBody request: List<CreateCategoryRequest>) =
         created(URI("POST/category"))
@@ -45,6 +44,9 @@ class CategoryController(
     @PostMapping("/paginate")
     fun paginate(@RequestBody request: CategoryPageFilterRequest) =
         ok(paginate.execute(request.toEntity()).toCategoryPageResponse())
+
+    @GetMapping("/list")
+    fun list() = findAll.execute(Unit).map { CategoryResponse(it) }
 
     @PutMapping
     fun update(@Valid @RequestBody request: UpdateCategoryRequest) = ok(update.execute(request.toEntity()))

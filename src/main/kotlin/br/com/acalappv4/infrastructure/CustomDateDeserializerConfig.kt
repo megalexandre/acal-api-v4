@@ -23,8 +23,8 @@ class CustomDateDeserializerConfig(
             //addDeserializer(LocalDate::class.java, CustomLocalDateDeserializer())
             //addDeserializer(LocalDateTime::class.java, CustomLocalDateTimeDeserializer())
 
-            //addSerializer(LocalDate::class.java, CustomLocalDateSerializer())
-            //addSerializer(LocalDateTime::class.java, CustomLocalDateTimeSerializer())
+            addSerializer(LocalDate::class.java, CustomLocalDateSerializer())
+            addSerializer(LocalDateTime::class.java, CustomLocalDateTimeSerializer())
 
             objectMapper.registerModule(this)
         }

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter.ofPattern
 
 class CustomLocalDateSerializer : JsonSerializer<LocalDate>() {
     override fun serialize(value: LocalDate?, gen: JsonGenerator?, serializers: SerializerProvider?) {
-        gen?.writeString(ofPattern(LOCAL_DATE_FORMAT).format(value))
+        gen?.writeString(ofPattern(LOCAL_DATE_FORMAT).format(value?.atStartOfDay()))
     }
 
 }

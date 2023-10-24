@@ -7,9 +7,6 @@ import br.com.acalappv4.domain.entity.Category
 import br.com.acalappv4.domain.entity.Link
 import io.azam.ulidj.ULID.random
 import java.time.LocalDateTime
-
-
-
 data class CreateLinkRequest (
     val category: Category,
     val address: Address,

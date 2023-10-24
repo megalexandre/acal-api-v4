@@ -3,14 +3,15 @@ package br.com.acalappv4.application.web.customer.response
 import br.com.acalappv4.common.enums.PersonType
 import br.com.acalappv4.domain.entity.Customer
 import br.com.acalappv4.domain.entity.PhoneNumber
-import java.time.LocalDate
+import br.com.acalappv4.util.toLocalDateTimeAtMidday
+import java.time.LocalDateTime
 
 data class CustomerResponse (
     val id: String,
     val name: String,
     val documentNumber: String,
     val personType: PersonType,
-    var birthDay: LocalDate? = null,
+    var birthDay: LocalDateTime? = null,
     val membershipNumber: String,
     val phoneNumbers: List<PhoneNumberResponse>?,
     val active: Boolean
@@ -20,7 +21,7 @@ data class CustomerResponse (
         name = customer.name,
         documentNumber = customer.documentNumber.number,
         personType = customer.personType,
-        birthDay = customer.birthDay,
+        birthDay = customer.birthDay?.toLocalDateTimeAtMidday(),
         membershipNumber = customer.membershipNumber,
         phoneNumbers = customer.phoneNumbers?.map { PhoneNumberResponse(it) },
         active = customer.active,

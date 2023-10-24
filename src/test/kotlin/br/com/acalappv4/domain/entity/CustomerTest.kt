@@ -8,6 +8,8 @@ import stub.phoneNumberStub
 
 internal class CustomerTest{
 
+
+
     @Test
     fun `WHEN a customer has no one phone number SHOULD be phone number valid`(){
 

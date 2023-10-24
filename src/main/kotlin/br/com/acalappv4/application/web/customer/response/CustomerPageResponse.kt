@@ -6,10 +6,12 @@ class CustomerPageResponse (
     val id: String,
     val name: String,
     val documentNumber: String,
+    val membershipNumber: String,
 ){
     constructor(customer: Customer) : this(
         id = customer.id,
         name = customer.name,
+        membershipNumber = customer.membershipNumber,
         documentNumber = customer.documentNumber.number
     )
 }

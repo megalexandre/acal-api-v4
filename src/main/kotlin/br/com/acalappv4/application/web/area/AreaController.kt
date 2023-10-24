@@ -1,8 +1,8 @@
 package br.com.acalappv4.application.web.area
 
-import br.com.acalappv4.application.web.area.request.CreateAreaRequest
-import br.com.acalappv4.application.web.area.request.PageFilterAreaRequest
-import br.com.acalappv4.application.web.area.request.UpdateAreaRequest
+import br.com.acalappv4.application.web.area.request.AreaCreateRequest
+import br.com.acalappv4.application.web.area.request.AreaPageFilterRequest
+import br.com.acalappv4.application.web.area.request.AreaUpdateRequest
 import br.com.acalappv4.application.web.area.response.AreaResponse
 import br.com.acalappv4.application.web.area.response.CreateAreaResponse
 import br.com.acalappv4.application.web.area.response.toAreaPageResponse
@@ -28,13 +28,13 @@ class AreaController(
 ) {
 
     @PostMapping
-    fun create(@Valid @RequestBody request: CreateAreaRequest): ResponseEntity<CreateAreaResponse> =
+    fun create(@Valid @RequestBody request: AreaCreateRequest): ResponseEntity<CreateAreaResponse> =
         created(URI("POST/category")).body(CreateAreaResponse(create.execute(request.toEntity())))
 
     @GetMapping
     fun paginate() = ok(findAll.execute(Unit).map { AreaResponse(it) })
 
-    @GetMapping("/all")
+    @GetMapping("/list")
     fun findAll() = ok().body(findAll.execute(Unit).toAreaResponse() )
 
     @GetMapping("/{id}")
@@ -45,10 +45,10 @@ class AreaController(
     fun delete(@PathVariable id: String) = ok(delete.execute(id.trim()))
 
     @PostMapping("/paginate")
-    fun paginate(@RequestBody pageFilterRequest: PageFilterAreaRequest) =
+    fun paginate(@RequestBody pageFilterRequest: AreaPageFilterRequest) =
         ok(paginate.execute(pageFilterRequest.toEntity()).toAreaPageResponse())
 
     @PutMapping
-    fun create(@Valid @RequestBody request: UpdateAreaRequest) = ok(update.execute(request.toEntity()))
+    fun create(@Valid @RequestBody request: AreaUpdateRequest) = ok(update.execute(request.toEntity()))
 }
 

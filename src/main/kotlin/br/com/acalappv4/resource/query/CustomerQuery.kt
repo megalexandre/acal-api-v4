@@ -20,7 +20,7 @@ class CustomerQuery: PaginateAndSortQuery<CustomerFilter>() {
                 }
 
                 if (!documentNumber.isNullOrEmpty()) {
-                    addCriteria(Criteria.where("documentNumber.number").regex("^${documentNumber.normalize()}"))
+                    addCriteria(Criteria.where("documentNumber.number").regex(documentNumber.normalize()))
                 }
 
                 if (personType != null) {

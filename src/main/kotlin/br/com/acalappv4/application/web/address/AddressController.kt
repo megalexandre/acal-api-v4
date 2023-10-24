@@ -33,14 +33,12 @@ class AddressController(
             CreateAddressResponse(create.execute(request.toEntity())))
 
     @PutMapping
-    fun update(@Valid @RequestBody request: UpdateAddressRequest) =
-        ok(update.execute(request.toEntity()))
+    fun update(@Valid @RequestBody request: UpdateAddressRequest) = ok(update.execute(request.toEntity()))
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: String) =
-        findById.execute(id)?.let { ok().body(AddressResponse(it)) }
+    fun findById(@PathVariable id: String) = findById.execute(id)?.let { ok().body(AddressResponse(it)) }
 
-    @GetMapping("/all")
+    @GetMapping("/list")
     fun findAll() = ok().body(findAll.execute(Unit).toAddressResponse() )
 
     @DeleteMapping("/{id}")

@@ -1,9 +1,7 @@
 package br.com.acalappv4.util
 
 import br.com.acalappv4.domain.entity.Reference
-import java.time.LocalDate
-import java.time.Month
-import java.time.Year
+import java.time.*
 
 fun LocalDate.toReference() = Reference(
     month = Month.from(this),
@@ -15,4 +13,4 @@ fun LocalDate.getLastSixMontReferences(): List<Reference> =
         this.minusMonths(monthsAgo).toReference()
     }
 
-
+fun LocalDate.toLocalDateTimeAtMidday(): LocalDateTime = this.atTime(LocalTime.of(12, 0, 0 ))

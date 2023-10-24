@@ -12,7 +12,6 @@ data class AddressResponse (
     val hasHydrometer: Boolean,
 
 ): ResponseAdapter<Address, AddressResponse> {
-
     constructor(address: Address) : this(
         id = address.id,
         area = address.area,
@@ -20,10 +19,8 @@ data class AddressResponse (
         letter = address.letter,
         hasHydrometer = address.hasHydrometer,
     )
-
     override fun toResponse(entity: Address): AddressResponse =  AddressResponse(entity)
 }
-
 
 fun List<Address>.toAddressResponse() = map {AddressResponse(it) }
 
