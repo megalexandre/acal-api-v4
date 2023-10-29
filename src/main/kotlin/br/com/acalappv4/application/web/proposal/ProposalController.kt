@@ -1,6 +1,7 @@
 package br.com.acalappv4.application.web.proposal
 
 import br.com.acalappv4.application.web.proposal.request.ProposalCreateRequest
+import br.com.acalappv4.application.web.proposal.request.ReferenceRequest
 import br.com.acalappv4.application.web.proposal.response.CreateProposalResponse
 import br.com.acalappv4.domain.usecase.invoice.ListInvoiceProposalUsecase
 import jakarta.validation.Valid
@@ -19,5 +20,4 @@ class ProposalController(
     @PostMapping
     fun createProposal(@Valid @RequestBody request: ProposalCreateRequest) =
         ok(listProposal.execute(request.reference).map { CreateProposalResponse(it) })
-
 }

@@ -26,7 +26,10 @@ data class InvoiceDocument (
 
 data class LinkDetailDocument(
     val linkId: String,
-    val customer: String
+    val customer: String,
+    val address: String,
+    val customerNormalizedName: String,
+    val addressNormalizedName: String,
 )
 
 data class InvoiceDetailDocument(

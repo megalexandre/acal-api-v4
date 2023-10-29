@@ -23,7 +23,6 @@ class InvoiceProposalResponse(
     val address: Address,
     val invoiceDetails: List<InvoiceDetailResponse>,
 ){
-
     constructor(invoiceProposal: InvoiceProposal): this(
         reference = invoiceProposal.reference,
         emission = invoiceProposal.emission,
@@ -37,11 +36,13 @@ class InvoiceProposalResponse(
 }
 data class LinkDetailResponse(
     val linkId: String,
-    val customer: String
+    val customer: String,
+    val address: String,
 ){
     constructor(linkDetail: LinkDetail): this(
         linkId = linkDetail.linkId,
-        customer = linkDetail.customer
+        customer = linkDetail.customer,
+        address = linkDetail.address,
     )
 }
 

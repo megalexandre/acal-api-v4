@@ -40,6 +40,7 @@ class ListInvoiceProposalUsecase(
                 emission = now(),
                 linkDetail = LinkDetail(
                     linkId = it.id,
+                    address = it.address.alias,
                     customer = it.customer.name
                 ) ,
                 address = it.address,

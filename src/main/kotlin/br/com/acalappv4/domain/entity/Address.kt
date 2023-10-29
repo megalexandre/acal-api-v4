@@ -14,4 +14,7 @@ data class Address(
 
     val hasHydrometer: Boolean,
 
-): Entity
+): Entity{
+
+    val alias: String = "${area.name}/$number"
+}

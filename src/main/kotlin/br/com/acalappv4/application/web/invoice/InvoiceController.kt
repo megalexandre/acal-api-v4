@@ -5,6 +5,7 @@ import br.com.acalappv4.application.web.invoice.request.InvoicePageRequest
 import br.com.acalappv4.application.web.invoice.response.InvoiceCreateResponse
 import br.com.acalappv4.application.web.invoice.response.InvoicePageResponse
 import br.com.acalappv4.application.web.invoice.response.toInvoicePageResponse
+import br.com.acalappv4.domain.entity.Reference
 import br.com.acalappv4.domain.usecase.invoice.CreateInvoiceUsecase
 import br.com.acalappv4.domain.usecase.invoice.PaginateInvoiceUsecase
 import jakarta.validation.Valid
@@ -13,11 +14,12 @@ import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.created
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.net.URI
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Month
+import java.time.Year
 
 @RestController
 @RequestMapping("invoice", consumes = [APPLICATION_JSON_VALUE], produces = [APPLICATION_JSON_VALUE])

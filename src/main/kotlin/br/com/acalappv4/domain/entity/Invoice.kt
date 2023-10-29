@@ -40,5 +40,6 @@ data class Invoice(
 
 data class LinkDetail(
     val linkId: String,
-    val customer: String
+    val customer: String,
+    val address: String,
 )

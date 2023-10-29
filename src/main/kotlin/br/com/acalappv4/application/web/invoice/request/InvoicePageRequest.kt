@@ -9,6 +9,8 @@ import br.com.acalappv4.domain.entity.Reference
 class InvoicePageRequest(
     val id: String?,
     val reference: Reference?,
+    val customerName: String?,
+    val addressName: String?,
     val linkId: String?,
     val page: Page?,
     val sort: Sort?,
@@ -16,7 +18,11 @@ class InvoicePageRequest(
     fun toEntity(): InvoicePageFilter =
         InvoicePageFilter(
             filter = InvoiceFilter(
-                id = id, reference = reference, linkId = linkId
+                id = id,
+                customerName = customerName,
+                addressName = addressName,
+                reference = reference,
+                linkId = linkId
             ),
             page = page,
             sort = sort

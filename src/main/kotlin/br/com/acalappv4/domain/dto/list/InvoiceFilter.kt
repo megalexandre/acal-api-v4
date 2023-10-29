@@ -6,5 +6,7 @@ class InvoiceFilter(
     val id: String? = null,
     val linkId: String? = null,
     val reference: Reference? = null,
+    val customerName: String? = null,
+    val addressName: String? = null,
 ): DefaultFilter
 
