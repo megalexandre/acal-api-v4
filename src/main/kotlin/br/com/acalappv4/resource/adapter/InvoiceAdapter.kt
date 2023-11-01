@@ -1,11 +1,15 @@
 package br.com.acalappv4.resource.adapter
 
 import br.com.acalappv4.domain.entity.Invoice
+import br.com.acalappv4.domain.entity.InvoiceNumber
 import br.com.acalappv4.domain.entity.LinkDetail
 import br.com.acalappv4.resource.document.InvoiceDocument
+import br.com.acalappv4.resource.document.InvoiceNumberDocument
 import br.com.acalappv4.resource.document.LinkDetailDocument
 import br.com.acalappv4.util.normalize
 import org.springframework.data.domain.Page
+import java.time.Month
+import java.time.Year
 
 class InvoiceAdapter{
     companion object: ResourceAdapter<InvoiceDocument, Invoice> {
@@ -16,6 +20,7 @@ class InvoiceAdapter{
                 emission = emission,
                 dueDate = dueDate,
                 linkDetail = LinkDetailAdapter.toDocument(linkDetail),
+                invoiceNumberDocument = InvoiceNumberDocumentAdapter.toDocument(entity.invoiceNumber),
                 invoiceDetails = invoiceDetails.map { InvoiceDetailAdapter.toDocument(it) },
             )
         }
@@ -27,11 +32,29 @@ class InvoiceAdapter{
                 emission = emission,
                 dueDate =dueDate,
                 linkDetail = LinkDetailAdapter.toEntity(linkDetail),
+                invoiceNumber =  InvoiceNumberDocumentAdapter.toEntity(document.invoiceNumberDocument),
                 invoiceDetails = invoiceDetails.map { InvoiceDetailAdapter.toEntity(it)} ,
             )
         }
     }
 
+}
+
+class InvoiceNumberDocumentAdapter {
+    companion object: ResourceAdapter<InvoiceNumberDocument, InvoiceNumber>{
+        override fun toEntity(document: InvoiceNumberDocument): InvoiceNumber =
+            InvoiceNumber(
+                year = Year.of(document.year),
+                month = Month.of(document.month),
+                number = document.number
+            )
+        override fun toDocument(entity: InvoiceNumber): InvoiceNumberDocument =
+            InvoiceNumberDocument(
+                year = entity.year.value,
+                month = entity.month.value,
+                number =  entity.number
+            )
+    }
 }
 
 class LinkDetailAdapter {

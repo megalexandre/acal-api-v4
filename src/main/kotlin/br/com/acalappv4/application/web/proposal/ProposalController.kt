@@ -1,9 +1,8 @@
 package br.com.acalappv4.application.web.proposal
 
 import br.com.acalappv4.application.web.proposal.request.ProposalCreateRequest
-import br.com.acalappv4.application.web.proposal.request.ReferenceRequest
 import br.com.acalappv4.application.web.proposal.response.CreateProposalResponse
-import br.com.acalappv4.domain.usecase.invoice.ListInvoiceProposalUsecase
+import br.com.acalappv4.domain.usecase.proposal.ListInvoiceProposalUsecase
 import jakarta.validation.Valid
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity.ok

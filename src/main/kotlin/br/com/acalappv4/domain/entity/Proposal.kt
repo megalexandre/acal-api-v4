@@ -8,6 +8,7 @@ class Proposal(
 )
 
 class InvoiceProposal(
+    val number: InvoiceNumber,
     val reference: Reference,
     val emission: LocalDateTime,
     val linkDetail: LinkDetail,

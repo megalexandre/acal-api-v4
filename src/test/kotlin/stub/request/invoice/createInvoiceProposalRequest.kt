@@ -15,8 +15,9 @@ val invoiceCreateRequestStub = InvoiceCreateRequest(
     dueDate = now().plusMonths(1),
     emission = now(),
     linkDetail = LinkDetail(
-        linkId = "linkid",
-        customer =  "customer"
+        linkId = "link",
+        customer =  "customer",
+        address = "address",
     ),
     invoiceDetails = listOf(InvoiceDetail(
         reason = Reason.INVOICE,
@@ -25,3 +26,4 @@ val invoiceCreateRequestStub = InvoiceCreateRequest(
     ),
     ),
 )
+

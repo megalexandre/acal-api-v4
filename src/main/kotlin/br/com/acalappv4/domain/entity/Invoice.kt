@@ -8,6 +8,7 @@ import java.time.LocalDateTime.now
 data class Invoice(
     val id: String,
     val reference: Reference,
+    val invoiceNumber: InvoiceNumber,
     val emission: LocalDateTime,
     val dueDate: LocalDateTime,
     val linkDetail: LinkDetail,

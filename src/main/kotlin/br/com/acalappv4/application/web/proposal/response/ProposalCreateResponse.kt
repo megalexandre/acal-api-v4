@@ -5,6 +5,8 @@ import br.com.acalappv4.domain.entity.*
 import br.com.acalappv4.domain.entity.interfaces.Entity
 import java.math.BigDecimal
 import java.time.LocalDateTime
+import java.time.Month
+import java.time.Year
 
 data class CreateProposalResponse (
     val area: String,
@@ -18,6 +20,7 @@ data class CreateProposalResponse (
 }
 class InvoiceProposalResponse(
     val reference: Reference,
+    val number: InvoiceNumberResponse,
     val emission: LocalDateTime,
     val linkDetail: LinkDetailResponse,
     val address: Address,
@@ -25,8 +28,9 @@ class InvoiceProposalResponse(
 ){
     constructor(invoiceProposal: InvoiceProposal): this(
         reference = invoiceProposal.reference,
+        number = InvoiceNumberResponse(invoiceProposal.number),
         emission = invoiceProposal.emission,
-        linkDetail =LinkDetailResponse(invoiceProposal.linkDetail),
+        linkDetail = LinkDetailResponse(invoiceProposal.linkDetail),
         address = invoiceProposal.address,
         invoiceDetails = invoiceProposal.invoiceDetails.map { InvoiceDetailResponse(it) }
     )
@@ -34,6 +38,23 @@ class InvoiceProposalResponse(
     val total = invoiceDetails.map { it.value }.sumOf { it }
     val addressName = address.letter +"/" + address.number
 }
+
+data class InvoiceNumberResponse(
+    val year: Year,
+    val month: Month,
+    val number: String,
+    val value: String,
+){
+    constructor(invoiceNumber: InvoiceNumber): this(
+        year = invoiceNumber.year,
+        month = invoiceNumber.month,
+        number = invoiceNumber.number,
+        value = invoiceNumber.value,
+    )
+
+}
+
+
 data class LinkDetailResponse(
     val linkId: String,
     val customer: String,

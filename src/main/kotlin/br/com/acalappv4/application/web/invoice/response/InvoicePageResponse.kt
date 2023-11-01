@@ -1,5 +1,6 @@
 package br.com.acalappv4.application.web.invoice.response
 
+import br.com.acalappv4.application.web.proposal.response.InvoiceNumberResponse
 import br.com.acalappv4.domain.entity.Invoice
 import br.com.acalappv4.domain.entity.InvoiceDetail
 import br.com.acalappv4.domain.entity.LinkDetail
@@ -12,6 +13,7 @@ class InvoicePageResponse (
     val id: String,
     val reference: Reference,
     val emission: LocalDateTime,
+    val number: InvoiceNumberResponse,
     val dueDate: LocalDateTime,
     val linkDetail: LinkDetailResponse,
     val invoiceDetails: List<InvoiceDetail>,
@@ -27,6 +29,7 @@ class InvoicePageResponse (
         id = invoice.id,
         reference = invoice.reference,
         emission = invoice.emission,
+        number = InvoiceNumberResponse(invoice.invoiceNumber),
         dueDate = invoice.dueDate,
         linkDetail = LinkDetailResponse(invoice.linkDetail),
         invoiceDetails = invoice.invoiceDetails,

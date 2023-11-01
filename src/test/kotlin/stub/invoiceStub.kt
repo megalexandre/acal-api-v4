@@ -6,7 +6,8 @@ import java.time.LocalDateTime.now
 
 val linkDetailStub = LinkDetail(
     linkId = "i",
-    customer = "any"
+    customer = "any",
+    address = "address"
 )
 
 val invoiceStub = Invoice(

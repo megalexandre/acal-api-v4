@@ -1,19 +1,24 @@
-package br.com.acalappv4.domain.usecase.invoice
+package br.com.acalappv4.domain.usecase.proposal
 
-import br.com.acalappv4.common.enums.Reason.CATEGORY
-import br.com.acalappv4.common.enums.Reason.WATER
+import br.com.acalappv4.common.enums.Reason.*
 import br.com.acalappv4.domain.dto.list.InvoiceFilter
 import br.com.acalappv4.domain.dto.list.LinkFilter
 import br.com.acalappv4.domain.entity.*
 import br.com.acalappv4.domain.usecase.Usecase
+import br.com.acalappv4.domain.usecase.invoice.ExistsInvoiceByLinkAndReferenceProposalUsecase
+import br.com.acalappv4.domain.usecase.invoiceNumber.GetNextInvoiceNumberUsecase
 import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.time.LocalDateTime.now
+import java.time.Month
+import java.time.Year
 
 @Service
 class ListInvoiceProposalUsecase(
     private val linkListUsecase: FindAllLinkUsecase,
     private val existsInvoiceUsecase: ExistsInvoiceByLinkAndReferenceProposalUsecase,
+    private val getNextInvoiceNumberUsecase: GetNextInvoiceNumberUsecase,
 ) : Usecase<Reference, List<Proposal>> {
 
     override fun execute(input: Reference): List<Proposal> = createProposal(allProposal(input))
@@ -44,6 +49,7 @@ class ListInvoiceProposalUsecase(
                     customer = it.customer.name
                 ) ,
                 address = it.address,
+                number = getNextInvoiceNumberUsecase.execute(input),
                 invoiceDetails = listOf(
                     InvoiceDetail(
                         reason = CATEGORY,
@@ -55,6 +61,11 @@ class ListInvoiceProposalUsecase(
                         value = it.category.waterValue,
                         dataPaid = null
                     ),
+                    InvoiceDetail(
+                        reason = HYDROMETER,
+                        value = BigDecimal.ZERO,
+                        dataPaid = null
+                    )
                 )
             )
     }

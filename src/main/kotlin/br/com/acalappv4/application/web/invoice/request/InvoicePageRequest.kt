@@ -1,5 +1,6 @@
 package br.com.acalappv4.application.web.invoice.request
 
+import br.com.acalappv4.application.web.proposal.response.InvoiceNumberResponse
 import br.com.acalappv4.domain.dto.list.InvoiceFilter
 import br.com.acalappv4.domain.dto.page.InvoicePageFilter
 import br.com.acalappv4.domain.dto.page.Page

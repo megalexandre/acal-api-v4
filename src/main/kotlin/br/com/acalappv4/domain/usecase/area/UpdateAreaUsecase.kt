@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service
 class UpdateAreaUsecase (
     private val dataSource: AreaDataSource,
 ): Usecase<Area, Area> {
-
     override fun execute(input: Area) = dataSource.update(input)
 
 }

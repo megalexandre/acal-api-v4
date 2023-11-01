@@ -1,7 +1,6 @@
 package br.com.acalappv4.resource.document
 
 import br.com.acalappv4.common.enums.Reason
-import br.com.acalappv4.domain.entity.Reference
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
@@ -15,6 +14,8 @@ data class InvoiceDocument (
 
     val reference: ReferenceDocument,
 
+    val invoiceNumberDocument: InvoiceNumberDocument,
+
     val emission: LocalDateTime,
 
     val dueDate: LocalDateTime,
@@ -22,6 +23,12 @@ data class InvoiceDocument (
     val linkDetail: LinkDetailDocument,
 
     val invoiceDetails: List<InvoiceDetailDocument>,
+)
+
+data class InvoiceNumberDocument(
+    val year: Int,
+    val month: Int,
+    val number: String,
 )
 
 data class LinkDetailDocument(

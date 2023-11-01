@@ -1,9 +1,9 @@
 package br.com.acalappv4.domain.datasource
 
-import java.time.Year
+import br.com.acalappv4.domain.entity.Reference
 
 interface SequenceDataSource {
 
-    fun getSequence(year: Year): String
+    fun getSequence(reference: Reference): String
 
 }

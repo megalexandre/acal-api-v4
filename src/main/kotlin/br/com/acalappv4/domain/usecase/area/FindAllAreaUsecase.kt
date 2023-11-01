@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service
 class FindAllAreaUsecase(
     private val dataSource: AreaDataSource,
 ): Usecase<Unit, List<Area>> {
-
     override fun execute(input: Unit) = dataSource.findAll()
 
 }

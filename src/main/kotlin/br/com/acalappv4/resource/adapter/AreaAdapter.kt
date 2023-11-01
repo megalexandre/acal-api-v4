@@ -7,14 +7,12 @@ import org.springframework.data.domain.Page
 
 class AreaAdapter{
     companion object: ResourceAdapter<AreaDocument, Area>{
-
         override fun toEntity(document: AreaDocument): Area = with(document){
             Area(
                id = id,
                name = name
             )
         }
-
         override fun toDocument(entity: Area): AreaDocument = with(entity) {
             AreaDocument(
                 id = id,
@@ -23,9 +21,6 @@ class AreaAdapter{
             )
         }
     }
-
-
-
 }
 
 fun Page<AreaDocument>.toArea() = map { AreaAdapter.toEntity(it)  }

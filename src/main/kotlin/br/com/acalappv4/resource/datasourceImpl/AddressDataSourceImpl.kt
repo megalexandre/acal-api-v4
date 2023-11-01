@@ -29,7 +29,6 @@ class AddressDataSourceImpl(
     private val mongoTemplate: MongoTemplate,
     private val publisher: ApplicationEventPublisher,
 ): AddressDataSource {
-
     @EventListener(condition = "#event.name eq 'AREA_UPDATED'")
     fun areaUpdated(event: UpdatedDocumentEvent) {
 

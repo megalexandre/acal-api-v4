@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service
 class PaginateAreaUsecase(
     private val dataSource: AreaDataSource,
 ): Usecase<AreaPageFilter, Page<Area>> {
-
     override fun execute(input: AreaPageFilter) = dataSource.paginate(input)
 
 }

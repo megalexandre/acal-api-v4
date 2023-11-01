@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service
 class FindAreaByIdUsecase(
     private val dataSource: AreaDataSource,
 ): Usecase<String, Area?> {
-
     override fun execute(input: String) = dataSource.findById(input)
 
 }
