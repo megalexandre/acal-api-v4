@@ -6,7 +6,6 @@ import java.time.Year
 
 data class ReferenceRequest (
     val reference: String,
-
 ){
 
     fun toReference()=

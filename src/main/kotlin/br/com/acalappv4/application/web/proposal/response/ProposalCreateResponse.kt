@@ -12,9 +12,9 @@ data class CreateProposalResponse (
     val area: String,
     val invoices: List<InvoiceProposalResponse>,
 ){
-    constructor(proposal: Proposal): this(
-        area = proposal.area,
-        invoices = proposal.invoices.map { InvoiceProposalResponse(it) }
+    constructor(invoiceProposal: InvoiceProposal): this(
+        area = invoiceProposal.area,
+        invoices = invoiceProposal.invoices.map { InvoiceProposalResponse(it) }
     )
 
 }
@@ -26,13 +26,13 @@ class InvoiceProposalResponse(
     val address: Address,
     val invoiceDetails: List<InvoiceDetailResponse>,
 ){
-    constructor(invoiceProposal: InvoiceProposal): this(
-        reference = invoiceProposal.reference,
-        number = InvoiceNumberResponse(invoiceProposal.number),
-        emission = invoiceProposal.emission,
-        linkDetail = LinkDetailResponse(invoiceProposal.linkDetail),
-        address = invoiceProposal.address,
-        invoiceDetails = invoiceProposal.invoiceDetails.map { InvoiceDetailResponse(it) }
+    constructor(invoiceProposalItem: InvoiceProposalItem): this(
+        reference = invoiceProposalItem.reference,
+        number = InvoiceNumberResponse(invoiceProposalItem.number),
+        emission = invoiceProposalItem.emission,
+        linkDetail = LinkDetailResponse(invoiceProposalItem.linkDetail),
+        address = invoiceProposalItem.address,
+        invoiceDetails = invoiceProposalItem.invoiceDetails.map { InvoiceDetailResponse(it) }
     )
 
     val total = invoiceDetails.map { it.value }.sumOf { it }

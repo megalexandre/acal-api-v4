@@ -3,8 +3,8 @@ package br.com.acalappv4.application.web.address
 import br.com.acalappv4.application.web.address.request.AddressCreateRequest
 import br.com.acalappv4.application.web.address.request.AddressPageFilterRequest
 import br.com.acalappv4.application.web.address.request.AddressUpdateRequest
-import br.com.acalappv4.application.web.address.response.AddressResponse
 import br.com.acalappv4.application.web.address.response.AddressCreateResponse
+import br.com.acalappv4.application.web.address.response.AddressResponse
 import br.com.acalappv4.application.web.address.response.toAddressPageResponse
 import br.com.acalappv4.application.web.address.response.toAddressResponse
 import br.com.acalappv4.domain.usecase.address.*
@@ -39,7 +39,7 @@ class AddressController(
     fun findById(@PathVariable id: String) = findById.execute(id)?.let { ok().body(AddressResponse(it)) }
 
     @GetMapping("/list")
-    fun findAll() = ok().body(findAll.execute(Unit).toAddressResponse() )
+    fun findAll() = ok().body(findAll.execute(null).toAddressResponse() )
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) = ok(delete.execute(id.trim()))

@@ -2,12 +2,12 @@ package br.com.acalappv4.domain.entity
 
 import java.time.LocalDateTime
 
-class Proposal(
+class InvoiceProposal(
     val area: String,
-    val invoices: List<InvoiceProposal>,
+    val invoices: List<InvoiceProposalItem>,
 )
 
-class InvoiceProposal(
+class InvoiceProposalItem(
     val number: InvoiceNumber,
     val reference: Reference,
     val emission: LocalDateTime,

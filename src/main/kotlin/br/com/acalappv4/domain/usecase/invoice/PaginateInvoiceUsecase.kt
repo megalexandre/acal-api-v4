@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service
 class PaginateInvoiceUsecase(
     private val invoiceDataSource: InvoiceDataSource
 ): Usecase<InvoicePageFilter, Page<Invoice>> {
-
     override fun execute(input: InvoicePageFilter): Page<Invoice> = invoiceDataSource.paginate(input)
 
 }

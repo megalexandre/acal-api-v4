@@ -7,6 +7,7 @@ import java.math.BigDecimal
 data class Hydrometer(
 
     val id: String,
+    val address: Address,
     val actualCollect: HydrometerCollect,
     val lastCollect: HydrometerCollect,
 
@@ -20,7 +21,7 @@ data class Hydrometer(
     }
 
     val reference: Reference = actualCollect.reference
-    val consumption: Long = lastCollect.totalMeter - actualCollect.totalMeter
+    val consumption: Long = actualCollect.totalMeter - lastCollect.totalMeter
 
     val consideredConsumption: Long = when(consumption <= waterFreeTier){
         true -> 0

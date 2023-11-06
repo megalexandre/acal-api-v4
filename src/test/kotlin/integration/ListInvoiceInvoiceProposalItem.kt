@@ -8,7 +8,7 @@ import org.apache.http.HttpStatus.SC_CREATED
 import org.junit.jupiter.api.Test
 import stub.request.invoice.invoiceCreateRequestStub
 
-class ListInvoiceProposal: AcalAppV4ApplicationTests() {
+class ListInvoiceInvoiceProposalItem: AcalAppV4ApplicationTests() {
 
     @Test
     fun `WHEN receiver request and has not link SHOULD return CREATED 201 with empty list`(){

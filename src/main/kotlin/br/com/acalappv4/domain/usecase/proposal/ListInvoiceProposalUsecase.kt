@@ -11,24 +11,22 @@ import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 import java.time.LocalDateTime.now
-import java.time.Month
-import java.time.Year
 
 @Service
 class ListInvoiceProposalUsecase(
     private val linkListUsecase: FindAllLinkUsecase,
     private val existsInvoiceUsecase: ExistsInvoiceByLinkAndReferenceProposalUsecase,
     private val getNextInvoiceNumberUsecase: GetNextInvoiceNumberUsecase,
-) : Usecase<Reference, List<Proposal>> {
+) : Usecase<Reference, List<InvoiceProposal>> {
 
-    override fun execute(input: Reference): List<Proposal> = createProposal(allProposal(input))
+    override fun execute(input: Reference): List<InvoiceProposal> = createProposal(allProposal(input))
 
-    private fun createProposal(allProposal: List<InvoiceProposal>): List<Proposal> =
+    private fun createProposal(allProposal: List<InvoiceProposalItem>): List<InvoiceProposal> =
         allProposal
             .distinctBy { it.address.area.name }
             .sortedBy { it.address.area.name }
             .map {invoiceProposal ->
-                Proposal(
+                InvoiceProposal(
                     area = invoiceProposal.address.area.name,
                     invoices = allProposal
                         .filter { it.address.area.id == invoiceProposal.address.area.id }
@@ -36,11 +34,11 @@ class ListInvoiceProposalUsecase(
                 )
             }
 
-    private fun allProposal(input: Reference): List<InvoiceProposal> = linkListUsecase
+    private fun allProposal(input: Reference): List<InvoiceProposalItem> = linkListUsecase
         .execute(LinkFilter(active = true))
         .filter { !existsInvoiceUsecase.execute(InvoiceFilter(reference = input, linkId = it.id)) }
         .map {
-            InvoiceProposal(
+            InvoiceProposalItem(
                 reference = input,
                 emission = now(),
                 linkDetail = LinkDetail(

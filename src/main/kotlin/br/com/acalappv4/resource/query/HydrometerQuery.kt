@@ -12,6 +12,15 @@ class HydrometerQuery: PaginateAndSortQuery<HydrometerFilter>() {
                 if (!id.isNullOrEmpty()) {
                     addCriteria(Criteria.where("id").`is`(id))
                 }
+
+                if (reference != null) {
+                    addCriteria(Criteria.where("reference.year").`is`(reference.year.value))
+                    addCriteria(Criteria.where("reference.month").`is`(reference.month.value))
+                }
+
+                if(!addressId.isNullOrEmpty()){
+                    addCriteria(Criteria.where("addressId").`is`(addressId))
+                }
             }
         }
     }

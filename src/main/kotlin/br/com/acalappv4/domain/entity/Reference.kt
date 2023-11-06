@@ -1,6 +1,7 @@
 package br.com.acalappv4.domain.entity
 
 import br.com.acalappv4.util.asReference
+import br.com.acalappv4.util.toReference
 import java.time.LocalDate
 import java.time.Month
 import java.time.Year
@@ -14,7 +15,14 @@ data class Reference(
             year = Year.now(),
             month = LocalDate.now().month
         )
+
     }
+
+    fun minusMonth(monthsToSubtract: Long): Reference =
+         LocalDate
+            .of(year.value, month, 1)
+            .minusMonths(monthsToSubtract).toReference()
+
 
     constructor(value: String): this(
         year = Year.of(value.substring(2,6).toInt()),
