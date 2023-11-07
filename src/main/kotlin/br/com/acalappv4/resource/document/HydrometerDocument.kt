@@ -9,6 +9,8 @@ data class HydrometerDocument(
     @Id
     val id: String,
 
+    val reference: ReferenceDocument,
+
     val address: AddressDocument,
 
     val actualCollect: HydrometerCollectDocument,

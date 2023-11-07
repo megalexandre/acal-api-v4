@@ -1,6 +1,7 @@
 package br.com.acalappv4.resource.adapter
 
 import br.com.acalappv4.domain.entity.Hydrometer
+import br.com.acalappv4.domain.entity.Reference
 import br.com.acalappv4.resource.adapter.AddressAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.HydrometerAdapter.Companion.toEntity
 import br.com.acalappv4.resource.adapter.HydrometerCollectAdapter.Companion.toDocument
@@ -14,6 +15,7 @@ class HydrometerAdapter{
             Hydrometer(
                id = id,
                address = toEntity(document.address),
+               reference = ReferenceAdapter.toEntity(reference) ,
                actualCollect = toEntity(actualCollect),
                lastCollect = toEntity(lastCollect),
             )
@@ -22,6 +24,7 @@ class HydrometerAdapter{
         override fun toDocument(entity: Hydrometer): HydrometerDocument = with(entity) {
             HydrometerDocument(
                 id = id,
+                reference =ReferenceAdapter.toDocument(reference),
                 address = AddressAdapter.toDocument(address),
                 actualCollect = toDocument(actualCollect),
                 lastCollect = toDocument(lastCollect),

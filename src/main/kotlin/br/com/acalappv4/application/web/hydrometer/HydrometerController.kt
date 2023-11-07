@@ -38,8 +38,8 @@ class HydrometerController(
             .body(HydrometerCreateResponse(create.execute(request.toHydrometer())))
 
     @PostMapping("paginate")
-    fun paginate(@RequestBody hydrometerPageRequest: HydrometerPageRequest): ResponseEntity<Page<HydrometerPageResponse>> =
-        ok(paginate.execute(hydrometerPageRequest.toEntity()).map { HydrometerPageResponse(it) })
+    fun paginate(@RequestBody request: HydrometerPageRequest): ResponseEntity<Page<HydrometerPageResponse>> =
+        ok(paginate.execute(request.toEntity()).map { HydrometerPageResponse(it) })
 
 }
 

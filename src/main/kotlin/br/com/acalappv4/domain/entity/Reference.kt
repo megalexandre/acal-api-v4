@@ -15,13 +15,29 @@ data class Reference(
             year = Year.now(),
             month = LocalDate.now().month
         )
-
     }
-
     fun minusMonth(monthsToSubtract: Long): Reference =
          LocalDate
             .of(year.value, month, 1)
             .minusMonths(monthsToSubtract).toReference()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Reference
+
+        if (year != other.year) return false
+        if (month != other.month) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = year.hashCode()
+        result = 31 * result + month.hashCode()
+        return result
+    }
 
 
     constructor(value: String): this(
@@ -31,6 +47,7 @@ data class Reference(
 
     val value: String
         get() = "${month.asReference()}/${year.value}"
+
 
 
 }

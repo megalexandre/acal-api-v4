@@ -11,8 +11,7 @@ abstract class PaginateAndSortQuery<T: DefaultFilter> {
 
     private val id = "id"
     private val defaultSort = Sort.by(ASC,id)
-
-    fun pageRequest(page: PageFilter): PageRequest =
+    open fun pageRequest(page: PageFilter): PageRequest =
         PageRequest.of(
             page.page?.number ?: 0,
             page.page?.size ?: 10,

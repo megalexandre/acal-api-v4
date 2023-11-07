@@ -8,6 +8,7 @@ data class Hydrometer(
 
     val id: String,
     val address: Address,
+    val reference: Reference,
     val actualCollect: HydrometerCollect,
     val lastCollect: HydrometerCollect,
 
@@ -20,7 +21,7 @@ data class Hydrometer(
         private const val WATER_FREE_TIER = 10000L
     }
 
-    val reference: Reference = actualCollect.reference
+
     val consumption: Long = actualCollect.totalMeter - lastCollect.totalMeter
 
     val consideredConsumption: Long = when(consumption <= waterFreeTier){

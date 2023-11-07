@@ -15,14 +15,19 @@ class ListHydrometerProposalUsecase(
     ) : Usecase<Reference, List<HydrometerProposal>> {
 
     override fun execute(input: Reference): List<HydrometerProposal> {
+        val lastReference = input.minusMonth(1)
         val hydrometers = usecase.execute(HydrometerFilter(reference = input))
+        val lastMonthHydrometers = usecase.execute(HydrometerFilter(reference = lastReference))
+
         val address = findAllAddressUsecase.execute(AddressFilter(hasHydrometer = true))
         val areas = address.map { it.area }.distinctBy { it.id }.sortedBy { it.name }
 
         val proposals = areas.map { area ->
             HydrometerProposal(
                 area = area,
-                hydrometers = getHydrometerProposal(area, address, hydrometers, input)
+                hydrometers = getHydrometerProposal(
+                    area, address, hydrometers,lastMonthHydrometers, input,lastReference
+                )
             )
         }
 
@@ -33,41 +38,67 @@ class ListHydrometerProposalUsecase(
             area: Area,
             address: List<Address>,
             hydrometers: List<Hydrometer>,
-            reference: Reference): List<HydrometerProposalItem> =
+            lastMonthHydrometers: List<Hydrometer>,
+            actualReference: Reference,
+            lastReference: Reference
+
+    ): List<HydrometerProposalItem> =
 
         address
             .filter { it.area.id == area.id }
 
             .map {
-            getHydrometerItem(it, reference, hydrometers)
+            getHydrometerItem(
+                address = it,
+                hydrometers = hydrometers,
+                lastMonthHydrometers = lastMonthHydrometers,
+                actualReference = actualReference,
+                lastReference = lastReference,
+            )
         }
 
     private fun getHydrometerItem(
         address: Address,
-        reference: Reference,
-        hydrometers: List<Hydrometer>): HydrometerProposalItem {
+        hydrometers: List<Hydrometer>,
+        lastMonthHydrometers: List<Hydrometer>,
+        actualReference: Reference,
+        lastReference: Reference,
+    ): HydrometerProposalItem {
 
-        return when (val hydrometer = hydrometers.find { it.address.id == address.id  && it.reference == reference}){
+        return when (val hydrometer = hydrometers.find { it.address.id == address.id  && it.reference == actualReference}){
             null -> {
                 HydrometerProposalItem(
                     address = address,
                     actualCollect = HydrometerProposalCollect(
-                        reference = reference, totalMeter = null),
-                    lastCollect = HydrometerProposalCollect(
-                        reference = reference.minusMonth(1), totalMeter = null),
+                        reference = actualReference, totalMeter = null),
+                        lastCollect = HydrometerProposalCollect(
+                        reference = lastReference,
+                        totalMeter = getMeterFromHydrometer(lastMonthHydrometers, address, lastReference)
+                    ),
                 )
             }
             else -> {
                 HydrometerProposalItem(
                     address = address,
-
-                    actualCollect = HydrometerProposalCollect(
-                        reference = hydrometer.actualCollect.reference, totalMeter = hydrometer.actualCollect.totalMeter),
-
-                    lastCollect = HydrometerProposalCollect(
-                        reference =  hydrometer.lastCollect.reference, totalMeter = hydrometer.lastCollect.totalMeter),
+                    actualCollect = createHydrometerProposalCollect(hydrometer.actualCollect),
+                    lastCollect = createHydrometerProposalCollect(hydrometer.lastCollect)
                 )
             }
         }
     }
+
+    private fun getMeterFromHydrometer(
+        lastMonthHydrometers: List<Hydrometer>,
+       address: Address,
+       lastReference: Reference
+    ) = lastMonthHydrometers.find {
+        it.address.id == address.id && it.reference == lastReference
+    }?.actualCollect?.totalMeter ?: 0
+
+
+    private fun createHydrometerProposalCollect(hydrometerCollect: HydrometerCollect) =
+        HydrometerProposalCollect(
+            reference = hydrometerCollect.reference,
+            totalMeter = hydrometerCollect.totalMeter
+        )
 }

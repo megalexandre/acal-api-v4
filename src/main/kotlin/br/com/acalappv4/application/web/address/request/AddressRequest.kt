@@ -5,14 +5,12 @@ import br.com.acalappv4.application.web.components.adapter.RequestAdapter
 import br.com.acalappv4.domain.entity.Address
 
 data class AddressRequest (
-
     val id: String,
     val area: AreaRequest,
     val number: String,
     val letter: String,
     val hasHydrometer: Boolean,
 ): RequestAdapter<Address> {
-
     override fun toEntity(): Address = Address(
         id = id,
         area = area.toEntity(),
