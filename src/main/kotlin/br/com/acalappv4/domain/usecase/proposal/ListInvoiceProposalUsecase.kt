@@ -1,10 +1,12 @@
 package br.com.acalappv4.domain.usecase.proposal
 
 import br.com.acalappv4.common.enums.Reason.*
+import br.com.acalappv4.domain.dto.list.HydrometerFilter
 import br.com.acalappv4.domain.dto.list.InvoiceFilter
 import br.com.acalappv4.domain.dto.list.LinkFilter
 import br.com.acalappv4.domain.entity.*
 import br.com.acalappv4.domain.usecase.Usecase
+import br.com.acalappv4.domain.usecase.hydrometer.FindAllHydrometerUsecase
 import br.com.acalappv4.domain.usecase.invoice.ExistsInvoiceByLinkAndReferenceProposalUsecase
 import br.com.acalappv4.domain.usecase.invoiceNumber.GetNextInvoiceNumberUsecase
 import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase
@@ -14,18 +16,22 @@ import java.time.LocalDateTime.now
 
 @Service
 class ListInvoiceProposalUsecase(
+    private val usecase: FindAllHydrometerUsecase,
     private val linkListUsecase: FindAllLinkUsecase,
     private val existsInvoiceUsecase: ExistsInvoiceByLinkAndReferenceProposalUsecase,
     private val getNextInvoiceNumberUsecase: GetNextInvoiceNumberUsecase,
 ) : Usecase<Reference, List<InvoiceProposal>> {
 
-    override fun execute(input: Reference): List<InvoiceProposal> = createProposal(allProposal(input))
+    override fun execute(input: Reference): List<InvoiceProposal> = createProposal(
+        allProposal(input, usecase.execute(HydrometerFilter(reference = input)))
+    )
 
-    private fun createProposal(allProposal: List<InvoiceProposalItem>): List<InvoiceProposal> =
-        allProposal
+    private fun createProposal(allProposal: List<InvoiceProposalItem>): List<InvoiceProposal> {
+
+        return allProposal
             .distinctBy { it.address.area.name }
             .sortedBy { it.address.area.name }
-            .map {invoiceProposal ->
+            .map { invoiceProposal ->
                 InvoiceProposal(
                     area = invoiceProposal.address.area.name,
                     invoices = allProposal
@@ -33,8 +39,10 @@ class ListInvoiceProposalUsecase(
                         .sortedBy { it.address.area.name }
                 )
             }
+    }
 
-    private fun allProposal(input: Reference): List<InvoiceProposalItem> = linkListUsecase
+
+    private fun allProposal(input: Reference, hydrometers: List<Hydrometer>): List<InvoiceProposalItem> = linkListUsecase
         .execute(LinkFilter(active = true))
         .filter { !existsInvoiceUsecase.execute(InvoiceFilter(reference = input, linkId = it.id)) }
         .map {
@@ -48,23 +56,30 @@ class ListInvoiceProposalUsecase(
                 ) ,
                 address = it.address,
                 number = getNextInvoiceNumberUsecase.execute(input),
+
                 invoiceDetails = listOf(
-                    InvoiceDetail(
-                        reason = CATEGORY,
-                        value = it.category.categoryValue,
-                        dataPaid = null
-                    ),
-                    InvoiceDetail(
-                        reason = WATER,
-                        value = it.category.waterValue,
-                        dataPaid = null
-                    ),
-                    InvoiceDetail(
-                        reason = HYDROMETER,
-                        value = BigDecimal.ZERO,
-                        dataPaid = null
-                    )
+                    createDetailByCategory(it),
+                    createDetailByWater(it),
+                    createDetailByHydrometer(it, hydrometers, input)
                 )
             )
     }
+
+    private fun createDetailByCategory(it: Link) = InvoiceDetail(
+        reason = CATEGORY,
+        value = it.category.categoryValue,
+        dataPaid = null
+    )
+    private fun createDetailByWater(it: Link) = InvoiceDetail(
+        reason = WATER,
+        value =  it.category.waterValue,
+        dataPaid = null
+    )
+
+    private fun createDetailByHydrometer(link: Link, hydrometers: List<Hydrometer>, reference: Reference) = InvoiceDetail(
+        reason = HYDROMETER,
+        value = hydrometers.find { it.address.id == link.address.id && it.reference == reference }?.value ?: BigDecimal.ZERO,
+        dataPaid = null
+    )
+
 }

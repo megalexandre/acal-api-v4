@@ -1,10 +1,12 @@
 package br.com.acalappv4.application.web.link.response
 
+import br.com.acalappv4.application.web.address.response.AddressResponse
 import br.com.acalappv4.domain.entity.Link
 import org.springframework.data.domain.Page
 
 class PageResponseLink (
     val id: String,
+    val address: AddressResponse,
     val customerName: String,
     val customerDocument: String,
     val categoryName: String,
@@ -15,6 +17,7 @@ class PageResponseLink (
 ){
     constructor(link: Link) : this(
         id = link.id,
+        address = AddressResponse(link.address),
         customerName = link.customer.name,
         customerDocument = link.customer.documentNumber.number,
         categoryName = link.category.name,

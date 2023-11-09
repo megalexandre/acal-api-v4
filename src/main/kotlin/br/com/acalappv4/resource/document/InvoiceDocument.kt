@@ -29,6 +29,7 @@ data class InvoiceNumberDocument(
     val year: Int,
     val month: Int,
     val number: String,
+    val value: String,
 )
 
 data class LinkDetailDocument(

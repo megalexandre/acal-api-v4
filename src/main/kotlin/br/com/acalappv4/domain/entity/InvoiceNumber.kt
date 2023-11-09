@@ -13,3 +13,5 @@ class InvoiceNumber(
     val value: String
         get() = "${month.asReference()}.${year.value}/$number"
 }
+val InvoiceNumber.valueNormalized: String
+    get() = "${month.asReference()}${year.value}$number"

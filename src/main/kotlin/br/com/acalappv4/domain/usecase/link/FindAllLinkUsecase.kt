@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 class FindAllLinkUsecase(
     private val dataSource: LinkDataSource,
 ): Usecase<LinkFilter, List<Link>> {
-
     override fun execute(input: LinkFilter): List<Link> = dataSource.findAll(input)
 
 }

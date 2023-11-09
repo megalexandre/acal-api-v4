@@ -2,24 +2,34 @@ package br.com.acalappv4.domain.usecase.proposal
 
 import br.com.acalappv4.domain.dto.list.AddressFilter
 import br.com.acalappv4.domain.dto.list.HydrometerFilter
+import br.com.acalappv4.domain.dto.list.LinkFilter
 import br.com.acalappv4.domain.entity.*
 import br.com.acalappv4.domain.usecase.Usecase
 import br.com.acalappv4.domain.usecase.address.FindAllAddressUsecase
 import br.com.acalappv4.domain.usecase.hydrometer.FindAllHydrometerUsecase
+import br.com.acalappv4.domain.usecase.link.FindAllLinkUsecase
 import org.springframework.stereotype.Service
 
 @Service
 class ListHydrometerProposalUsecase(
     private val usecase: FindAllHydrometerUsecase,
     private val findAllAddressUsecase: FindAllAddressUsecase,
-    ) : Usecase<Reference, List<HydrometerProposal>> {
+    private val findAllLink: FindAllLinkUsecase,
+    private val findAllHydrometer: FindAllHydrometerUsecase
+) : Usecase<Reference, List<HydrometerProposal>> {
 
     override fun execute(input: Reference): List<HydrometerProposal> {
         val lastReference = input.minusMonth(1)
-        val hydrometers = usecase.execute(HydrometerFilter(reference = input))
+
+        val hydrometers = findAllHydrometer.execute(HydrometerFilter(reference = input))
+
         val lastMonthHydrometers = usecase.execute(HydrometerFilter(reference = lastReference))
 
-        val address = findAllAddressUsecase.execute(AddressFilter(hasHydrometer = true))
+        val links = findAllLink.execute(LinkFilter(active = true))
+        val address = findAllAddressUsecase.execute(AddressFilter(hasHydrometer = true)).filter { address ->
+            links.any { address.id ==  it.address.id}
+        }
+
         val areas = address.map { it.area }.distinctBy { it.id }.sortedBy { it.name }
 
         val proposals = areas.map { area ->
@@ -46,7 +56,6 @@ class ListHydrometerProposalUsecase(
 
         address
             .filter { it.area.id == area.id }
-
             .map {
             getHydrometerItem(
                 address = it,

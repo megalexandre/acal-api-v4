@@ -2,7 +2,6 @@ package br.com.acalappv4.resource.query
 
 import br.com.acalappv4.domain.dto.list.InvoiceFilter
 import br.com.acalappv4.resource.query.pagesort.PaginateAndSortQuery
-import br.com.acalappv4.util.isNotNullOrEmpty
 import br.com.acalappv4.util.normalize
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -31,6 +30,10 @@ class InvoiceQuery: PaginateAndSortQuery<InvoiceFilter>() {
                 if (reference != null) {
                     addCriteria(Criteria.where("reference.year").`is`(reference.year.value))
                     addCriteria(Criteria.where("reference.month").`is`(reference.month.value))
+                }
+
+                if (dueDate != null) {
+                    addCriteria(Criteria.where("dueDate").`is`(dueDate))
                 }
 
             }

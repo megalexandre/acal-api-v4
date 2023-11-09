@@ -18,10 +18,17 @@ abstract class PaginateAndSortQuery<T: DefaultFilter> {
 
             when(val sort = page.sort){
                 null -> defaultSort
-                else -> Sort.by( sort.direction?: ASC, sort.field ?: id)
+                else ->
+                {
+                    if(sort.field == "reference"){
+                        Sort.by( sort.direction ?:
+                        Sort.Direction.ASC, "reference.year", "reference.month" )
+                    } else {
+                        Sort.by( sort.direction?: Sort.Direction.ASC, sort.field ?: id)
+                    }
+                }
             }
         )
-
     abstract fun query(filter: T?): Query
 }
 

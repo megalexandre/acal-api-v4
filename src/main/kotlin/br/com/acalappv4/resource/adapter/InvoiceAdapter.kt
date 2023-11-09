@@ -3,6 +3,7 @@ package br.com.acalappv4.resource.adapter
 import br.com.acalappv4.domain.entity.Invoice
 import br.com.acalappv4.domain.entity.InvoiceNumber
 import br.com.acalappv4.domain.entity.LinkDetail
+import br.com.acalappv4.domain.entity.valueNormalized
 import br.com.acalappv4.resource.document.InvoiceDocument
 import br.com.acalappv4.resource.document.InvoiceNumberDocument
 import br.com.acalappv4.resource.document.LinkDetailDocument
@@ -30,7 +31,7 @@ class InvoiceAdapter{
                 id = id,
                 reference = ReferenceAdapter.toEntity(document.reference),
                 emission = emission,
-                dueDate =dueDate,
+                dueDate = dueDate,
                 linkDetail = LinkDetailAdapter.toEntity(linkDetail),
                 invoiceNumber =  InvoiceNumberDocumentAdapter.toEntity(document.invoiceNumberDocument),
                 invoiceDetails = invoiceDetails.map { InvoiceDetailAdapter.toEntity(it)} ,
@@ -52,10 +53,13 @@ class InvoiceNumberDocumentAdapter {
             InvoiceNumberDocument(
                 year = entity.year.value,
                 month = entity.month.value,
-                number =  entity.number
+                number = entity.number,
+                value = entity.valueNormalized,
             )
     }
 }
+
+
 
 class LinkDetailAdapter {
     companion object: ResourceAdapter<LinkDetailDocument, LinkDetail> {

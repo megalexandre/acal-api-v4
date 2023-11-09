@@ -21,7 +21,6 @@ data class Hydrometer(
         private const val WATER_FREE_TIER = 10000L
     }
 
-
     val consumption: Long = actualCollect.totalMeter - lastCollect.totalMeter
 
     val consideredConsumption: Long = when(consumption <= waterFreeTier){
