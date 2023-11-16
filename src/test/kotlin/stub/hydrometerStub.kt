@@ -17,7 +17,8 @@ val hydrometerCollectStub = HydrometerCollect(
 
 val hydrometerStub = Hydrometer(
     id = ULID.random(),
+    address = addressStub,
+    reference = referenceStub,
     actualCollect = hydrometerCollectStub,
     lastCollect = hydrometerCollectStub,
 )
-
