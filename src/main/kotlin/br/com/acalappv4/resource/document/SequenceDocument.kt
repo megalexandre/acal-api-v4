@@ -12,3 +12,7 @@ data class SequenceDocument (
     val value: Long,
 
 ): DocumentItem
+
+val SequenceDocument.valueString: String
+    get() = this.value.toString().padStart(6, '0')
+fun SequenceDocument.increment() = this.copy(value = this.value+1)

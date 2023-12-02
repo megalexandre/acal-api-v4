@@ -9,13 +9,8 @@ internal class ReferenceTest{
 
     @Test
     fun `WHEN create a reference SHOULD write correctly`(){
-
-        repeat(12){
-
-        }
-
         val reference = Reference(year = Year.of(2023), month = Month.JANUARY)
-        assertEquals("JANUARY/2023", reference.value)
+        assertEquals("01/2023", reference.value)
     }
 
 

@@ -3,8 +3,8 @@ package stub
 import br.com.acalappv4.domain.entity.Invoice
 import br.com.acalappv4.domain.entity.InvoiceNumber
 import br.com.acalappv4.domain.entity.LinkDetail
+import br.com.acalappv4.domain.entity.Reference
 import java.time.LocalDateTime.now
-import java.time.Month
 import java.time.Month.JANUARY
 import java.time.Year
 
@@ -23,7 +23,7 @@ val linkDetailStub = LinkDetail(
 
 val invoiceStub = Invoice(
     id = "1",
-    reference = reference,
+    reference = Reference.getCurrent(),
     emission = now(),
     dueDate = now().plusMonths(1),
     linkDetail = linkDetailStub,
