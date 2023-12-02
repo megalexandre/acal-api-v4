@@ -6,6 +6,8 @@ import br.com.acalappv4.domain.entity.Hydrometer
 import br.com.acalappv4.domain.exception.InvalidUsecaseException
 import br.com.acalappv4.domain.usecase.Usecase
 import org.springframework.stereotype.Service
+import java.time.Duration
+import java.time.LocalDateTime
 
 @Service
 class CreateHydrometerUsecase(
@@ -13,6 +15,8 @@ class CreateHydrometerUsecase(
     private val findHydrometerUsecase: FindHydrometerUsecase,
 ): Usecase<Hydrometer, Hydrometer> {
     override fun execute(input: Hydrometer): Hydrometer  {
+
+        Duration.between( LocalDateTime.now(),  LocalDateTime.now()).seconds
 
         findHydrometerUsecase.execute(input = HydrometerFilter(
             reference = input.reference,

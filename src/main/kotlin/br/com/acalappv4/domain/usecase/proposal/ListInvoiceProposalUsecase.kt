@@ -26,21 +26,17 @@ class ListInvoiceProposalUsecase(
         allProposal(input, usecase.execute(HydrometerFilter(reference = input)))
     )
 
-    private fun createProposal(allProposal: List<InvoiceProposalItem>): List<InvoiceProposal> {
-
-        return allProposal
-            .distinctBy { it.address.area.name }
-            .sortedBy { it.address.area.name }
-            .map { invoiceProposal ->
-                InvoiceProposal(
-                    area = invoiceProposal.address.area.name,
-                    invoices = allProposal
-                        .filter { it.address.area.id == invoiceProposal.address.area.id }
-                        .sortedBy { it.address.area.name }
-                )
-            }
-    }
-
+    private fun createProposal(allProposal: List<InvoiceProposalItem>): List<InvoiceProposal> = allProposal
+        .distinctBy { it.address.area.name }
+        .sortedBy { it.address.area.name }
+        .map { invoiceProposal ->
+            InvoiceProposal(
+                area = invoiceProposal.address.area.name,
+                invoices = allProposal
+                    .filter { it.address.area.id == invoiceProposal.address.area.id }
+                    .sortedBy { it.address.area.name }
+            )
+        }
 
     private fun allProposal(input: Reference, hydrometers: List<Hydrometer>): List<InvoiceProposalItem> = linkListUsecase
         .execute(LinkFilter(active = true))
